@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UnderGround Yazılım — DarkCloud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #070a10;
+    --bg-2: #0c111b;
+    --blue: #2f7bff;
+    --red: #ff3b3b;
+    --text: #e8eef7;
+    --muted: #8b97a8;
+    --card: rgba(255, 255, 255, 0.04);
+    --border: rgba(255, 255, 255, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", system-ui, Segoe UI, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  /* Background ambience */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(900px 500px at 12% -10%, rgba(47,123,255,0.18), transparent 60%),
+      radial-gradient(800px 500px at 100% 0%, rgba(255,59,59,0.16), transparent 55%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    z-index: -2;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 75%);
+    z-index: -1;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+  /* Hero */
+  header.hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  .eyebrow {
+    letter-spacing: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    border: 1px solid var(--border);
+    padding: 7px 16px;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+  }
+  h1.title {
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(40px, 8vw, 86px);
+    line-height: 1.02;
+    font-weight: 800;
+    background: linear-gradient(100deg, var(--blue), #9ecbff 35%, #ffffff 50%, var(--red) 70%, #ff9a9a);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 220% center; } }
+  .subtitle {
+    margin-top: 22px;
+    max-width: 640px;
+    color: var(--muted);
+    font-size: clamp(15px, 2.4vw, 19px);
+  }
+  .cta {
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn {
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 26px;
+    border-radius: 12px;
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .btn.blue { background: linear-gradient(135deg, var(--blue), #1c5fe0); color: #fff; box-shadow: 0 10px 30px rgba(47,123,255,.35); }
+  .btn.red { background: linear-gradient(135deg, var(--red), #d11); color: #fff; box-shadow: 0 10px 30px rgba(255,59,59,.30); }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.07); }
+  .scroll-hint { position: absolute; bottom: 26px; color: var(--muted); font-size: 13px; letter-spacing: 2px; }
+
+  /* Sections */
+  section { padding: 90px 0; }
+  .section-head { text-align: center; margin-bottom: 50px; }
+  .section-head .tag { color: var(--blue); font-weight: 700; letter-spacing: 3px; font-size: 13px; text-transform: uppercase; }
+  .section-head h2 { font-family: "Orbitron", sans-serif; font-size: clamp(26px, 4vw, 40px); margin-top: 10px; }
+  .lead { max-width: 720px; margin: 0 auto; color: var(--muted); text-align: center; font-size: 17px; }
+
+  /* Cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 24px;
+    backdrop-filter: blur(10px);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .card.in { opacity: 1; transform: none; }
+  .card:hover { transform: translateY(-6px); border-color: rgba(47,123,255,.5); box-shadow: 0 18px 50px rgba(0,0,0,.45); }
+  .card .ico { font-size: 30px; margin-bottom: 14px; display: block; }
+  .card h3 { font-size: 19px; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: 15px; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 16px; text-align: center; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 14px; }
+  .stat .num { font-family: "Orbitron", sans-serif; font-size: 38px; background: linear-gradient(135deg, var(--blue), var(--red)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat .lbl { color: var(--muted); margin-top: 6px; font-size: 14px; }
+
+  /* Why list */
+  .why { max-width: 760px; margin: 0 auto; }
+  .why li { list-style: none; padding: 14px 0 14px 36px; border-bottom: 1px solid var(--border); position: relative; color: #cdd6e3; }
+  .why li::before { content: "▹"; position: absolute; left: 8px; color: var(--blue); font-weight: 800; }
+
+  /* Footer CTA */
+  .final { text-align: center; }
+  .final h2 { font-family: "Orbitron", sans-serif; font-size: clamp(26px, 4vw, 42px); margin-bottom: 16px; }
+  footer { text-align: center; padding: 40px 0 60px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  footer a { color: var(--blue); text-decoration: none; }
+  @media (max-width: 600px) { section { padding: 64px 0; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">DarkCloud • UnderGround</div>
+    <h1 class="title">UnderGround Yazılım</h1>
+    <p class="subtitle">
+      Güvenlik, gizlilik ve özgür yazılım ilkeleriyle şekillenen bağımsız bir
+      geliştirici topluluğu. Sistemleri daha güvenli kılan araçları, açık kaynak
+      ruhuyla inşa ediyoruz.
+    </p>
+    <div class="cta">
+      <a class="btn blue" href="https://t.me/darkcloudorg" target="_blank" rel="noopener">📢 Topluluğa Katıl</a>
+      <a class="btn red" href="https://t.me/darkcloudbilgi" target="_blank" rel="noopener">📣 Bilgi Kanalı</a>
+    </div>
+  </div>
+  <div class="scroll-hint">▼ KEŞFET</div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">Biz Kimiz</div>
+      <h2>Bağımsız. Özgür. Güvenli.</h2>
+    </div>
+    <p class="lead">
+      UnderGround Yazılım; merkezi olmayan, araştırmacı ve üretken bir yapıdır.
+      Amacımız, dijital hakları koruyan ve sistemleri daha dayanıklı hale getiren
+      çözümleri — herhangi bir kuruma bağımlı olmadan — topluluğun hizmetine sunmaktır.
+      Kod bizim için bir araç değil, bir duruştur.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">Uzmanlık</div>
+      <h2>Çalışma Alanlarımız</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="ico">🔐</span><h3>Web & API Güvenliği</h3><p>Uygulama katmanından API yüzeyine kadar zafiyet analizi, hardening ve güvenli mimari tasarımı.</p></div>
+      <div class="card"><span class="ico">🤖</span><h3>Otomasyon & Bot Sistemleri</h3><p>Telegram botları, iş akışı otomasyonu ve ölçeklenebilir arka uç servisleri.</p></div>
+      <div class="card"><span class="ico">🌐</span><h3>Ağ Güvenliği</h3><p>Ağ trafiği analizi, izolasyon stratejileri ve savunma odaklı altyapı kurulumu.</p></div>
+      <div class="card"><span class="ico">🛡️</span><h3>Veri Gizliliği</h3><p>Uçtan uca şifreleme, anonimleşme ve minimal veri ayak izi ilkeleri.</p></div>
+      <div class="card"><span class="ico">🐞</span><h3>Penetrasyon Testi</h3><p>Yetkili kapsamda gerçekçi saldırı senaryolarıyla sistem dayanıklılığının ölçülmesi.</p></div>
+      <div class="card"><span class="ico">🧠</span><h3>Araştırma & Açık Kaynak</h3><p>Sürekli öğrenme, güvenlik araştırmaları ve toplulukla paylaşılan özgür araçlar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">Rakamlarla</div>
+      <h2>Topluluk & Etki</h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">50+</div><div class="lbl">Yayınlanan Proje</div></div>
+      <div class="stat"><div class="num">5+</div><div class="lbl">Yıllık Birikim</div></div>
+      <div class="stat"><div class="num">10K+</div><div class="lbl">Topluluk Üyesi</div></div>
+      <div class="stat"><div class="num">24/7</div><div class="lbl">Araştırma Akışı</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">Yaklaşımımız</div>
+      <h2>Neden UnderGround?</h2>
+    </div>
+    <ul class="why">
+      <li>Şeffaflık: Ürettiğimiz araçların mantığı gizlenmez, belgelenir.</li>
+      <li>Sorumluluk: Güç, yalnızca bilinçli ve etik kullanımda anlam kazanır.</li>
+      <li>Dayanıklılık: Geçici çözümler yerine sürdürülebilir mimari tercih edilir.</li>
+      <li>Topluluk: Bilgi paylaştıkça çoğalır; öğrenmek herkesin hakkıdır.</li>
+      <li>Bağımsızlık: Hiçbir merkezi otoriteye veya çıkara teslim olmadan üretim.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Birlikte inşa edelim.</h2>
+    <p class="lead">Catıl, katkı ver, öğren. DarkCloud topluluğu seni bekliyor.</p>
+    <div class="cta">
+      <a class="btn blue" href="https://t.me/darkcloudorg" target="_blank" rel="noopener">📢 Duyuru Kanalı</a>
+      <a class="btn red" href="https://t.me/darkcloudbilgi" target="_blank" rel="noopener">📣 Paylaşım Kanalı</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  DarkCloud • UnderGround Yazılım — "Bilgi paylaştıkça çoğalır, sorumluluk kullanana aittir."<br/>
+  İletişim: <a href="https://t.me/darkcloudorg" target="_blank" rel="noopener">@darkcloudorg</a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const cards = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => io.observe(c));
+</script>
+</body>
+</html>
