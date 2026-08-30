@@ -9,29 +9,47 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root{--bg:#080c11;--panel:#111821;--panel2:#151e28;--panel3:#0d131b;--border:#1e2a38;--border2:#243447;--text:#e6edf5;--muted:#8d9db0;--muted2:#6a7a8e;--blue:#3b82f6;--blue2:#2563eb;--green:#10b981;--red:#ef4444;--amber:#f59e0b}
+:root{--bg:#080c11;--panel:#111821;--panel2:#151e28;--panel3:#0d131b;--border:#1e2a38;--border2:#243447;--text:#e6edf5;--muted:#8d9db0;--muted2:#6a7a8e;--blue:#3b82f6;--blue2:#2563eb;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--bg-color:#070707;--surface-color:#111111;--text-primary:#f0f0f0;--text-muted:#666666;--accent-color:#dc2626;--accent-hover:#b91c1c;--border-color:#222222;--glow-shadow:0 0 20px rgba(220,38,38,.15)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:14px;-webkit-font-smoothing:antialiased}
 a{color:var(--blue);text-decoration:none}
 body.gate-open{overflow:hidden}
-/* === MÜKEMMEL LOGIN - verdiğin tasarım birebir, tek scrollbar === */
-.gate{position:fixed;inset:0;z-index:100;background:#070a0f;display:grid;place-items:center;padding:20px;overflow:auto;-webkit-overflow-scrolling:touch;min-height:100vh}
-.gate::before{content:"";position:fixed;inset:0;background:radial-gradient(720px 520px at 18% 12%, rgba(59,130,246,.09), transparent 58%), radial-gradient(500px 380px at 88% 88%, rgba(255,255,255,.03), transparent 60%);pointer-events:none}
+/* === VERDİĞİN TASARIM BİREBİR - NEMESIS KLİNİK === */
+.gate{position:fixed;inset:0;z-index:100;background-color:var(--bg-color);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+.gate::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at center, #151515 0%, #070707 100%);z-index:-1}
 .gate.hide{display:none}
-.gate-card{width:100%;max-width:860px;background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04);position:relative;margin:auto;display:grid;grid-template-columns:360px 1fr;min-height:520px}
-.gate-left{padding:32px 28px;background:linear-gradient(180deg, #0e1e33 0%, #0a1320 100%);border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
-.gate-left::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 300px at 50% 0%, rgba(59,130,246,.07), transparent 65%);pointer-events:none}
-.login-logo{width:80px;height:80px;border-radius:50%;border:2px solid rgba(255,255,255,.08);box-shadow:0 0 0 6px rgba(59,130,246,.06), 0 14px 32px rgba(0,0,0,.5);object-fit:cover;background:#0a0e13;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.login-logo img{width:100%;height:100%;object-fit:cover}
+.gate-card{display:none}
+.gate-card.active{display:block}
+.login-card{width:100%;max-width:400px;background:rgba(15,15,22,.65);backdrop-filter:none;border:none;box-shadow:none;position:relative;margin:auto}
+@media(max-width:480px){.gate{padding:12px}}
 .logo-img-sm{width:32px;height:32px;border-radius:8px;object-fit:cover;background:var(--panel)}
-.gate-brand{font-size:14px;font-weight:700;letter-spacing:.2px;color:var(--text);margin-top:14px}
-.gate-sub{font-size:10px;letter-spacing:1px;color:var(--muted2);margin-top:4px;font-weight:600}
-.gate-left p{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:14px}
-.gate-right{padding:28px 28px;background:var(--panel2);display:flex;flex-direction:column}
-.tabs2{display:flex;gap:6px;margin-bottom:18px;background:var(--panel3);border:1px solid var(--border);border-radius:10px;padding:4px}
-.tabs2 button{flex:1;padding:9px 6px;font-size:13px;font-weight:700;border:none;background:transparent;color:var(--muted);cursor:pointer;border-radius:8px;transition:.15s}
-.tabs2 button.active{background:var(--panel);color:var(--text);box-shadow:0 1px 8px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06)}
-.gate-body{flex:1}
+/* senin verdiğin container/view/box aynen */
+.container{width:90%;max-width:1200px;position:relative}
+.view{display:none;opacity:0;transform:translateY(20px);transition:opacity .5s ease, transform .5s ease;text-align:center;width:100%;max-width:480px;margin:0 auto}
+.view.active{display:block;opacity:1;transform:translateY(0)}
+.logo{font-size:clamp(2.5rem, 5vw, 4rem);font-weight:700;letter-spacing:.5rem;margin-bottom:.5rem;text-transform:uppercase;position:relative;display:inline-block;color:var(--text-primary);font-family:'JetBrains Mono', monospace}
+.logo::after{content:".";color:var(--accent-color)}
+.subtitle{color:var(--text-muted);font-size:clamp(.8rem, 2vw, 1rem);margin-bottom:3rem;letter-spacing:.05rem;font-family:'JetBrains Mono', monospace}
+.box{background-color:var(--surface-color);border:1px solid var(--border-color);padding:3rem 2.5rem;box-shadow:var(--glow-shadow)}
+.box-title{font-size:1.2rem;margin-bottom:2rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1rem;font-family:'JetBrains Mono', monospace}
+.input-group{position:relative;margin-bottom:2rem;text-align:left}
+.input-group input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border-color);color:var(--text-primary);font-family:'JetBrains Mono', monospace;font-size:1rem;padding:.5rem 0;transition:all .3s ease;outline:none}
+.input-group label{position:absolute;left:0;top:.5rem;color:var(--text-muted);pointer-events:none;transition:all .3s ease;font-size:1rem;font-family:'JetBrains Mono', monospace}
+.input-group input:focus,.input-group input:valid{border-bottom-color:var(--accent-color)}
+.input-group input:focus + label,.input-group input:valid + label{top:-1.2rem;font-size:.75rem;color:var(--accent-color)}
+.btn-group{display:flex;gap:1rem;flex-direction:column}
+@media(min-width:480px){.btn-group{flex-direction:row}}
+.view button{flex:1;background:transparent;color:var(--text-primary);border:1px solid var(--border-color);padding:1rem;font-family:'JetBrains Mono', monospace;font-size:.9rem;text-transform:uppercase;letter-spacing:.1rem;cursor:pointer;transition:all .3s ease;outline:none}
+.view button.primary{background:var(--accent-color);border-color:var(--accent-color);color:#fff}
+.view button.primary:hover{background:var(--accent-hover);border-color:var(--accent-hover);box-shadow:var(--glow-shadow)}
+.view button.secondary:hover{border-color:var(--text-muted);color:#fff}
+.view button.text-btn{border:none;padding:0;color:var(--text-muted);font-size:.8rem;margin-top:1.5rem}
+.view button.text-btn:hover{color:var(--text-primary)}
+.status-line{position:fixed;bottom:20px;left:20px;font-size:.7rem;color:var(--text-muted);font-family:'JetBrains Mono', monospace}
+.status-line span{color:var(--accent-color)}
+/* eski gate stilleri temizlendi, yeni sade klinik */
+.gate-body{padding:0}
+.tabs2{display:none}
 @media(max-width:820px){.gate{place-items:start center;padding:16px}.gate-card{grid-template-columns:1fr;max-width:420px;min-height:auto}.gate-left{padding:24px 20px}.login-logo{width:72px;height:72px}}
 @media(max-width:480px){.gate{padding:12px}.gate-card{border-radius:14px}.gate-left{padding:20px 16px}.gate-right{padding:20px 16px}}
 .field{margin-bottom:14px}
@@ -154,56 +172,52 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
 <body>
 
 <div id="gate" class="gate">
-  <div class="gate-card">
-    <div class="gate-left">
-      <div class="login-logo"><img src="logo.png" alt="NEMESIS" onerror="this.style.display='none'"></div>
-      <div class="gate-brand">nemesis<b>platform</b>.online</div>
-      <div class="gate-sub">NEMESIS EXECUTION GROUP</div>
-      <p style="font-size:12.5px;color:var(--muted);line-height:1.65;margin-top:10px">Sade. Güvenli.<br>Kapalı devre platform.</p>
-      <div style="margin-top:auto;padding-top:24px;width:100%;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--muted2);line-height:1.5">© 2026 nemesisplatform.online<br>İşçilikle inşa edildi • Est. 2026</div>
-    </div>
-    <div class="gate-right">
-      <div class="tabs2"><button id="tabLogin" class="active" onclick="switchMode('login')">Giriş</button><button id="tabReg" onclick="switchMode('register')">Kayıt Ol</button></div>
-      <div class="gate-body">
-
-      <!-- LOGIN FORM - sade mükemmel, verdiğin tasarım birebir -->
-      <div id="loginForm">
-        <div id="loginErr" class="err"></div>
-        <div id="loginOk" class="ok"></div>
-        <div class="form-group"><label>Kullanıcı Adı veya E-posta</label><div class="input-wrapper"><input type="text" id="lu" placeholder="kullanici@nemesis.online" autocomplete="username"></div></div>
-        <div class="form-group"><label>Şifre</label><div class="input-wrapper"><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password"></div></div>
-        <div class="form-actions"><label class="remember-me"><input type="checkbox" checked> Oturumu açık tut</label><a href="#" class="forgot-pass" onclick="event.preventDefault();alert('Şifre sıfırlama için t.me/NemesisPlatformOnline üzerinden yazın.')">Şifremi unuttum</a></div>
-        <div style="font-size:11px;color:#475569;margin-bottom:10px;text-align:center" id="lockInfo"></div>
-        <button type="button" class="btn-submit" onclick="doLogin()">Giriş Yap</button>
-        <div class="card-footer">Hesabınız yok mu? <a href="#" onclick="switchMode('register');return false">Erişim Talep Et</a></div>
+  <div class="container">
+    <div id="landingView" class="view active">
+      <h1 class="logo">NEMESIS</h1>
+      <p class="subtitle">Ağ bağlantısı güvenli ve şifreli.</p>
+      <div class="btn-group">
+        <button class="primary" onclick="switchView('loginView')">Sisteme Giriş</button>
+        <button class="secondary" onclick="switchView('registerView')">Davetiye Kodu</button>
       </div>
-
-      <!-- REGISTER FORM - sade mükemmel -->
-      <div id="regForm" style="display:none">
-        <div id="regErr" class="err"></div>
-        <div id="regOk" class="ok"></div>
-        <div class="form-group"><label>Kullanıcı Adı</label><div class="input-wrapper"><input type="text" id="ru" placeholder="kullanici_adi"></div></div>
-        <div class="form-group"><label>E-posta</label><div class="input-wrapper"><input type="text" id="re" placeholder="mail@ornek.com" autocomplete="email"></div></div>
-        <div class="form-group"><label>Telefon</label><div class="input-wrapper"><input type="text" id="rp" placeholder="+90 5xx xxx xx xx"></div></div>
-        <div class="form-group"><label>Telegram</label><div class="input-wrapper"><input type="text" id="rtg" placeholder="@kullaniciadiniz"></div></div>
-        <div class="form-group"><label>Şifre</label><div class="input-wrapper"><input type="password" id="rpass" placeholder="••••••••"></div><div class="hint" id="passHint" style="font-size:11px;color:#475569;margin-top:6px"></div></div>
-        <div class="form-group"><label>Şifre Tekrar</label><div class="input-wrapper"><input type="password" id="rpass2" placeholder="••••••••"></div></div>
-        <label class="check"><input type="checkbox" id="cTeminat"> <span> <a href="#" onclick="openLegal('collateralModal');return false">Teminat şartlarını</a> kabul ediyorum</span></label>
-        <label class="check"><input type="checkbox" id="cTerms"> <span> <a href="#" onclick="openLegal('termsModal');return false">Sözleşme</a> ve <a href="#" onclick="openLegal('privacyModal');return false">Aydınlatma</a> metnini kabul ediyorum</span></label>
-        <button type="button" class="btn-submit" id="regBtn" onclick="doRegister()">Erişim Talep Et</button>
-        <div class="card-footer" style="margin-top:16px">Zaten hesabın var mı? <a href="#" onclick="switchMode('login');return false">Giriş Yap</a></div>
-        <div id="verifyBox" class="verify-box">
-          <b><i class="fa-solid fa-paper-plane"></i> Başvuru iletildi</b>
-          <p id="verifyText"><span id="verifyMail"></span> — bilgileriniz <a href="https://t.me/NemesisPlatformOnline" target="_blank">t.me/NemesisPlatformOnline</a> grubuna düştü. Telegram adresiniz <b id="verifyTg"></b> üzerinden iletişime geçilecek. Teminatı yatırdıktan sonra yönetici bot üzerinden <b>/onayla</b> ile hesabınızı aktif edecek.</p>
-          <div style="margin-top:8px;padding:8px;background:#0e1217;border:1px solid var(--border);font-size:11px;color:var(--muted)">Bot komutu: <code>/onayla kullaniciadi</code> veya gruptaki <b>✅ Onayla</b> butonu</div>
-          <div class="code-inputs" style="margin-top:10px"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"></div>
-          <button class="btn btn-primary" onclick="verifyCode()">Doğrulama Kodunu Gir (demo 123456)</button>
-          <div style="text-align:center;margin-top:6px"><a class="link" onclick="resendCode()">Kodu tekrar gönder</a> • <span id="codeTimer" style="font-size:11px;color:var(--muted2)"></span></div>
+    </div>
+    <div id="loginView" class="view">
+      <div class="box">
+        <h2 class="box-title">Kimlik Doğrulama</h2>
+        <div id="loginErr" class="err" style="text-align:left"></div>
+        <div id="loginOk" class="ok" style="text-align:left"></div>
+        <div class="input-group"><input type="text" id="lu" required autocomplete="off"><label>Kullanıcı Adı</label></div>
+        <div class="input-group"><input type="password" id="lp" required><label>Parola (PGP/Hash)</label></div>
+        <div style="font-size:.7rem;color:var(--text-muted);margin-top:8px;text-align:center" id="lockInfo"></div>
+        <div class="btn-group" style="margin-top:2rem;"><button type="button" class="primary" onclick="doLogin()">Yetki İste</button></div>
+        <button type="button" class="text-btn" onclick="switchView('landingView')">[ İptal Et ve Geri Dön ]</button>
+      </div>
+    </div>
+    <div id="registerView" class="view">
+      <div class="box">
+        <h2 class="box-title">Erişim Talebi</h2>
+        <div id="regErr" class="err" style="text-align:left"></div>
+        <div id="regOk" class="ok" style="text-align:left"></div>
+        <div class="input-group"><input type="text" id="ru" required><label>Kullanıcı Adı</label></div>
+        <div class="input-group"><input type="text" id="re" required><label>E-posta</label></div>
+        <div class="input-group"><input type="text" id="rp" required><label>Telefon</label></div>
+        <div class="input-group"><input type="text" id="rtg" required><label>Telegram @</label></div>
+        <div class="input-group"><input type="password" id="rpass" required><label>Parola</label></div>
+        <div class="input-group"><input type="password" id="rpass2" required><label>Parola Tekrar</label></div>
+        <label class="check" style="margin:8px 0 4px"><input type="checkbox" id="cTeminat"> Teminat şartlarını kabul ediyorum</label>
+        <label class="check" style="margin:0 0 12px"><input type="checkbox" id="cTerms"> Sözleşme ve Aydınlatmayı kabul ediyorum</label>
+        <div class="btn-group"><button type="button" class="primary" id="regBtn" onclick="doRegister()">Talep Gönder</button></div>
+        <button type="button" class="text-btn" onclick="switchView('landingView')">[ Geri Dön ]</button>
+        <div id="verifyBox" style="display:none;margin-top:16px;text-align:left">
+          <div style="font-size:.8rem;color:var(--text-muted)">Gönderildi: <span id="verifyMail"></span> <b id="verifyTg" style="color:var(--accent-color)"></b></div>
+          <div class="input-group" style="margin-top:12px"><input type="text" id="codeSingle" maxlength="6" placeholder="______" style="text-align:center;letter-spacing:.4rem"><label>Kod (123456)</label></div>
+          <div class="btn-group"><button type="button" class="primary" onclick="verifyCodeSingle()">Doğrula</button></div>
+          <div style="text-align:center;margin-top:8px"><a href="#" onclick="resendCode();return false" style="font-size:.7rem;color:var(--text-muted)">Kodu tekrar gönder</a> • <span id="codeTimer" style="font-size:.7rem;color:var(--text-muted)"></span></div>
         </div>
       </div>
     </div>
-    </div>
   </div>
+  <div class="status-line">SERVER: <span>ONLINE</span> | NODE: <span>N-01</span></div>
 </div>
 
 <header class="header">
@@ -349,6 +363,15 @@ function addAttempt(failed){
 }
 function openLegal(id){ document.getElementById(id).classList.add('show'); }
 function closeLegal(id){ document.getElementById(id).classList.remove('show'); }
+function switchView(viewId){
+  document.querySelectorAll('#gate .view').forEach(v=>{ v.classList.remove('active'); v.style.display='none'; });
+  const t=document.getElementById(viewId);
+  if(t){ t.style.display='block'; requestAnimationFrame(()=>t.classList.add('active')); }
+}
+function switchMode(m){ // eski uyumluluk
+  if(m==='login') switchView('loginView');
+  else switchView('registerView');
+}
 function openProfile(){
   const u=localStorage.getItem(LS_USER);
   if(!u){ document.getElementById('gate').classList.remove('hide'); return; }
@@ -487,8 +510,10 @@ function startTimer(){
   timerInt=setInterval(()=>{ s--; el.textContent=s+' sn'; if(s<=0){ clearInterval(timerInt); el.textContent='Kod süresi doldu, tekrar gönderin.'; } },1000);
 }
 function resendCode(){ if(pendingUser) { pendingUser.code='123456'; const users=loadUsers(); const idx=users.findIndex(x=>x.u===pendingUser.u); if(idx!==-1){ users[idx].code='123456'; saveUsers(users); } document.getElementById('regOk').style.display='block'; document.getElementById('regOk').textContent='Kod yeniden gönderildi (123456).'; startTimer(); } }
+function verifyCodeSingle(){ return verifyCode(); }
 async function verifyCode(){
-  const code=[...document.querySelectorAll('.code')].map(i=>i.value).join('');
+  const single=document.getElementById('codeSingle')?.value?.trim();
+  const code= single && single.length===6 ? single : [...document.querySelectorAll('.code')].map(i=>i.value).join('');
   const err=document.getElementById('regErr'), ok=document.getElementById('regOk');
   err.style.display='none';
   if(code.length!==6){ err.style.display='block'; err.textContent='6 haneli kodu girin.'; return; }
