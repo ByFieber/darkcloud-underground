@@ -15,13 +15,18 @@ body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tex
 a{color:var(--blue);text-decoration:none}
 body.gate-open{overflow:hidden}
 /* === VERDİĞİN TASARIM BİREBİR - NEMESIS KLİNİK === */
-.gate{position:fixed;inset:0;z-index:100;background-color:var(--bg-color);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+.gate{position:fixed;inset:0;z-index:100;background-color:var(--bg-color);display:grid;place-items:center;padding:20px;overflow:auto;-webkit-overflow-scrolling:touch;min-height:100vh}
 .gate::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at center, #151515 0%, #070707 100%);z-index:-1}
 .gate.hide{display:none}
 .gate-card{display:none}
 .gate-card.active{display:block}
 .login-card{width:100%;max-width:400px;background:rgba(15,15,22,.65);backdrop-filter:none;border:none;box-shadow:none;position:relative;margin:auto}
-@media(max-width:480px){.gate{padding:12px}}
+@media(max-width:900px){.gate{place-items:start center;padding:16px}.container{width:95%}}
+@media(max-width:480px){.gate{padding:12px;place-items:start center}.container{width:100%}}
+@media(max-height:700px){.gate{place-items:start center;padding:16px 20px}}
+/* davetiye ekranı tek scrollbar ile sığsın */
+#registerView{width:100%}
+#registerView .box{max-height:none;overflow:visible}
 .logo-img-sm{width:32px;height:32px;border-radius:8px;object-fit:cover;background:var(--panel)}
 /* senin verdiğin container/view/box aynen */
 .container{width:90%;max-width:1200px;position:relative}
