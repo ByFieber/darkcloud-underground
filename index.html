@@ -177,9 +177,9 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
         <div class="field"><label>Telegram <em>*</em> — zorunlu</label><input id="rtg" placeholder="@kullaniciadiniz"><div class="hint">Üyeliğin onayı için <a href="https://t.me/NemesisPlatformOnline" target="_blank">t.me/NemesisPlatformOnline</a> üzerinden iletişime geçilecek</div></div>
         <div class="field"><label>Şifre <em>*</em></label><input id="rpass" type="password" placeholder="min 8, büyük/küçük + rakam"><div class="hint" id="passHint"></div></div>
         <div class="field"><label>Şifre tekrar <em>*</em></label><input id="rpass2" type="password" placeholder="tekrar"></div>
-        <label class="check"><input type="checkbox" id="cTeminat"> <span> <b>Teminat şartını</b> okudum, üyeliğin teminat karşılığı ve doğrulanacağını kabul ediyorum. <em>*</em></span></label>
-        <label class="check"><input type="checkbox" id="cTerms"> <span> <a href="#">Üyelik sözleşmesi</a> ve <a href="#">aydınlatma metnini</a> okudum, kişisel verilerimin doğrulama amacıyla işlenmesini onaylıyorum. <em>*</em></span></label>
-        <label class="check"><input type="checkbox" id="cRules"> <span> Forum kurallarını kabul ediyorum. <em>*</em></span></label>
+        <label class="check"><input type="checkbox" id="cTeminat"> <span> <a href="#" onclick="openLegal('collateralModal');return false"><b>Teminat şartlarını</b></a> okudum, üyeliğin teminat karşılığı ve doğrulanacağını kabul ediyorum. <em>*</em></span></label>
+        <label class="check"><input type="checkbox" id="cTerms"> <span> <a href="#" onclick="openLegal('termsModal');return false">Üyelik sözleşmesi</a> ve <a href="#" onclick="openLegal('privacyModal');return false">aydınlatma metnini</a> okudum, kişisel verilerimin doğrulama amacıyla işlenmesini onaylıyorum. <em>*</em></span></label>
+        <label class="check"><input type="checkbox" id="cRules"> <span> <a href="#" onclick="openLegal('termsModal');return false">Forum kurallarını</a> kabul ediyorum. <em>*</em></span></label>
         <button class="btn btn-primary" id="regBtn" onclick="doRegister()"><i class="fa-solid fa-paper-plane"></i> Başvuruyu Telegram'a Gönder</button>
         <div id="verifyBox" class="verify-box">
           <b><i class="fa-solid fa-paper-plane"></i> Başvuru iletildi</b>
@@ -237,9 +237,44 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
   </aside>
 </div>
 
-<footer><div><b style="color:var(--text)">nemesisplatform.online</b> — teminatlı forum © 2026</div><div style="display:flex;gap:12px"><a href="#">Gizlilik</a><a href="#">Sözleşme</a></div></footer>
+<footer><div><b style="color:var(--text)">nemesisplatform.online</b> — teminatlı forum © 2026</div><div style="display:flex;gap:12px"><a href="#" onclick="openLegal('privacyModal');return false">Gizlilik</a><a href="#" onclick="openLegal('termsModal');return false">Sözleşme</a><a href="#" onclick="openLegal('collateralModal');return false">Teminat</a></div></footer>
 
 <div id="newModal" class="modal"><div class="modal-card"><div class="modal-head"><h3>Yeni konu aç</h3><button onclick="closeNewTopic()">×</button></div><div class="modal-body"><div id="ntErr" class="err"></div><div class="field"><label>Başlık <em>*</em></label><input id="ntTitle" placeholder="Başlık"></div><div class="field"><label>Bölüm <em>*</em></label><select id="ntForum"><option>Yazılım & Güvenlik</option><option>Otomasyon</option><option>Gizlilik</option><option>Araçlar</option><option>Genel Sohbet</option><option>Duyurular</option></select></div><div class="field"><label>Mesaj <em>*</em></label><textarea id="ntBody" placeholder="Konuyu açıkla..." style="width:100%;min-height:90px;background:#0e1217;border:1px solid var(--border);color:var(--text);padding:10px"></textarea></div><button class="btn btn-primary" onclick="createTopic()">Oluştur</button></div></div></div>
+
+<!-- ÜYELİK SÖZLEŞMESİ -->
+<div id="termsModal" class="modal" onclick="if(event.target===this)closeLegal('termsModal')"><div class="modal-card" style="max-width:720px;max-height:85vh;overflow:auto"><div class="modal-head" style="position:sticky;top:0;z-index:1"><h3>Üyelik Sözleşmesi — nemesisplatform.online</h3><button onclick="closeLegal('termsModal')">×</button></div><div class="modal-body" style="font-size:12.5px;line-height:1.7;color:var(--muted)">
+<p style="color:var(--muted2);font-size:11px">Son güncelleme: 30 Ağustos 2026 • NEMESIS EXECUTION GROUP</p>
+<h4 style="color:var(--text);margin:12px 0 6px">1. Taraflar</h4><p>İşbu sözleşme, nemesisplatform.online (“Platform”) ile Platform’a teminatlı başvuru yapan ve bot üzerinden onay alan gerçek kişi (“Üye”) arasındadır. Üye, kayıt formundaki bilgilerin doğru olduğunu beyan eder.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">2. Üyelik Şartları</h4><p>Üyelik <b>teminat karşılığı</b> ve manuel doğrulama ile açılır. Misafir girişi yoktur. Üye; kullanıcı adı, e-posta, telefon ve Telegram handle bilgilerinin doğruluğunu kabul eder. Yanlış/kopya bilgi veren üyelik iptal edilir ve teminat iade edilmez.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">3. Kurallar ve Yükümlülükler</h4><p>Spam, dolandırıcılık, phishing, hakaret, provokasyon ve yasa dışı paylaşım yasaktır. Tüm içerikler prepared statement ve HTML-encode ile korunur; kural ihlali anında kısıtlama/uzaklaştırma ile sonuçlanır. Yönetim kararları kesindir.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">4. Fikri Mülkiyet</h4><p>Üye paylaştığı içeriklerin haklarına sahip olduğunu beyan eder. Platform, topluluk güvenliği için içerikleri denetleyebilir ve kaldırabilir.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">5. Sorumluluk</h4><p>Platform “olduğu gibi” sunulur. Güvenlik araçları ve bilgiler eğitim amaçlıdır; kötüye kullanımdan Üye sorumludur.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">6. Fesih</h4><p>Üye hesabını dilediğinde kapatabilir. Kural ihlali veya teminat ihlali halinde Platform üyeliği tek taraflı feshedebilir.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">7. Uyuşmazlık</h4><p>Uyuşmazlıklarda İstanbul Mahkemeleri yetkilidir. Sözleşme onay kutusu işaretlenip “Başvuruyu Telegram’a Gönder” ile yürürlüğe girer.</p>
+</div></div></div>
+
+<!-- AYDINLATMA METNİ (KVKK) -->
+<div id="privacyModal" class="modal" onclick="if(event.target===this)closeLegal('privacyModal')"><div class="modal-card" style="max-width:720px;max-height:85vh;overflow:auto"><div class="modal-head" style="position:sticky;top:0;z-index:1"><h3>Aydınlatma Metni (KVKK) — nemesisplatform.online</h3><button onclick="closeLegal('privacyModal')">×</button></div><div class="modal-body" style="font-size:12.5px;line-height:1.7;color:var(--muted)">
+<p style="color:var(--muted2);font-size:11px">Veri Sorumlusu: NEMESIS EXECUTION GROUP • İletişim: t.me/NemesisPlatformOnline</p>
+<h4 style="color:var(--text);margin:12px 0 6px">1. İşlenen Veriler</h4><p>Kullanıcı adı, e-posta, telefon, Telegram handle, şifre (bcrypt/SHA-256 hash — düz metin tutulmaz), IP, işlem logları ve doğrulama kayıtları.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">2. Amaç</h4><p>Üyeliğin doğrulanması, teminat teyidi, Telegram üzerinden iletişime geçme, güvenli giriş (rate-limit, hash karşılaştırma), topluluk yönetimi ve yasal yükümlülükler.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">3. Hukuki Sebep</h4><p>Sözleşmenin kurulması/ifası, meşru menfaat ve açık rıza (onay kutuları). Onay vermeyen üyelik açılmaz.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">4. Aktarım</h4><p>Veriler yalnızca teminat teyidi için Telegram grubuna (yöneticiler) iletilir; üçüncü kişilere satılmaz. Cloudflare KV/D1 üzerinde şifreli ve parametreli sorgu ile saklanır.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">5. Saklama</h4><p>Aktif üyelik süresince, silme talebine kadar. Loglar 1 yıl.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">6. Haklarınız</h4><p>KVKK md.11 uyarınca erişim, düzeltme, silme, itiraz ve kurula şikayet hakkınız vardır. Başvuru: Telegram üzerinden.</p>
+<p style="margin-top:10px;font-size:11px;color:var(--muted2)">Onay kutusunu işaretleyerek verilerinizin bu amaçlarla işlenmesini kabul etmiş olursunuz.</p>
+</div></div></div>
+
+<!-- TEMİNAT ŞARTLARI -->
+<div id="collateralModal" class="modal" onclick="if(event.target===this)closeLegal('collateralModal')"><div class="modal-card" style="max-width:720px;max-height:85vh;overflow:auto"><div class="modal-head" style="position:sticky;top:0;z-index:1"><h3>Teminat Şartları — nemesisplatform.online</h3><button onclick="closeLegal('collateralModal')">×</button></div><div class="modal-body" style="font-size:12.5px;line-height:1.7;color:var(--muted)">
+<p style="color:var(--amber);font-weight:600;font-size:12px"><i class="fa-solid fa-coins"></i> Misafir girişi yoktur. Tüm üyelikler teminat karşılığı açılır.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">1. Teminat Nedir?</h4><p>Topluluk güvenliğini sağlamak için alınan, üyeliğin ciddiyetini gösteren depozittir. Tutar yönetimce belirlenir ve Telegram üzerinden bildirilir.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">2. Ödeme ve Teyit</h4><p>Kayıt sonrası bilgileriniz <b>t.me/NemesisPlatformOnline</b> grubuna düşer. Yönetici Telegram handle’ınız üzerinden iletişime geçer, ödeme yöntemini iletir. Dekont teyidi sonrası bot ile <b>/onayla @kullanici</b> veya gruptaki <b>✅ Onayla</b> butonu ile hesabınız aktif edilir.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">3. İade</h4><p>Kurallara uygun şekilde ayrılan üyenin teminatı iade edilir. Spam/dolandırıcılık/kural ihlalinde teminat iade edilmez ve üyelik kapatılır.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">4. Doğrulama</h4><p>E-posta ve telefon doğrulaması zorunludur. Yanlış bilgi, sahte Telegram veya teminattan kaçma tespitinde başvuru reddedilir.</p>
+<h4 style="color:var(--text);margin:12px 0 6px">5. Güvence</h4><p>Şifreler hash’lenir, veriler parametreli sorgu ile saklanır, 3 hatalı girişte 30 sn kilit uygulanır.</p>
+<p style="margin-top:10px;font-size:11px;color:var(--muted2)">Onay kutusunu işaretleyerek teminat şartlarını kabul etmiş olursunuz. Detay için yöneticilere Telegram’dan yazın.</p>
+</div></div></div>
 
 <script>
 const LS_USER='np_user', LS_USERS='np_users', LS_THREADS='np_threads', LS_ATTEMPTS='np_attempts';
@@ -278,6 +313,8 @@ function addAttempt(failed){
   if(failed){ a.c++; a.t=Date.now(); } else { a.c=0; a.t=0; }
   localStorage.setItem(LS_ATTEMPTS, JSON.stringify(a));
 }
+function openLegal(id){ document.getElementById(id).classList.add('show'); }
+function closeLegal(id){ document.getElementById(id).classList.remove('show'); }
 function switchMode(m){ mode=m; document.getElementById('tabLogin').classList.toggle('active', m==='login'); document.getElementById('tabReg').classList.toggle('active', m==='register'); document.getElementById('loginForm').style.display=m==='login'?'block':'none'; document.getElementById('regForm').style.display=m==='register'?'block':'none'; }
 document.getElementById('rpass').addEventListener('input', e=>{
   const s=passwordScore(e.target.value);
