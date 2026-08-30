@@ -197,7 +197,7 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
 <header class="header">
   <div class="header-in">
     <a class="logo" href="#" onclick="showForum()" style="display:flex;align-items:center;gap:9px"><img src="logo.png" alt="NEG" class="logo-img-sm" onerror="this.style.display='none'"><span>nemesis<b>platform</b><span style="color:var(--muted2);font-weight:400">.online</span></span></a>
-    <nav class="nav"><a class="active" href="#" onclick="showForum()">Forum</a><a href="#" onclick="filterThreads('all')">Konular</a><a href="#">Kurallar</a></nav>
+    <nav class="nav"><a class="active" href="#" onclick="showForum();return false">Forum</a><a href="#" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'});return false">Konular</a><a href="#" onclick="openLegal('termsModal');return false">Kurallar</a></nav>
     <label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="q" placeholder="Ara..."></label>
     <div class="userbox"><span id="ub-name">—</span><div class="av" id="ub-av">?</div><a href="#" onclick="logout(event)" style="font-size:11px;margin-left:4px;color:var(--muted)">Çıkış</a></div>
   </div>
@@ -209,14 +209,18 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
 <div class="wrap" id="forumWrap">
   <main id="mainForum">
     <div class="cat"><div class="cat-head"><h2>Genel</h2><span>2 bölüm</span></div>
-      <div class="forum-row" onclick="openForum('Duyurular')"><div class="ico"><i class="fa-regular fa-bell"></i></div><div><h3>Duyurular</h3><p>Yönetim duyuruları</p></div><div class="meta"><b id="c-duyuru-kon">0</b>konu</div><div class="meta"><b>—</b>mesaj</div><div class="last"><a href="#">Son →</a><div class="by">tümü</div></div></div>
-      <div class="forum-row" onclick="openForum('Kurallar')"><div class="ico"><i class="fa-regular fa-file-lines"></i></div><div><h3>Kurallar & Rehber</h3><p>Teminat ve doğrulama rehberi</p></div><div class="meta"><b>6</b>konu</div><div class="meta"><b>89</b>mesaj</div><div class="last"><a href="#">Üyelik şartları</a><div class="by">admin • dün</div></div></div>
+      <div class="forum-row" onclick="openForum('Duyurular')"><div class="ico"><i class="fa-regular fa-bell"></i></div><div><h3>Duyurular</h3><p>Yönetim duyuruları</p></div><div class="meta"><b id="c-duyuru-kon">0</b>konu</div><div class="meta"><b id="c-duyuru-msg">0</b>mesaj</div><div class="last"><a id="c-duyuru-last" href="#" onclick="event.stopPropagation();openForum('Duyurular')">—</a><div class="by" id="c-duyuru-by">Henüz yok</div></div></div>
+      <div class="forum-row" onclick="openLegal('termsModal')"><div class="ico"><i class="fa-regular fa-file-lines"></i></div><div><h3>Kurallar & Rehber</h3><p>Teminat ve doğrulama rehberi</p></div><div class="meta"><b id="c-kurallar-kon">0</b>konu</div><div class="meta"><b id="c-kurallar-msg">0</b>mesaj</div><div class="last"><a id="c-kurallar-last" href="#" onclick="event.stopPropagation();openLegal('termsModal')">Sözleşmeyi oku →</a><div class="by" id="c-kurallar-by">—</div></div></div>
     </div>
     <div class="cat"><div class="cat-head"><h2>Forum</h2><span>4 bölüm</span></div>
-      <div class="forum-row" onclick="openForum('Yazılım & Güvenlik')"><div class="ico"><i class="fa-solid fa-code"></i></div><div><h3>Yazılım & Güvenlik</h3><p>Web, API, ağ</p></div><div class="meta"><b id="c-yaz-kon">0</b>konu</div><div class="meta"><b id="c-yaz-msg">0</b>mesaj</div><div class="last"><a id="c-yaz-last" href="#">—</a><div class="by" id="c-yaz-by">—</div></div></div>
-      <div class="forum-row" onclick="openForum('Otomasyon')"><div class="ico"><i class="fa-solid fa-robot"></i></div><div><h3>Otomasyon & Botlar</h3><p>Telegram, scraper</p></div><div class="meta"><b id="c-oto-kon">0</b>konu</div><div class="meta"><b>—</b>mesaj</div><div class="last"><a id="c-oto-last" href="#">—</a><div class="by" id="c-oto-by">—</div></div></div>
-      <div class="forum-row" onclick="openForum('Gizlilik')"><div class="ico"><i class="fa-solid fa-shield-halved"></i></div><div><h3>Gizlilik</h3><p>OPSEC</p></div><div class="meta"><b>31</b>konu</div><div class="meta"><b>201</b>mesaj</div><div class="last"><a href="#">PGP</a><div class="by">anon • 3 gün</div></div></div>
-      <div class="forum-row" onclick="openForum('Araçlar')"><div class="ico"><i class="fa-solid fa-wrench"></i></div><div><h3>Araçlar</h3><p>Scriptler</p></div><div class="meta"><b>52</b>konu</div><div class="meta"><b>310</b>mesaj</div><div class="last"><a href="#">Port scanner</a><div class="by">dev07 • 5 saat</div></div></div>
+      <div class="forum-row" onclick="openForum('Yazılım & Güvenlik')"><div class="ico"><i class="fa-solid fa-code"></i></div><div><h3>Yazılım & Güvenlik</h3><p>Web, API, ağ</p></div><div class="meta"><b id="c-yaz-kon">0</b>konu</div><div class="meta"><b id="c-yaz-msg">0</b>mesaj</div><div class="last"><a id="c-yaz-last" href="#">—</a><div class="by" id="c-yaz-by">Henüz yok</div></div></div>
+      <div class="forum-row" onclick="openForum('Otomasyon')"><div class="ico"><i class="fa-solid fa-robot"></i></div><div><h3>Otomasyon & Botlar</h3><p>Telegram, scraper</p></div><div class="meta"><b id="c-oto-kon">0</b>konu</div><div class="meta"><b id="c-oto-msg">0</b>mesaj</div><div class="last"><a id="c-oto-last" href="#">—</a><div class="by" id="c-oto-by">Henüz yok</div></div></div>
+      <div class="forum-row" onclick="openForum('Gizlilik')"><div class="ico"><i class="fa-solid fa-shield-halved"></i></div><div><h3>Gizlilik</h3><p>OPSEC</p></div><div class="meta"><b id="c-gizlilik-kon">0</b>konu</div><div class="meta"><b id="c-gizlilik-msg">0</b>mesaj</div><div class="last"><a id="c-gizlilik-last" href="#">—</a><div class="by" id="c-gizlilik-by">Henüz yok</div></div></div>
+      <div class="forum-row" onclick="openForum('Araçlar')"><div class="ico"><i class="fa-solid fa-wrench"></i></div><div><h3>Araçlar</h3><p>Scriptler</p></div><div class="meta"><b id="c-araclar-kon">0</b>konu</div><div class="meta"><b id="c-araclar-msg">0</b>mesaj</div><div class="last"><a id="c-araclar-last" href="#">—</a><div class="by" id="c-araclar-by">Henüz yok</div></div></div>
+    </div>
+    <div class="cat"><div class="cat-head"><h2>Topluluk</h2><span>2 bölüm</span></div>
+      <div class="forum-row" onclick="openForum('Genel Sohbet')"><div class="ico"><i class="fa-regular fa-comments"></i></div><div><h3>Genel Sohbet</h3><p>Gündem</p></div><div class="meta"><b id="c-gen-kon">0</b>konu</div><div class="meta"><b id="c-gen-msg">0</b>mesaj</div><div class="last"><a id="c-gen-last" href="#">—</a><div class="by" id="c-gen-by">Henüz yok</div></div></div>
+      <div class="forum-row" onclick="openForum('Yardım')"><div class="ico"><i class="fa-regular fa-circle-question"></i></div><div><h3>Yardım</h3><p>Sorular</p></div><div class="meta"><b id="c-yardim-kon">0</b>konu</div><div class="meta"><b id="c-yardim-msg">0</b>mesaj</div><div class="last"><a id="c-yardim-last" href="#">—</a><div class="by" id="c-yardim-by">Henüz yok</div></div></div>
     </div>
     <div class="threads" style="margin-top:12px">
       <div class="threads-head"><h2 id="threadsTitle">Son konular</h2><div style="display:flex;gap:6px"><button class="btn" style="width:auto;padding:6px 10px;background:var(--blue);color:#fff;border-color:var(--blue);font-size:12px" onclick="openNewTopic()"><i class="fa-solid fa-plus"></i> Konu Aç</button><div class="tabs"><button class="active" onclick="filterThreads('all',this)">Yeni</button><button onclick="filterThreads('pop',this)">Popüler</button></div></div></div>
@@ -284,13 +288,17 @@ let threads=loadThreads();
 function loadUsers(){ try{return JSON.parse(localStorage.getItem(LS_USERS)||'[]')}catch{return []} }
 function saveUsers(u){ localStorage.setItem(LS_USERS, JSON.stringify(u)) }
 function loadThreads(){
-  try{ const t=JSON.parse(localStorage.getItem(LS_THREADS)||'null'); if(t) return t; }catch{}
-  const seed=[
-    {id:1, title:'Forum kuralları ve teminat bilgisi', forum:'Kurallar', author:'admin', time:Date.now()-7200000, views:124, body:'Üyelik teminatlı ve doğrulanmalıdır. E-posta ve telefon doğrulaması zorunlu.', posts:[{author:'admin',body:'Hoş geldiniz.',time:Date.now()-7100000}]},
-    {id:2, title:'Cloudflare bypass — 2026 notları', forum:'Yazılım & Güvenlik', author:'nemesis', time:Date.now()-1080000, views:89, body:'Notlar ve tartışma.', posts:[]},
-    {id:3, title:'Telegram TTL bot', forum:'Otomasyon', author:'member42', time:Date.now()-3060000, views:56, body:'Örnek bot.', posts:[]},
-  ];
-  localStorage.setItem(LS_THREADS, JSON.stringify(seed)); return seed;
+  try{
+    const raw=localStorage.getItem(LS_THREADS);
+    if(raw){
+      const t=JSON.parse(raw);
+      // demo temizliği: eski demo başlıklar varsa sil
+      const isDemo = t.some(x=> ['Forum kuralları ve teminat bilgisi','Cloudflare bypass','Telegram TTL bot','Forum v1 yayında'].some(d=> (x.title||'').includes(d)));
+      if(isDemo){ localStorage.removeItem(LS_THREADS); return []; }
+      return t;
+    }
+  }catch{}
+  return [];
 }
 function saveThreads(t){ localStorage.setItem(LS_THREADS, JSON.stringify(t)) }
 function esc(s){ return String(s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])) }
@@ -430,7 +438,13 @@ function render(){
   if(q) list=list.filter(t=> (t.title+' '+t.body+' '+t.author+' '+t.forum).toLowerCase().includes(q));
   const el=document.getElementById('list'), empty=document.getElementById('empty');
   el.innerHTML='';
-  if(list.length===0) empty.style.display='block'; else { empty.style.display='none';
+  if(list.length===0){
+    empty.style.display='block';
+    empty.innerHTML = currentForum
+      ? `<div style="padding:28px 16px;text-align:center"><div style="width:42px;height:42px;margin:0 auto 10px;border:1px solid var(--border);background:var(--panel2);display:grid;place-items:center;color:var(--muted2)"><i class="fa-regular fa-comments"></i></div><div style="font-weight:600;color:var(--text);font-size:13px">${esc(currentForum)} bölümünde henüz konu yok</div><div style="font-size:12px;color:var(--muted2);margin-top:4px">İlk konuyu sen aç — topluluğu başlat.</div><button class="btn btn-primary" style="width:auto;margin:12px auto 0;padding:7px 14px;font-size:12px" onclick="openNewTopic()"><i class="fa-solid fa-plus"></i> Konu Aç</button></div>`
+      : `<div style="padding:28px 16px;text-align:center"><div style="width:42px;height:42px;margin:0 auto 10px;border:1px solid var(--border);background:var(--panel2);display:grid;place-items:center;color:var(--muted2)"><i class="fa-solid fa-wind"></i></div><div style="font-weight:600;color:var(--text);font-size:13px">Henüz konu yok</div><div style="font-size:12px;color:var(--muted2);margin-top:4px">Forum tertemiz — ilk konuyu açarak başlat.</div><button class="btn btn-primary" style="width:auto;margin:12px auto 0;padding:7px 14px;font-size:12px" onclick="openNewTopic()"><i class="fa-solid fa-plus"></i> İlk Konuyu Aç</button></div>`;
+  } else {
+    empty.style.display='none';
     list.forEach(t=>{
       const d=document.createElement('div'); d.className='trow';
       d.innerHTML=`<div><h3><a href="#">${esc(t.title)}</a></h3><div class="info"><span>${esc(t.author)}</span><span>• ${timeAgo(t.time)}</span><span>${esc(t.forum)}</span></div></div><div class="c"><b>${t.posts.length}</b> yanıt</div><div class="last"><a href="#">${t.views} görüntü</a><div class="by">${esc(t.forum)}</div></div>`;
@@ -440,15 +454,26 @@ function render(){
   }
   document.getElementById('st-threads').textContent=threads.length;
   document.getElementById('st-posts').textContent=threads.reduce((a,b)=>a+1+b.posts.length,0);
-  document.getElementById('st-users').textContent=loadUsers().filter(u=>u.verified).length || 1;
-  const byForum=f=>threads.filter(t=>t.forum===f).length;
-  document.getElementById('c-yaz-kon').textContent=byForum('Yazılım & Güvenlik');
-  document.getElementById('c-oto-kon').textContent=byForum('Otomasyon');
-  document.getElementById('c-duyuru-kon').textContent=byForum('Duyurular');
-  const y=threads.filter(t=>t.forum==='Yazılım & Güvenlik').sort((a,b)=>b.time-a.time)[0];
-  if(y){ document.getElementById('c-yaz-last').textContent=y.title; document.getElementById('c-yaz-by').textContent=y.author+' • '+timeAgo(y.time); document.getElementById('c-yaz-msg').textContent=y.posts.length+1; }
-  const o=threads.filter(t=>t.forum==='Otomasyon').sort((a,b)=>b.time-a.time)[0];
-  if(o){ document.getElementById('c-oto-last').textContent=o.title; document.getElementById('c-oto-by').textContent=o.author+' • '+timeAgo(o.time); }
+  const verifiedCount=loadUsers().filter(u=>u.verified).length;
+  document.getElementById('st-users').textContent=verifiedCount;
+  const byForum=f=>threads.filter(t=>t.forum===f);
+  const upd=(forum, idKon, idMsg, idLast, idBy)=>{
+    const arr=byForum(forum);
+    document.getElementById(idKon).textContent=arr.length;
+    const msgEl=document.getElementById(idMsg); if(msgEl) msgEl.textContent=arr.reduce((a,b)=>a+1+b.posts.length,0) || 0;
+    const last=arr.sort((a,b)=>b.time-a.time)[0];
+    const lastEl=document.getElementById(idLast), byEl=document.getElementById(idBy);
+    if(last){ lastEl.textContent=last.title; lastEl.onclick=(e)=>{e.stopPropagation(); openThread(last.id)}; byEl.textContent=last.author+' • '+timeAgo(last.time); }
+    else { lastEl.textContent='—'; lastEl.removeAttribute('onclick'); byEl.textContent='Henüz yok'; }
+  };
+  upd('Duyurular','c-duyuru-kon','c-duyuru-msg','c-duyuru-last','c-duyuru-by');
+  upd('Kurallar','c-kurallar-kon','c-kurallar-msg','c-kurallar-last','c-kurallar-by');
+  upd('Yazılım & Güvenlik','c-yaz-kon','c-yaz-msg','c-yaz-last','c-yaz-by');
+  upd('Otomasyon','c-oto-kon','c-oto-msg','c-oto-last','c-oto-by');
+  upd('Gizlilik','c-gizlilik-kon','c-gizlilik-msg','c-gizlilik-last','c-gizlilik-by');
+  upd('Araçlar','c-araclar-kon','c-araclar-msg','c-araclar-last','c-araclar-by');
+  upd('Genel Sohbet','c-gen-kon','c-gen-msg','c-gen-last','c-gen-by');
+  upd('Yardım','c-yardim-kon','c-yardim-msg','c-yardim-last','c-yardim-by');
   document.getElementById('threadsTitle').textContent=currentForum||'Son konular';
   document.getElementById('crumb').innerHTML=currentForum ? `<a href="#" onclick="showForum()">Ana Sayfa</a> › ${esc(currentForum)}` : `<a href="#" onclick="showForum()">Ana Sayfa</a> › Forum`;
 }
