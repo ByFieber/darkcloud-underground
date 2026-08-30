@@ -1,0 +1,68 @@
+﻿name: Deploy to Cloudflare Workers
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install wrangler
+        run: npm install -g wrangler@4
+      - name: Deploy to Cloudflare Workers
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 9b02bf26c09cb2450f1dd52e5ea3e5fe
+        run: |
+          mkdir -p dist
+          cp index.html dist/index.html
+          cat > wrangler.toml <<EOF
+          name = "nemesis-platform"
+          compatibility_date = "2026-08-30"
+          main = "worker.js"
+          assets = { directory = "dist", not_found_handling = "single-page-application" }
+          EOF
+          cat > worker.js <<'JS'
+          const headers = {
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Cache-Control": "no-store",
+            "Content-Security-Policy": "default-src 'self'; connect-src 'self' https://api.xposedornot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; base-uri 'none'; frame-ancestors 'none'",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "X-Content-Type-Options": "nosniff",
+            "X-Frame-Options": "DENY"
+          };
+          function json(body, status = 200) {
+            return new Response(JSON.stringify(body), { status, headers: { ...headers, "Content-Type": "application/json; charset=utf-8" } });
+          }
+          export default {
+            async fetch(request, env) {
+              const url = new URL(request.url);
+              if (url.hostname === "www.nemesisplatform.online") {
+                url.hostname = "nemesisplatform.online";
+                return Response.redirect(url.toString(), 301);
+              }
+              if (url.pathname === "/api/breaches") {
+                if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
+                if (request.method !== "POST") return json({ error: "Yalnızca POST istekleri kabul edilir." }, 405);
+                let email;
+                try { ({ email } = await request.json()); } catch { return json({ error: "Geçersiz istek." }, 400); }
+                const normalizedEmail = String(email ?? "").trim().toLowerCase();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail) || normalizedEmail.length > 254) return json({ error: "Geçerli bir e-posta adresi girin." }, 400);
+                const source = await fetch(`https://api.xposedornot.com/v1/check-email/${encodeURIComponent(normalizedEmail)}`);
+                if (source.status === 429) return json({ error: "Ücretsiz sorgu limiti aşıldı." }, 429);
+                if (!source.ok) return json({ error: "İhlal kaynağı şu anda yanıt vermiyor." }, 502);
+                const data = await source.json();
+                const breaches = [...new Set((data.breaches ?? []).flat().filter(name => typeof name === "string"))];
+                return json({ breached: breaches.length > 0, breaches });
+              }
+              return env.ASSETS.fetch(request);
+            }
+          };
+          JS
+          wrangler deploy
