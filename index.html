@@ -143,24 +143,15 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
       <div class="badge"><i class="fa-solid fa-shield-halved"></i> SADECE ONAYLI ÜYELER GİRİŞ YAPABİLİR</div>
       <h1>nemesis<span>platform</span>.online</h1>
       <div style="font-size:10px;letter-spacing:1.2px;color:var(--muted2);margin-bottom:10px">NEMESIS EXECUTION GROUP • EST. 2026 • FOUNDED IN SHADOW</div>
-      <p style="font-size:12.5px;color:var(--muted);line-height:1.6">Profesyonel, teminatlı ve <b style="color:var(--text)">sadece onaylı üyelerin</b> erişebildiği kapalı forum. Başvuru Telegram’a düşer, teminat teyidi sonrası bot üzerinden <b style="color:var(--text)">site giriş izni</b> verilir.</p>
-      <p>Bu forum <b>kapalı topluluktur</b>. Misafir girişi yoktur. Tüm üyelikler teminat karşılığı ve manuel doğrulama ile açılır.</p>
-      <ul>
-        <li><i class="fa-solid fa-check"></i> E-posta + telefon doğrulaması zorunlu</li>
-        <li><i class="fa-solid fa-check"></i> Şifreler bcrypt ile saklanır, düz metin tutulmaz</li>
-        <li><i class="fa-solid fa-check"></i> Tüm istekler prepared statement — SQL injection yok</li>
-        <li><i class="fa-solid fa-check"></i> XSS/CSRF korumalı, rate-limit aktif</li>
-      </ul>
-      <div class="sec-box">
-        <h4><i class="fa-solid fa-lock"></i> Güvenlik notu</h4>
-        <ul style="margin:0">
-          <li>• No SQL concat — D1 `?` parametreli sorgu</li>
-          <li>• Output `escape()` ile encode edilir</li>
-          <li>• 3 hatalı girişte 30 sn kilit</li>
-          <li>• Teminat onayı olmadan üyelik açılmaz</li>
-        </ul>
+      <p style="font-size:12.5px;color:var(--muted);line-height:1.65">Profesyonel, teminatlı ve <b style="color:var(--text)">sadece onaylı üyelerin</b> girebildiği kapalı forum. Başvuru Telegram’a düşer, teminat teyidi sonrası bot ile <b style="color:var(--text)">site giriş izni</b> verilir.</p>
+      <div style="margin-top:16px;width:100%;display:flex;flex-direction:column;gap:8px;text-align:left">
+        <div style="display:flex;gap:9px;align-items:center;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:9px 11px"><i class="fa-solid fa-envelope" style="color:var(--green);width:16px;text-align:center"></i><span style="font-size:12.5px;color:#a8b5c6"><b style="color:var(--text)">E-posta + Telefon</b> — çift doğrulama zorunlu</span></div>
+        <div style="display:flex;gap:9px;align-items:center;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:9px 11px"><i class="fa-solid fa-lock" style="color:var(--green);width:16px;text-align:center"></i><span style="font-size:12.5px;color:#a8b5c6"><b style="color:var(--text)">bcrypt + prepared statement</b> — SQL injection yok</span></div>
+        <div style="display:flex;gap:9px;align-items:center;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:9px 11px"><i class="fa-solid fa-shield-halved" style="color:var(--green);width:16px;text-align:center"></i><span style="font-size:12.5px;color:#a8b5c6"><b style="color:var(--text)">XSS/CSRF korumalı</b> — rate-limit 3/30s</span></div>
+        <div style="display:flex;gap:9px;align-items:center;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:9px 11px"><i class="fa-solid fa-coins" style="color:var(--amber);width:16px;text-align:center"></i><span style="font-size:12.5px;color:#a8b5c6"><b style="color:var(--text)">Teminat onayı</b> olmadan giriş yok</span></div>
       </div>
-      <div style="margin-top:12px;font-size:11px;color:var(--muted2)">© 2026 nemesisplatform.online — Kapalı devre</div>
+      <div style="margin-top:14px;width:100%;display:flex;gap:8px;justify-content:center"><span style="font-size:10px;letter-spacing:.5px;color:var(--muted2);border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);padding:5px 8px;border-radius:999px"><i class="fa-solid fa-check" style="color:var(--green)"></i> Misafir girişi kapalı</span><span style="font-size:10px;letter-spacing:.5px;color:var(--muted2);border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);padding:5px 8px;border-radius:999px"><i class="fa-solid fa-robot"></i> Bot onaylı</span></div>
+      <div style="margin-top:12px;font-size:11px;color:var(--muted2)">© 2026 nemesisplatform.online</div>
     </div>
     <div class="gate-right">
       <div class="tabs2"><button id="tabLogin" class="active" onclick="switchMode('login')">Giriş</button><button id="tabReg" onclick="switchMode('register')">Kayıt Ol</button></div>
