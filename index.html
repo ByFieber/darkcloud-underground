@@ -3,270 +3,405 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>UnderGround Yazılım — DarkCloud</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet" />
+<title>DarkCloud Forum — UnderGround Yazılım Topluluğu</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Orbitron:wght@700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
-  :root {
-    --bg: #070a10;
-    --bg-2: #0c111b;
-    --blue: #2f7bff;
-    --red: #ff3b3b;
-    --text: #e8eef7;
-    --muted: #8b97a8;
-    --card: rgba(255, 255, 255, 0.04);
-    --border: rgba(255, 255, 255, 0.08);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: "Inter", system-ui, Segoe UI, Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-  /* Background ambience */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(900px 500px at 12% -10%, rgba(47,123,255,0.18), transparent 60%),
-      radial-gradient(800px 500px at 100% 0%, rgba(255,59,59,0.16), transparent 55%),
-      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-    z-index: -2;
-  }
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 75%);
-    z-index: -1;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+:root{
+  --bg:#070a10;
+  --bg-soft:#0f141f;
+  --bg-card:#121827;
+  --bg-card2:#151e2f;
+  --border:#1f2a3d;
+  --border-light:#2a3a56;
+  --blue:#2f7bff;
+  --blue-2:#1a5fe0;
+  --red:#ff3344;
+  --text:#e8eef7;
+  --muted:#8b97a8;
+  --muted2:#6e7a8c;
+  --green:#10b981;
+  --orange:#ff8c2f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
 
-  /* Hero */
-  header.hero {
-    min-height: 92vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-  }
-  .eyebrow {
-    letter-spacing: 6px;
-    font-size: 13px;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    border: 1px solid var(--border);
-    padding: 7px 16px;
-    border-radius: 999px;
-    backdrop-filter: blur(6px);
-  }
-  h1.title {
-    font-family: "Orbitron", sans-serif;
-    font-size: clamp(40px, 8vw, 86px);
-    line-height: 1.02;
-    font-weight: 800;
-    background: linear-gradient(100deg, var(--blue), #9ecbff 35%, #ffffff 50%, var(--red) 70%, #ff9a9a);
-    background-size: 220% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shine 6s linear infinite;
-  }
-  @keyframes shine { to { background-position: 220% center; } }
-  .subtitle {
-    margin-top: 22px;
-    max-width: 640px;
-    color: var(--muted);
-    font-size: clamp(15px, 2.4vw, 19px);
-  }
-  .cta {
-    margin-top: 34px;
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .btn {
-    text-decoration: none;
-    font-weight: 600;
-    padding: 14px 26px;
-    border-radius: 12px;
-    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-  }
-  .btn.blue { background: linear-gradient(135deg, var(--blue), #1c5fe0); color: #fff; box-shadow: 0 10px 30px rgba(47,123,255,.35); }
-  .btn.red { background: linear-gradient(135deg, var(--red), #d11); color: #fff; box-shadow: 0 10px 30px rgba(255,59,59,.30); }
-  .btn:hover { transform: translateY(-2px); filter: brightness(1.07); }
-  .scroll-hint { position: absolute; bottom: 26px; color: var(--muted); font-size: 13px; letter-spacing: 2px; }
+/* TOP BAR */
+.topbar{background:linear-gradient(90deg,#0a1020,#101a32);border-bottom:1px solid var(--border);font-size:13px;color:var(--muted);padding:7px 0}
+.topbar-inner{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar b{color:var(--blue)}
+.pulse{width:7px;height:7px;background:var(--green);border-radius:50%;display:inline-block;box-shadow:0 0 8px var(--green);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-  /* Sections */
-  section { padding: 90px 0; }
-  .section-head { text-align: center; margin-bottom: 50px; }
-  .section-head .tag { color: var(--blue); font-weight: 700; letter-spacing: 3px; font-size: 13px; text-transform: uppercase; }
-  .section-head h2 { font-family: "Orbitron", sans-serif; font-size: clamp(26px, 4vw, 40px); margin-top: 10px; }
-  .lead { max-width: 720px; margin: 0 auto; color: var(--muted); text-align: center; font-size: 17px; }
+/* HEADER */
+.header{position:sticky;top:0;z-index:40;background:rgba(7,10,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1320px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;gap:22px}
+.logo{display:flex;align-items:center;gap:12px;font-family:"Orbitron",sans-serif;font-weight:800;font-size:19px;letter-spacing:.5px}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--blue),var(--red));border-radius:9px;display:grid;place-items:center;font-size:18px;box-shadow:0 6px 20px rgba(47,123,255,.35)}
+.logo span{color:var(--text)}
+.logo span i{color:var(--blue);font-style:normal}
+.nav{display:flex;gap:6px;align-items:center}
+.nav a{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:var(--muted);transition:.2s}
+.nav a:hover,.nav a.active{background:var(--bg-card);color:var(--text)}
+.nav a.active{color:var(--blue);background:rgba(47,123,255,.12);border:1px solid rgba(47,123,255,.2)}
+.search{margin-left:auto;position:relative;flex:0 1 340px}
+.search input{width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:10px 14px 10px 38px;border-radius:10px;font-size:14px;outline:none;transition:.2s}
+.search input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,123,255,.15)}
+.search i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted2)}
+.auth{display:flex;gap:8px;align-items:center}
+.btn{padding:9px 16px;border-radius:9px;font-weight:700;font-size:13.5px;cursor:pointer;border:1px solid transparent;transition:.2s;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.btn-ghost{color:var(--muted);border-color:var(--border);background:transparent}
+.btn-ghost:hover{color:var(--text);border-color:var(--border-light)}
+.btn-blue{background:linear-gradient(135deg,var(--blue),var(--blue-2));color:#fff;box-shadow:0 6px 18px rgba(47,123,255,.35)}
+.btn-blue:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn-red{background:linear-gradient(135deg,var(--red),#cc0e1e);color:#fff}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer}
 
-  /* Cards */
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 26px 24px;
-    backdrop-filter: blur(10px);
-    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  .card.in { opacity: 1; transform: none; }
-  .card:hover { transform: translateY(-6px); border-color: rgba(47,123,255,.5); box-shadow: 0 18px 50px rgba(0,0,0,.45); }
-  .card .ico { font-size: 30px; margin-bottom: 14px; display: block; }
-  .card h3 { font-size: 19px; margin-bottom: 8px; }
-  .card p { color: var(--muted); font-size: 15px; }
+/* SUBNAV */
+.subnav{background:var(--bg-soft);border-bottom:1px solid var(--border)}
+.subnav-inner{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;gap:18px;overflow:auto;scrollbar-width:none}
+.subnav-inner::-webkit-scrollbar{display:none}
+.subnav a{padding:12px 4px;font-size:13px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.subnav a:hover{color:var(--text)}
+.subnav a.active{color:var(--blue);border-color:var(--blue)}
 
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 16px; text-align: center; }
-  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 14px; }
-  .stat .num { font-family: "Orbitron", sans-serif; font-size: 38px; background: linear-gradient(135deg, var(--blue), var(--red)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .stat .lbl { color: var(--muted); margin-top: 6px; font-size: 14px; }
+/* LAYOUT */
+.container{max-width:1320px;margin:0 auto;padding:22px 20px;display:grid;grid-template-columns:1fr 330px;gap:20px}
+@media(max-width:1020px){.container{grid-template-columns:1fr}.search{flex:1}.nav{display:none}.hamburger{display:block}.sidebar{order:-1}}
+@media(max-width:640px){.header-inner{height:58px;gap:10px}.search{display:none}.topbar-inner{font-size:12px}}
 
-  /* Why list */
-  .why { max-width: 760px; margin: 0 auto; }
-  .why li { list-style: none; padding: 14px 0 14px 36px; border-bottom: 1px solid var(--border); position: relative; color: #cdd6e3; }
-  .why li::before { content: "▹"; position: absolute; left: 8px; color: var(--blue); font-weight: 800; }
+/* HERO ANNOUNCEMENT */
+.hero{background:linear-gradient(135deg,rgba(47,123,255,.14),rgba(255,51,68,.10)),var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;margin-bottom:18px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--blue),var(--red))}
+.hero-icon{width:42px;height:42px;background:rgba(47,123,255,.15);border:1px solid rgba(47,123,255,.3);border-radius:10px;display:grid;place-items:center;color:var(--blue);font-size:18px;flex-shrink:0}
+.hero h3{font-size:14px;font-weight:700}
+.hero p{font-size:13px;color:var(--muted)}
+.hero .close{margin-left:auto;color:var(--muted);cursor:pointer;padding:6px}
+.breadcrumb{font-size:12.5px;color:var(--muted2);margin-bottom:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb i{font-size:10px}
 
-  /* Footer CTA */
-  .final { text-align: center; }
-  .final h2 { font-family: "Orbitron", sans-serif; font-size: clamp(26px, 4vw, 42px); margin-bottom: 16px; }
-  footer { text-align: center; padding: 40px 0 60px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
-  footer a { color: var(--blue); text-decoration: none; }
-  @media (max-width: 600px) { section { padding: 64px 0; } }
+/* CATEGORY */
+.category{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.cat-head{padding:14px 16px;display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(47,123,255,.08),transparent),var(--bg-card2);border-bottom:1px solid var(--border)}
+.cat-icon{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-size:15px}
+.cat-icon.blue{background:rgba(47,123,255,.15);color:var(--blue);border:1px solid rgba(47,123,255,.25)}
+.cat-icon.red{background:rgba(255,51,68,.13);color:var(--red);border:1px solid rgba(255,51,68,.25)}
+.cat-icon.green{background:rgba(16,185,129,.13);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.cat-icon.orange{background:rgba(255,140,47,.13);color:var(--orange);border:1px solid rgba(255,140,47,.25)}
+.cat-head h2{font-size:14px;font-weight:800;letter-spacing:.3px}
+.cat-head span{font-size:12px;color:var(--muted);margin-left:8px;font-weight:500}
+.cat-head .toggle{margin-left:auto;color:var(--muted2);cursor:pointer;padding:4px 8px;border-radius:6px}
+.cat-head .toggle:hover{background:rgba(255,255,255,.06);color:var(--text)}
+
+/* FORUM ROW */
+.forum-list{display:flex;flex-direction:column}
+.forum-row{display:grid;grid-template-columns:46px 1fr 90px 90px 220px;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.04);transition:.15s}
+.forum-row:last-child{border-bottom:none}
+.forum-row:hover{background:rgba(255,255,255,.02)}
+.forum-row .fic{width:42px;height:42px;background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;display:grid;place-items:center;font-size:17px}
+.forum-row h4{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px}
+.forum-row h4 a:hover{color:var(--blue)}
+.badge-new{font-size:10px;font-weight:800;background:var(--red);color:#fff;padding:2px 6px;border-radius:999px;letter-spacing:.3px}
+.forum-row p{font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px}
+.forum-row .meta{font-size:13px;text-align:center}
+.forum-row .meta b{display:block;font-size:15px;font-weight:800;color:var(--text)}
+.forum-row .meta span{font-size:11px;color:var(--muted2);font-weight:600;letter-spacing:.4px}
+.last{font-size:12.5px;min-width:0}
+.last a.title{font-weight:600;color:var(--text);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.last a.title:hover{color:var(--blue)}
+.last .by{color:var(--muted2);font-size:11.5px;margin-top:2px}
+.last .by b{color:var(--muted)}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--red));display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.last-flex{display:flex;gap:10px;align-items:center}
+@media(max-width:860px){
+  .forum-row{grid-template-columns:46px 1fr;gap:8px}
+  .forum-row .meta,.forum-row .last{display:none}
+  .forum-row.mob-show .last{display:flex;grid-column:1/-1;padding-left:58px}
+}
+.forum-row.mob-show .last{display:none}
+.forum-row.expanded .last{display:flex}
+
+/* THREADS TABLE */
+.threads{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.threads-head{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--bg-card2);flex-wrap:wrap;gap:10px}
+.threads-head h2{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px}
+.tabs{display:flex;gap:6px}
+.tab{padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--border);color:var(--muted);cursor:pointer;background:transparent}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.thread{display:grid;grid-template-columns:46px 1fr 90px 150px;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);transition:.15s}
+.thread:hover{background:rgba(255,255,255,.02)}
+.thread:last-child{border-bottom:none}
+.thread h4{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thread h4 a:hover{color:var(--blue)}
+.thread .tag{font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;letter-spacing:.4px}
+.tag-blue{background:rgba(47,123,255,.15);color:var(--blue);border:1px solid rgba(47,123,255,.25)}
+.tag-red{background:rgba(255,51,68,.14);color:var(--red);border:1px solid rgba(255,51,68,.25)}
+.tag-green{background:rgba(16,185,129,.14);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.thread .info{font-size:11.5px;color:var(--muted2);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+.thread .stat{font-size:12px;text-align:center;color:var(--muted2)}
+.thread .stat b{color:var(--text);font-size:13px}
+@media(max-width:760px){.thread{grid-template-columns:46px 1fr}.thread .stat,.thread .last{display:none}}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+.box{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.box-head{padding:12px 16px;font-size:13px;font-weight:800;background:var(--bg-card2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;justify-content:space-between}
+.box-body{padding:14px 16px}
+.welcome{padding:18px;background:linear-gradient(135deg,rgba(47,123,255,.12),rgba(255,51,68,.08)),var(--bg-card);text-align:center}
+.welcome h3{font-family:"Orbitron",sans-serif;font-size:15px;margin-bottom:6px}
+.welcome p{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.welcome .btn{justify-content:center;width:100%}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.stat-box b{font-family:"Orbitron",sans-serif;font-size:18px;display:block}
+.stat-box span{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.4px}
+.online{font-size:12.5px}
+.online li{list-style:none;display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.online li:last-child{border:none}
+.dot{width:8px;height:8px;border-radius:50%}
+.dot.green{background:var(--green);box-shadow:0 0 6px var(--green)}
+.dot.blue{background:var(--blue)}
+.dot.gray{background:var(--muted2)}
+.telegram-card{background:linear-gradient(135deg,#1a5fe0,#2f7bff);border:none;color:#fff}
+.telegram-card .box-head{background:rgba(0,0,0,.15);border-color:rgba(255,255,255,.15);color:#fff}
+.telegram-card a{color:#fff;font-weight:600;font-size:13px;display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.telegram-card a:last-child{border:none}
+.telegram-card a:hover{opacity:.9}
+
+/* FOOTER */
+footer{max-width:1320px;margin:30px auto 0;padding:22px 20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted2);font-size:12.5px}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--blue)}
+
+/* MOBILE NAV DRAWER */
+.drawer{position:fixed;inset:0;z-index:60;display:none}
+.drawer.open{display:block}
+.drawer-bg{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(2px)}
+.drawer-panel{position:absolute;left:0;top:0;bottom:0;width:300px;background:var(--bg-soft);border-right:1px solid var(--border);padding:20px;display:flex;flex-direction:column;gap:14px;overflow:auto}
+.drawer-panel a{padding:10px 12px;border-radius:10px;color:var(--muted);font-weight:600;display:flex;gap:10px;align-items:center}
+.drawer-panel a:hover{background:var(--bg-card);color:var(--text)}
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">DarkCloud • UnderGround</div>
-    <h1 class="title">UnderGround Yazılım</h1>
-    <p class="subtitle">
-      Güvenlik, gizlilik ve özgür yazılım ilkeleriyle şekillenen bağımsız bir
-      geliştirici topluluğu. Sistemleri daha güvenli kılan araçları, açık kaynak
-      ruhuyla inşa ediyoruz.
-    </p>
-    <div class="cta">
-      <a class="btn blue" href="https://t.me/darkcloudorg" target="_blank" rel="noopener">📢 Topluluğa Katıl</a>
-      <a class="btn red" href="https://t.me/darkcloudbilgi" target="_blank" rel="noopener">📣 Bilgi Kanalı</a>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div style="display:flex;gap:10px;align-items:center"><span class="pulse"></span> <b>50+</b> kişi çevrimiçi &nbsp;•&nbsp; Son 24 saatte <b>1.284</b> mesaj</div>
+    <div style="display:flex;gap:14px;align-items:center">
+      <a href="https://t.me/darkcloudorg" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i> Duyuru</a>
+      <a href="https://t.me/darkcloudbilgi" target="_blank" rel="noopener"><i class="fa-solid fa-circle-info"></i> Bilgi</a>
+      <span style="opacity:.5">TR • 30 Ağustos 2026</span>
     </div>
   </div>
-  <div class="scroll-hint">▼ KEŞFET</div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="#"><div class="logo-icon"><i class="fa-solid fa-cloud-bolt"></i></div><span>DARK<i>CLOUD</i></span></a>
+    <nav class="nav">
+      <a class="active" href="#"><i class="fa-solid fa-house"></i> Forum</a>
+      <a href="#"><i class="fa-solid fa-ranking-star"></i> Sıralama</a>
+      <a href="#"><i class="fa-solid fa-screwdriver-wrench"></i> Araçlar</a>
+      <a href="#"><i class="fa-solid fa-users"></i> Üyeler</a>
+      <a href="#"><i class="fa-solid fa-book"></i> Wiki</a>
+    </nav>
+    <label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" placeholder="Forumda ara... (konu, kullanıcı, tag)" /></label>
+    <div class="auth">
+      <a class="btn btn-ghost" href="#"><i class="fa-solid fa-right-to-bracket"></i> Giriş</a>
+      <a class="btn btn-blue" href="#"><i class="fa-solid fa-user-plus"></i> Kayıt Ol</a>
+    </div>
+    <button class="hamburger" onclick="toggleDrawer()"><i class="fa-solid fa-bars"></i></button>
+  </div>
 </header>
 
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag">Biz Kimiz</div>
-      <h2>Bağımsız. Özgür. Güvenli.</h2>
-    </div>
-    <p class="lead">
-      UnderGround Yazılım; merkezi olmayan, araştırmacı ve üretken bir yapıdır.
-      Amacımız, dijital hakları koruyan ve sistemleri daha dayanıklı hale getiren
-      çözümleri — herhangi bir kuruma bağımlı olmadan — topluluğun hizmetine sunmaktır.
-      Kod bizim için bir araç değil, bir duruştur.
-    </p>
+<div class="subnav">
+  <div class="subnav-inner">
+    <a class="active" href="#"><i class="fa-solid fa-fire"></i> Yeni Konular</a>
+    <a href="#"><i class="fa-solid fa-chart-simple"></i> Popüler</a>
+    <a href="#"><i class="fa-solid fa-comments"></i> Son Mesajlar</a>
+    <a href="#"><i class="fa-solid fa-bell"></i> Takip Ettiklerim</a>
+    <a href="#"><i class="fa-solid fa-circle-question"></i> Yardım</a>
+    <a href="#"><i class="fa-solid fa-scale-balanced"></i> Kurallar</a>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag">Uzmanlık</div>
-      <h2>Çalışma Alanlarımız</h2>
-    </div>
-    <div class="grid">
-      <div class="card"><span class="ico">🔐</span><h3>Web & API Güvenliği</h3><p>Uygulama katmanından API yüzeyine kadar zafiyet analizi, hardening ve güvenli mimari tasarımı.</p></div>
-      <div class="card"><span class="ico">🤖</span><h3>Otomasyon & Bot Sistemleri</h3><p>Telegram botları, iş akışı otomasyonu ve ölçeklenebilir arka uç servisleri.</p></div>
-      <div class="card"><span class="ico">🌐</span><h3>Ağ Güvenliği</h3><p>Ağ trafiği analizi, izolasyon stratejileri ve savunma odaklı altyapı kurulumu.</p></div>
-      <div class="card"><span class="ico">🛡️</span><h3>Veri Gizliliği</h3><p>Uçtan uca şifreleme, anonimleşme ve minimal veri ayak izi ilkeleri.</p></div>
-      <div class="card"><span class="ico">🐞</span><h3>Penetrasyon Testi</h3><p>Yetkili kapsamda gerçekçi saldırı senaryolarıyla sistem dayanıklılığının ölçülmesi.</p></div>
-      <div class="card"><span class="ico">🧠</span><h3>Araştırma & Açık Kaynak</h3><p>Sürekli öğrenme, güvenlik araştırmaları ve toplulukla paylaşılan özgür araçlar.</p></div>
-    </div>
-  </div>
-</section>
+<div class="container">
+  <main>
+    <div class="breadcrumb"><a href="#">Ana Sayfa</a><i class="fa-solid fa-chevron-right"></i><a href="#">Forum</a><i class="fa-solid fa-chevron-right"></i><span style="color:var(--text);font-weight:600">UnderGround</span></div>
 
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag">Rakamlarla</div>
-      <h2>Topluluk & Etki</h2>
+    <div class="hero" id="hero">
+      <div class="hero-icon"><i class="fa-solid fa-bullhorn"></i></div>
+      <div>
+        <h3>📌 Forum Kuralları Güncellendi — Lütfen Okuyun</h3>
+        <p>Spam, dolandırıcılık ve provokasyon anında yaptırımla sonuçlanır. Yönetim kararları kesindir. <a href="#" style="color:var(--blue);font-weight:700">Kuralları görüntüle →</a></p>
+      </div>
+      <span class="close" onclick="document.getElementById('hero').style.display='none'"><i class="fa-solid fa-xmark"></i></span>
     </div>
-    <div class="stats">
-      <div class="stat"><div class="num">50+</div><div class="lbl">Yayınlanan Proje</div></div>
-      <div class="stat"><div class="num">5+</div><div class="lbl">Yıllık Birikim</div></div>
-      <div class="stat"><div class="num">10K+</div><div class="lbl">Topluluk Üyesi</div></div>
-      <div class="stat"><div class="num">24/7</div><div class="lbl">Araştırma Akışı</div></div>
-    </div>
-  </div>
-</section>
 
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag">Yaklaşımımız</div>
-      <h2>Neden UnderGround?</h2>
+    <!-- KATEGORİ 1 -->
+    <div class="category">
+      <div class="cat-head" onclick="toggleCat(this)"><div class="cat-icon blue"><i class="fa-solid fa-shield-halved"></i></div><h2>DUYURULAR & KURALLAR</h2><span>2 Forum • 184 Konu</span><span class="toggle"><i class="fa-solid fa-chevron-up"></i></span></div>
+      <div class="forum-list">
+        <div class="forum-row">
+          <div class="fic">📄</div>
+          <div><h4><a href="#">Duyurular</a> <span class="badge-new">YENİ</span></h4><p>Yönetim duyuruları, güncellemeler, etkinlikler ve bakım bildirimleri.</p></div>
+          <div class="meta"><b>84</b><span>KONU</span></div><div class="meta"><b>1.2K</b><span>MESAJ</span></div>
+          <div class="last"><div class="last-flex"><div class="avatar">A</div><div><a class="title" href="#">v2.4 Güncellemesi — Yeni Tema</a><div class="by"><b>wirmafia</b> • 2 saat önce</div></div></div></div>
+        </div>
+        <div class="forum-row">
+          <div class="fic">⚖️</div>
+          <div><h4><a href="#">Kurallar & Rehber</a></h4><p>Topluluk kuralları, rehberler, SSS ve yeni üye oryantasyonu.</p></div>
+          <div class="meta"><b>12</b><span>KONU</span></div><div class="meta"><b>340</b><span>MESAJ</span></div>
+          <div class="last"><div class="last-flex"><div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669)">G</div><div><a class="title" href="#">Yeni Üye Rehberi — İlk Adımlar</a><div class="by"><b>Gh0stByFieBeR</b> • dün 22:14</div></div></div></div>
+        </div>
+      </div>
     </div>
-    <ul class="why">
-      <li>Şeffaflık: Ürettiğimiz araçların mantığı gizlenmez, belgelenir.</li>
-      <li>Sorumluluk: Güç, yalnızca bilinçli ve etik kullanımda anlam kazanır.</li>
-      <li>Dayanıklılık: Geçici çözümler yerine sürdürülebilir mimari tercih edilir.</li>
-      <li>Topluluk: Bilgi paylaştıkça çoğalır; öğrenmek herkesin hakkıdır.</li>
-      <li>Bağımsızlık: Hiçbir merkezi otoriteye veya çıkara teslim olmadan üretim.</li>
-    </ul>
-  </div>
-</section>
 
-<section class="final">
-  <div class="wrap">
-    <h2>Birlikte inşa edelim.</h2>
-    <p class="lead">Catıl, katkı ver, öğren. DarkCloud topluluğu seni bekliyor.</p>
-    <div class="cta">
-      <a class="btn blue" href="https://t.me/darkcloudorg" target="_blank" rel="noopener">📢 Duyuru Kanalı</a>
-      <a class="btn red" href="https://t.me/darkcloudbilgi" target="_blank" rel="noopener">📣 Paylaşım Kanalı</a>
+    <!-- KATEGORİ 2 -->
+    <div class="category">
+      <div class="cat-head" onclick="toggleCat(this)"><div class="cat-icon red"><i class="fa-solid fa-code"></i></div><h2>UNDERGROUND YAZILIM</h2><span>4 Forum • 542 Konu</span><span class="toggle"><i class="fa-solid fa-chevron-up"></i></span></div>
+      <div class="forum-list">
+        <div class="forum-row">
+          <div class="fic">🔐</div>
+          <div><h4><a href="#">Web & API Güvenliği</a></h4><p>Zafiyet analizi, hardening, güvenli mimari, bug bounty paylaşımları.</p></div>
+          <div class="meta"><b>203</b><span>KONU</span></div><div class="meta"><b>3.4K</b><span>MESAJ</span></div>
+          <div class="last"><div class="last-flex"><div class="avatar">S</div><div><a class="title" href="#">API Rate Limit Bypass — Case Study</a><div class="by"><b>sinkidx</b> • 34 dk önce</div></div></div></div>
+        </div>
+        <div class="forum-row">
+          <div class="fic">🤖</div>
+          <div><h4><a href="#">Otomasyon & Bot Sistemleri</a></h4><p>Telegram botları, workflow otomasyonu, scraper ve backend servisleri.</p></div>
+          <div class="meta"><b>168</b><span>KONU</span></div><div class="meta"><b>2.1K</b><span>MESAJ</span></div>
+          <div class="last"><div class="last-flex"><div class="avatar" style="background:#2f7bff">K</div><div><a class="title" href="#">Telethon vs Pyrogram — Karşılaştırma</a><div class="by"><b>killaolyeniden</b> • 1 saat önce</div></div></div></div>
+        </div>
+        <div class="forum-row">
+          <div class="fic">🌐</div>
+          <div><h4><a href="#">Ağ Güvenliği</a></h4><p>Ağ trafiği analizi, izolasyon, savunma odaklı altyapı.</p></div>
+          <div class="meta"><b>97</b><span>KONU</span></div><div class="meta"><b>892</b><span>MESAJ</span></div>
+          <div class="last"><div class="last-flex"><div class="avatar" style="background:#ff3344">A</div><div><a class="title" href="#">WireGuard + KillSwitch Yapılandırması</a><div class="by"><b>AlbertNemesis</b> • dün</div></div></div></div>
+        </div>
+        <div class="forum-row">
+          <div class="fic">🛡️</div>
+          <div><h4><a href="#">Veri Gizliliği & Kriptografi</a></h4><p>E2E şifreleme, anonimleşme, OPSEC ve minimal veri ilkeleri.</p></div>
+          <div class="meta"><b>74</b><span>KONU</span></div><div class="meta"><b>610</b><span>MESAJ</span></div>
+          <div class="last"><div class="last-flex"><div class="avatar">M</div><div><a class="title" href="#">PGP Anahtar Yönetimi — En İyi Pratikler</a><div class="by"><b>wirmafia</b> • 3 gün önce</div></div></div></div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+
+    <!-- KATEGORİ 3 -->
+    <div class="category">
+      <div class="cat-head" onclick="toggleCat(this)"><div class="cat-icon green"><i class="fa-solid fa-users"></i></div><h2>TOPLULUK & GENEL</h2><span>3 Forum • 1.1K Konu</span><span class="toggle"><i class="fa-solid fa-chevron-up"></i></span></div>
+      <div class="forum-list">
+        <div class="forum-row"><div class="fic">💬</div><div><h4><a href="#">Genel Sohbet</a></h4><p>Gündem, teknoloji, goygoy — seviye korunmak kaydıyla serbest.</p></div><div class="meta"><b>612</b><span>KONU</span></div><div class="meta"><b>8.9K</b><span>MESAJ</span></div><div class="last"><div class="last-flex"><div class="avatar" style="background:#10b981">Y</div><div><a class="title" href="#">2026'da en iyi VPS sağlayıcıları?</a><div class="by"><b>yavuz34</b> • 11 dk önce</div></div></div></div></div>
+        <div class="forum-row"><div class="fic">🎓</div><div><h4><a href="#">Yardımlaşma</a></h4><p>Soru-cevap, kod incelemesi, proje geri bildirimi.</p></div><div class="meta"><b>421</b><span>KONU</span></div><div class="meta"><b>3.2K</b><span>MESAJ</span></div><div class="last"><div class="last-flex"><div class="avatar">H</div><div><a class="title" href="#">Python asyncio — Rate limit nasıl yapılır?</a><div class="by"><b>harun</b> • 45 dk önce</div></div></div></div></div>
+        <div class="forum-row"><div class="fic">🏆</div><div><h4><a href="#">Proje Tanıtımı</a></h4><p>Kendi projeni tanıt, geri bildirim topla, ekip arkadaşı bul.</p></div><div class="meta"><b>88</b><span>KONU</span></div><div class="meta"><b>540</b><span>MESAJ</span></div><div class="last"><div class="last-flex"><div class="avatar" style="background:var(--orange)">D</div><div><a class="title" href="#">DarkCloud CLI — Açık Kaynak Araç Seti</a><div class="by"><b>darkcloud</b> • 5 saat önce</div></div></div></div></div>
+      </div>
+    </div>
+
+    <!-- SON KONULAR -->
+    <div class="threads">
+      <div class="threads-head">
+        <h2><i class="fa-solid fa-fire" style="color:var(--red)"></i> Son Konular</h2>
+        <div class="tabs"><button class="tab active">Yeni</button><button class="tab">Popüler</button><button class="tab">Cevapsız</button></div>
+      </div>
+      <div id="threadList">
+        <div class="thread"><div class="avatar" style="width:38px;height:38px">S</div><div><h4><a href="#">🔥 Cloudflare Bypass 2026 — Yeni Yöntem Tartışması</a> <span class="tag tag-red">GÜNDEM</span></h4><div class="info"><span><i class="fa-solid fa-user"></i> sinkidx</span><span><i class="fa-regular fa-clock"></i> 18 dk önce</span><span><i class="fa-solid fa-folder"></i> Web Güvenliği</span></div></div><div class="stat"><b>42</b><br>Yanıt</div><div class="last"><div class="last-flex"><div class="avatar" style="width:26px;height:26px;font-size:10px">A</div><div><div style="font-size:12px;font-weight:600">AlbertNemesis</div><div style="font-size:11px;color:var(--muted2)">2 dk önce</div></div></div></div></div>
+        <div class="thread"><div class="avatar" style="width:38px;height:38px;background:#10b981">K</div><div><h4><a href="#">Telegram Bot — Mesajları Otomatik Silme (TTL) Botu</a> <span class="tag tag-blue">KOD</span></h4><div class="info"><span><i class="fa-solid fa-user"></i> killaolyeniden</span><span><i class="fa-regular fa-clock"></i> 51 dk önce</span><span><i class="fa-solid fa-folder"></i> Otomasyon</span></div></div><div class="stat"><b>18</b><br>Yanıt</div><div class="last"><div class="last-flex"><div class="avatar" style="width:26px;height:26px">M</div><div><div style="font-size:12px;font-weight:600">mert</div><div style="font-size:11px;color:var(--muted2)">9 dk önce</div></div></div></div></div>
+        <div class="thread"><div class="avatar" style="width:38px;height:38px;background:var(--orange)">W</div><div><h4><a href="#">Duyuru: Forum Kuralları ve Yeni Moderasyon Sistemi</a> <span class="tag tag-green">SABİT</span></h4><div class="info"><span><i class="fa-solid fa-user"></i> wirmafia</span><span><i class="fa-regular fa-clock"></i> 2 saat önce</span><span><i class="fa-solid fa-folder"></i> Duyurular</span></div></div><div class="stat"><b>97</b><br>Yanıt</div><div class="last"><div class="last-flex"><div class="avatar" style="width:26px;height:26px">G</div><div><div style="font-size:12px;font-weight:600">Gh0stByFieBeR</div><div style="font-size:11px;color:var(--muted2)">14 dk önce</div></div></div></div></div>
+        <div class="thread"><div class="avatar" style="width:38px;height:38px">H</div><div><h4><a href="#">Python ile Asenkron Scraper — 10K istek/s nasıl?</a> <span class="tag tag-blue">YARDIM</span></h4><div class="info"><span><i class="fa-solid fa-user"></i> harun</span><span><i class="fa-regular fa-clock"></i> 3 saat önce</span><span><i class="fa-solid fa-folder"></i> Yardımlaşma</span></div></div><div class="stat"><b>7</b><br>Yanıt</div><div class="last"><div class="last-flex"><div class="avatar" style="width:26px;height:26px;background:#2f7bff">S</div><div><div style="font-size:12px;font-weight:600">sinkidx</div><div style="font-size:11px;color:var(--muted2)">1 saat önce</div></div></div></div></div>
+      </div>
+      <div style="padding:12px 16px;text-align:center;border-top:1px solid var(--border)"><a href="#" style="color:var(--blue);font-weight:700;font-size:13px">Tüm konuları gör →</a></div>
+    </div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="box welcome">
+      <h3>DarkCloud'a Hoş Geldin</h3>
+      <p>UnderGround Yazılım topluluğuna katıl, bilgi paylaş, itibar kazan.</p>
+      <a class="btn btn-blue" href="#"><i class="fa-solid fa-user-plus"></i> Hemen Kayıt Ol — Ücretsiz</a>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted)">Zaten üye misin? <a href="#" style="color:var(--blue);font-weight:700">Giriş yap</a></div>
+    </div>
+
+    <div class="box">
+      <div class="box-head"><span><i class="fa-solid fa-chart-column" style="color:var(--blue)"></i> İstatistikler</span><span style="color:var(--muted2);font-size:11px">Canlı</span></div>
+      <div class="box-body">
+        <div class="stats-grid">
+          <div class="stat-box"><b style="color:var(--blue)">12.4K</b><span>ÜYE</span></div>
+          <div class="stat-box"><b style="color:var(--green)">3.2K</b><span>KONU</span></div>
+          <div class="stat-box"><b style="color:var(--red)">24.8K</b><span>MESAJ</span></div>
+          <div class="stat-box"><b style="color:var(--orange)">50+</b><span>ÇEVRİMİÇİ</span></div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--muted);text-align:center">En yeni üye: <b style="color:var(--text)">underg31</b> • Hoş geldin!</div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-head"><span><i class="fa-solid fa-circle" style="color:var(--green);font-size:8px"></i> Çevrimiçi Üyeler</span><a href="#" style="font-size:11px;color:var(--blue)">Tümünü gör</a></div>
+      <div class="box-body"><ul class="online">
+        <li><span class="dot green"></span><b>wirmafia</b> <span style="margin-left:auto;font-size:11px;color:var(--muted)">Kurucu</span></li>
+        <li><span class="dot green"></span><b>Gh0stByFieBeR</b> <span style="margin-left:auto;font-size:11px;color:var(--red)">Admin</span></li>
+        <li><span class="dot blue"></span><b>sinkidx</b> <span style="margin-left:auto;font-size:11px;color:var(--muted)">Mod</span></li>
+        <li><span class="dot green"></span><b>AlbertNemesis</b></li>
+        <li><span class="dot gray"></span><b>killaolyeniden</b> <span style="margin-left:auto;font-size:11px;color:var(--muted2)">5 dk önce</span></li>
+        <li><span class="dot green"></span><b>harun</b></li>
+      </ul></div>
+    </div>
+
+    <div class="box telegram-card">
+      <div class="box-head"><span><i class="fa-brands fa-telegram"></i> Telegram</span></div>
+      <div class="box-body">
+        <a href="https://t.me/darkcloudorg" target="_blank"><i class="fa-solid fa-bullhorn"></i> Duyuru Kanalı — Katıl <span style="margin-left:auto">→</span></a>
+        <a href="https://t.me/darkcloudbilgi" target="_blank"><i class="fa-solid fa-circle-info"></i> Bilgi Kanalı — Katıl <span style="margin-left:auto">→</span></a>
+        <a href="https://t.me/darkcloudorg" target="_blank"><i class="fa-solid fa-comments"></i> Sohbet Grubu — Katıl <span style="margin-left:auto">→</span></a>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-head"><span><i class="fa-solid fa-scale-balanced" style="color:var(--orange)"></i> Kurallar</span></div>
+      <div class="box-body" style="font-size:12.5px;color:var(--muted);line-height:1.7">
+        1. Saygı esastır.<br>2. Spam / reklam yasak.<br>3. Dolandırıcılık yasak.<br>4. Provokasyon yasak.<br>5. Yönetim kararları kesindir.<br>
+        <a href="#" style="color:var(--blue);font-weight:700;display:block;margin-top:8px">Tüm kuralları oku →</a>
+      </div>
+    </div>
+  </aside>
+</div>
 
 <footer>
-  DarkCloud • UnderGround Yazılım — "Bilgi paylaştıkça çoğalır, sorumluluk kullanana aittir."<br/>
-  İletişim: <a href="https://t.me/darkcloudorg" target="_blank" rel="noopener">@darkcloudorg</a>
+  <div><b style="color:var(--text)">DarkCloud</b> • UnderGround Yazılım — "Bilgi paylaştıkça çoğalır, sorumluluk kullanana aittir."<br><span>© 2026 DarkCloud. Tüm hakları saklıdır.</span></div>
+  <div style="display:flex;gap:14px"><a href="#">Gizlilik</a><a href="#">İletişim</a><a href="https://t.me/darkcloudorg" target="_blank">Telegram</a></div>
 </footer>
 
+<div class="drawer" id="drawer"><div class="drawer-bg" onclick="toggleDrawer()"></div><div class="drawer-panel">
+  <div style="display:flex;align-items:center;gap:10px;font-family:Orbitron;font-weight:800"><div class="logo-icon"><i class="fa-solid fa-cloud-bolt"></i></div> DARKCLOUD <span style="margin-left:auto;cursor:pointer" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></span></div>
+  <input placeholder="Ara..." style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:10px;outline:none" />
+  <a href="#"><i class="fa-solid fa-house"></i> Forum</a><a href="#"><i class="fa-solid fa-shield-halved"></i> Güvenlik</a><a href="#"><i class="fa-solid fa-robot"></i> Bot Sistemleri</a><a href="#"><i class="fa-solid fa-users"></i> Topluluk</a><a href="#"><i class="fa-solid fa-scale-balanced"></i> Kurallar</a>
+  <div style="margin-top:auto;display:flex;gap:8px"><a class="btn btn-ghost" style="flex:1;justify-content:center" href="#">Giriş</a><a class="btn btn-blue" style="flex:1;justify-content:center" href="#">Kayıt</a></div>
+</div></div>
+
 <script>
-  // Scroll reveal
-  const cards = document.querySelectorAll('.card');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('in'), i * 60);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  cards.forEach(c => io.observe(c));
+function toggleCat(el){
+  const list = el.nextElementSibling;
+  const icon = el.querySelector('.toggle i');
+  if(list.style.display==='none'){ list.style.display='flex'; icon.className='fa-solid fa-chevron-up'; }
+  else { list.style.display='none'; icon.className='fa-solid fa-chevron-down'; }
+}
+function toggleDrawer(){ document.getElementById('drawer').classList.toggle('open'); }
+document.getElementById('searchInput')?.addEventListener('input', e=>{
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.forum-row, .thread').forEach(row=>{
+    const txt = row.innerText.toLowerCase();
+    row.style.display = txt.includes(q) ? '' : 'none';
+  });
+});
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
 </script>
 </body>
 </html>
