@@ -178,17 +178,19 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
         <div class="field"><label>Kullanıcı adı <em>*</em></label><input id="ru" placeholder="3-16 karakter, a-z 0-9 _"><div class="hint">Sadece harf, rakam ve _</div></div>
         <div class="field"><label>E-posta <em>*</em></label><input id="re" placeholder="mail@ornek.com" autocomplete="email"></div>
         <div class="field"><label>Telefon <em>*</em></label><input id="rp" placeholder="+90 5xx xxx xx xx"></div>
+        <div class="field"><label>Telegram <em>*</em> — zorunlu</label><input id="rtg" placeholder="@kullaniciadiniz"><div class="hint">Üyeliğin onayı için <a href="https://t.me/NemesisPlatformOnline" target="_blank">t.me/NemesisPlatformOnline</a> üzerinden iletişime geçilecek</div></div>
         <div class="field"><label>Şifre <em>*</em></label><input id="rpass" type="password" placeholder="min 8, büyük/küçük + rakam"><div class="hint" id="passHint"></div></div>
         <div class="field"><label>Şifre tekrar <em>*</em></label><input id="rpass2" type="password" placeholder="tekrar"></div>
-        <label class="check"><input type="checkbox" id="cTeminat"> <span> <b>Teminat şartını</b> okudum, üyeliğin teminat karşılığı ve doğrulama ile açılacağını kabul ediyorum. <em>*</em></span></label>
+        <label class="check"><input type="checkbox" id="cTeminat"> <span> <b>Teminat şartını</b> okudum, üyeliğin teminat karşılığı ve doğrulanacağını kabul ediyorum. <em>*</em></span></label>
         <label class="check"><input type="checkbox" id="cTerms"> <span> <a href="#">Üyelik sözleşmesi</a> ve <a href="#">aydınlatma metnini</a> okudum, kişisel verilerimin doğrulama amacıyla işlenmesini onaylıyorum. <em>*</em></span></label>
         <label class="check"><input type="checkbox" id="cRules"> <span> Forum kurallarını kabul ediyorum. <em>*</em></span></label>
-        <button class="btn btn-primary" onclick="doRegister()"><i class="fa-solid fa-shield-halved"></i> Doğrula ve Kayıt Ol</button>
+        <button class="btn btn-primary" id="regBtn" onclick="doRegister()"><i class="fa-solid fa-paper-plane"></i> Başvuruyu Telegram'a Gönder</button>
         <div id="verifyBox" class="verify-box">
-          <b><i class="fa-solid fa-envelope"></i> E-posta doğrulaması</b>
-          <p><span id="verifyMail"></span> adresine 6 haneli kod gönderildi (demo: <b>123456</b>).</p>
-          <div class="code-inputs"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"></div>
-          <button class="btn btn-primary" onclick="verifyCode()">Doğrula ve Hesabı Aç</button>
+          <b><i class="fa-solid fa-paper-plane"></i> Başvuru iletildi</b>
+          <p id="verifyText"><span id="verifyMail"></span> — bilgileriniz <a href="https://t.me/NemesisPlatformOnline" target="_blank">t.me/NemesisPlatformOnline</a> grubuna düştü. Telegram adresiniz <b id="verifyTg"></b> üzerinden iletişime geçilecek. Teminatı yatırdıktan sonra yönetici bot üzerinden <b>/onayla</b> ile hesabınızı aktif edecek.</p>
+          <div style="margin-top:8px;padding:8px;background:#0e1217;border:1px solid var(--border);font-size:11px;color:var(--muted)">Bot komutu: <code>/onayla kullaniciadi</code> veya gruptaki <b>✅ Onayla</b> butonu</div>
+          <div class="code-inputs" style="margin-top:10px"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"><input maxlength="1" class="code"></div>
+          <button class="btn btn-primary" onclick="verifyCode()">Doğrulama Kodunu Gir (demo 123456)</button>
           <div style="text-align:center;margin-top:6px"><a class="link" onclick="resendCode()">Kodu tekrar gönder</a> • <span id="codeTimer" style="font-size:11px;color:var(--muted2)"></span></div>
         </div>
       </div>
@@ -310,6 +312,7 @@ async function doRegister(){
   const u=document.getElementById('ru').value.trim().toLowerCase();
   const e=document.getElementById('re').value.trim().toLowerCase();
   const ph=document.getElementById('rp').value.trim();
+  const tg=document.getElementById('rtg').value.trim();
   const p=document.getElementById('rpass').value;
   const p2=document.getElementById('rpass2').value;
   const err=document.getElementById('regErr'), ok=document.getElementById('regOk');
@@ -317,27 +320,37 @@ async function doRegister(){
   if(!validUser(u)){ err.style.display='block'; err.textContent='Kullanıcı adı 3-16 karakter, sadece a-z 0-9 _.'; return; }
   if(!validEmail(e)){ err.style.display='block'; err.textContent='Geçerli e-posta girin.'; return; }
   if(!validPhone(ph)){ err.style.display='block'; err.textContent='Geçerli telefon girin (+90 5xx...).'; return; }
+  if(!/^@?[a-zA-Z0-9_]{5,32}$/.test(tg)){ err.style.display='block'; err.textContent='Telegram @kullanıcı adı zorunlu (5-32 karakter).'; return; }
+  const tgNorm=tg.startsWith('@')?tg:'@'+tg;
   if(passwordScore(p)<3){ err.style.display='block'; err.textContent='Şifre zayıf: en az 8 karakter, büyük/küçük harf ve rakam içermeli.'; return; }
   if(p!==p2){ err.style.display='block'; err.textContent='Şifreler eşleşmiyor.'; return; }
   if(!document.getElementById('cTeminat').checked || !document.getElementById('cTerms').checked || !document.getElementById('cRules').checked){ err.style.display='block'; err.textContent='Tüm onay kutularını işaretlemelisiniz.'; return; }
-  let users=loadUsers();
-  if(users.find(x=>x.u===u)){ err.style.display='block'; err.textContent='Kullanıcı adı kullanımda.'; return; }
-  if(users.find(x=>x.e===e)){ err.style.display='block'; err.textContent='E-posta zaten kayıtlı.'; return; }
-  const h=await hash(p);
-  const code='123456'; // demo kod, gerçekte e-posta ile gönderilir
-  const user={u,e,phone:ph,h, verified:false, code, teminat:true, at:Date.now()};
-  users.push(user); saveUsers(users);
-  pendingUser=user;
-  document.getElementById('verifyMail').textContent=e;
-  document.getElementById('verifyBox').style.display='block';
-  ok.style.display='block'; ok.textContent='Doğrulama kodu gönderildi. E-postanızı kontrol edin.';
-  startTimer();
-  // input auto-focus logic
-  document.querySelectorAll('.code').forEach((inp,i)=>{
-    inp.value='';
-    inp.oninput=()=>{ if(inp.value && i<5) document.querySelectorAll('.code')[i+1].focus(); };
-    inp.onkeydown=e=>{ if(e.key==='Backspace' && !inp.value && i>0) document.querySelectorAll('.code')[i-1].focus(); };
-  });
+  const btn=document.getElementById('regBtn'); btn.disabled=true; btn.textContent='Gönderiliyor...';
+  try{
+    const res=await fetch('/api/register', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({u,e,phone:ph,telegram:tgNorm,password:p})});
+    const data=await res.json();
+    if(!res.ok){ err.style.display='block'; err.textContent=data.error||'Kayıt başarısız'; btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Başvuruyu Telegram\'a Gönder'; return; }
+    // local pending for demo verify (gerçekte bot onaylayacak)
+    const h=await hash(p);
+    const user={u,e,phone:ph,telegram:tgNorm,h, verified:false, code:'123456', teminat:true, at:Date.now()};
+    let users=loadUsers();
+    users.push(user); saveUsers(users);
+    pendingUser=user;
+    document.getElementById('verifyMail').textContent=e;
+    document.getElementById('verifyTg').textContent=tgNorm;
+    document.getElementById('verifyBox').style.display='block';
+    ok.style.display='block';
+    ok.textContent=data.message || 'Başvuru Telegram grubuna iletildi. Yönetici teminatı teyit edip bot üzerinden onaylayacak.';
+    if(data.warning) { err.style.display='block'; err.textContent='Uyarı: '+data.warning+' — Botu gruba admin ekleyin.'; }
+    startTimer();
+    document.querySelectorAll('.code').forEach((inp,i)=>{
+      inp.value='';
+      inp.oninput=()=>{ if(inp.value && i<5) document.querySelectorAll('.code')[i+1].focus(); };
+      inp.onkeydown=e=>{ if(e.key==='Backspace' && !inp.value && i>0) document.querySelectorAll('.code')[i-1].focus(); };
+    });
+  }catch(ex){
+    err.style.display='block'; err.textContent='Bağlantı hatası: '+ex.message;
+  } finally { btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Başvuruyu Telegram\'a Gönder'; }
 }
 function startTimer(){
   let s=60; clearInterval(timerInt);
