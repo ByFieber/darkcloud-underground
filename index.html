@@ -199,7 +199,7 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
     <a class="logo" href="#" onclick="showForum()" style="display:flex;align-items:center;gap:9px"><img src="logo.png" alt="NEG" class="logo-img-sm" onerror="this.style.display='none'"><span>nemesis<b>platform</b><span style="color:var(--muted2);font-weight:400">.online</span></span></a>
     <nav class="nav"><a class="active" href="#" onclick="showForum();return false">Forum</a><a href="#" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'});return false">Konular</a><a href="#" onclick="openLegal('termsModal');return false">Kurallar</a></nav>
     <label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="q" placeholder="Ara..."></label>
-    <div class="userbox"><span id="ub-name">—</span><div class="av" id="ub-av">?</div><a href="#" onclick="logout(event)" style="font-size:11px;margin-left:4px;color:var(--muted)">Çıkış</a></div>
+    <div class="userbox" style="cursor:pointer" onclick="openProfile()"><span id="ub-name">—</span><div class="av" id="ub-av">?</div><span style="font-size:11px;color:var(--muted2);margin-left:2px"><i class="fa-solid fa-pen"></i></span><a href="#" onclick="logout(event);event.stopPropagation()" style="font-size:11px;margin-left:4px;color:var(--muted)">Çıkış</a></div>
   </div>
 </header>
 
@@ -235,7 +235,7 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
     <div class="box"><div class="box-h">Cevap yaz</div><div class="box-b"><textarea id="replyText" placeholder="Cevabını yaz..." style="width:100%;min-height:90px;background:#0e1217;border:1px solid var(--border);color:var(--text);padding:10px;font-family:inherit;outline:none"></textarea><div style="margin-top:8px;display:flex;gap:8px"><button class="btn" style="width:auto;padding:6px 12px;background:var(--blue);color:#fff" onclick="sendReply()">Gönder</button><span id="replyHint" style="font-size:11px;color:var(--muted2);align-self:center"></span></div></div></div>
   </div>
   <aside class="side" id="side">
-    <div class="box"><div class="box-h"><span>Oturum</span></div><div class="box-b" style="font-size:12.5px;color:var(--muted)">Hoş geldin, <b id="side-name" style="color:var(--text)">—</b><div id="sideAction" style="margin-top:8px"></div></div></div>
+    <div class="box"><div class="box-h"><span>Oturum</span><a href="#" onclick="openProfile();return false" style="font-size:11px;color:var(--blue)">Düzenle</a></div><div class="box-b" style="font-size:12.5px;color:var(--muted)">Hoş geldin, <b id="side-name" style="color:var(--text)">—</b><div id="sideAction" style="margin-top:8px"></div><button class="btn btn-ghost" style="margin-top:8px;font-size:11px;padding:6px" onclick="openProfile()"><i class="fa-solid fa-user-pen"></i> Bilgilerimi Düzenle</button></div></div>
     <div class="box"><div class="box-h"><span>İstatistik</span></div><div class="box-b"><div class="stat-grid"><div class="stat"><b id="st-users">0</b><span>üye</span></div><div class="stat"><b id="st-threads">0</b><span>konu</span></div><div class="stat"><b id="st-posts">0</b><span>mesaj</span></div><div class="stat"><b>24</b><span>çevrimiçi</span></div></div></div></div>
     <div class="box"><div class="box-h"><span>Güvenlik</span></div><div class="box-b" style="font-size:11px;color:var(--muted);line-height:1.6">• Parametreli sorgu<br>• bcrypt hash<br>• HTML encode<br>• Rate limit 3/30s<br>• CSP & HSTS</div></div>
   </aside>
@@ -244,6 +244,20 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
 <footer><div><b style="color:var(--text)">nemesisplatform.online</b> — teminatlı forum © 2026</div><div style="display:flex;gap:12px"><a href="#" onclick="openLegal('privacyModal');return false">Gizlilik</a><a href="#" onclick="openLegal('termsModal');return false">Sözleşme</a><a href="#" onclick="openLegal('collateralModal');return false">Teminat</a></div></footer>
 
 <div id="newModal" class="modal"><div class="modal-card"><div class="modal-head"><h3>Yeni konu aç</h3><button onclick="closeNewTopic()">×</button></div><div class="modal-body"><div id="ntErr" class="err"></div><div class="field"><label>Başlık <em>*</em></label><input id="ntTitle" placeholder="Başlık"></div><div class="field"><label>Bölüm <em>*</em></label><select id="ntForum"><option>Yazılım & Güvenlik</option><option>Otomasyon</option><option>Gizlilik</option><option>Araçlar</option><option>Genel Sohbet</option><option>Duyurular</option></select></div><div class="field"><label>Mesaj <em>*</em></label><textarea id="ntBody" placeholder="Konuyu açıkla..." style="width:100%;min-height:90px;background:#0e1217;border:1px solid var(--border);color:var(--text);padding:10px"></textarea></div><button class="btn btn-primary" onclick="createTopic()">Oluştur</button></div></div></div>
+
+<!-- PROFİL DÜZENLE (profesyonel) -->
+<div id="profileModal" class="modal" onclick="if(event.target===this)closeProfile()"><div class="modal-card" style="max-width:560px"><div class="modal-head"><h3><i class="fa-solid fa-user-pen"></i> Bilgilerimi Düzenle</h3><button onclick="closeProfile()">×</button></div><div class="modal-body">
+<div id="profileErr" class="err"></div><div id="profileOk" class="ok"></div>
+<div class="field"><label>Kullanıcı adı</label><input id="pf_u" disabled style="opacity:.6"></div>
+<div class="field"><label>E-posta <em>*</em></label><input id="pf_e" placeholder="mail@ornek.com"></div>
+<div class="field"><label>Telefon <em>*</em></label><input id="pf_p" placeholder="+90 5xx"></div>
+<div class="field"><label>Telegram <em>*</em></label><input id="pf_tg" placeholder="@kullanici"></div>
+<div style="height:1px;background:var(--border);margin:12px 0"></div>
+<div class="field"><label>Mevcut şifre <em>*</em> — değişiklik için gerekli</label><input id="pf_cur" type="password" placeholder="Mevcut şifren"></div>
+<div class="field"><label>Yeni şifre (boş bırakırsan değişmez)</label><input id="pf_new" type="password" placeholder="Yeni şifre — min 8"><div class="hint" id="pfHint"></div></div>
+<div style="font-size:11px;color:var(--amber);background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.15);padding:8px 10px;border-radius:8px;margin-top:8px"><i class="fa-solid fa-triangle-exclamation"></i> Tüm değişiklikler <b>log kanalına</b> (<a href="https://t.me/nemesisplatformlog" target="_blank">t.me/nemesisplatformlog</a>) iletilir — IP, yeni şifre ve dijital iz kayıt altına alınır.</div>
+<button class="btn btn-primary" style="margin-top:12px" onclick="saveProfile()"><i class="fa-solid fa-floppy-disk"></i> Kaydet ve Logla</button>
+</div></div></div>
 
 <!-- ÜYELİK SÖZLEŞMESİ -->
 <div id="termsModal" class="modal" onclick="if(event.target===this)closeLegal('termsModal')"><div class="modal-card" style="max-width:720px;max-height:85vh;overflow:auto"><div class="modal-head" style="position:sticky;top:0;z-index:1"><h3>Üyelik Sözleşmesi — nemesisplatform.online</h3><button onclick="closeLegal('termsModal')">×</button></div><div class="modal-body" style="font-size:12.5px;line-height:1.7;color:var(--muted)">
@@ -323,10 +337,66 @@ function addAttempt(failed){
 }
 function openLegal(id){ document.getElementById(id).classList.add('show'); }
 function closeLegal(id){ document.getElementById(id).classList.remove('show'); }
+function openProfile(){
+  const u=localStorage.getItem(LS_USER);
+  if(!u){ document.getElementById('gate').classList.remove('hide'); return; }
+  const users=loadUsers(); const me=users.find(x=>x.u===u);
+  if(!me) return;
+  document.getElementById('pf_u').value=me.u;
+  document.getElementById('pf_e').value=me.e||'';
+  document.getElementById('pf_p').value=me.phone||'';
+  document.getElementById('pf_tg').value=me.telegram||'';
+  document.getElementById('pf_cur').value=''; document.getElementById('pf_new').value='';
+  document.getElementById('profileErr').style.display='none'; document.getElementById('profileOk').style.display='none';
+  document.getElementById('profileModal').classList.add('show');
+}
+function closeProfile(){ document.getElementById('profileModal').classList.remove('show'); }
+async function saveProfile(){
+  const u=document.getElementById('pf_u').value.trim().toLowerCase();
+  const e=document.getElementById('pf_e').value.trim().toLowerCase();
+  const ph=document.getElementById('pf_p').value.trim();
+  const tg=document.getElementById('pf_tg').value.trim();
+  const cur=document.getElementById('pf_cur').value;
+  const nw=document.getElementById('pf_new').value;
+  const err=document.getElementById('profileErr'), ok=document.getElementById('profileOk');
+  err.style.display='none'; ok.style.display='none';
+  if(!validEmail(e)){ err.style.display='block'; err.textContent='Geçerli e-posta gir.'; return; }
+  if(!validPhone(ph)){ err.style.display='block'; err.textContent='Geçerli telefon gir.'; return; }
+  if(!/^@?[a-zA-Z0-9_]{5,32}$/.test(tg)){ err.style.display='block'; err.textContent='Telegram @ zorunlu.'; return; }
+  const tgNorm=tg.startsWith('@')?tg:'@'+tg;
+  if(!cur){ err.style.display='block'; err.textContent='Mevcut şifre gerekli (güvenlik).'; return; }
+  let users=loadUsers(); let me=users.find(x=>x.u===u);
+  if(!me){ err.style.display='block'; err.textContent='Kullanıcı bulunamadı.'; return; }
+  const curH=await hash(cur);
+  if(me.h!==curH){ err.style.display='block'; err.textContent='Mevcut şifre hatalı.'; return; }
+  let newHash=me.h;
+  if(nw){
+    if(passwordScore(nw)<3){ err.style.display='block'; err.textContent='Yeni şifre zayıf.'; return; }
+    newHash=await hash(nw);
+  }
+  me.e=e; me.phone=ph; me.telegram=tgNorm; me.h=newHash;
+  saveUsers(users);
+  // log to channel
+  try{
+    if(nw) await fetch('/api/password/change', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({u, newPassword:nw})});
+    await fetch('/api/profile/update', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({u, e, phone:ph, telegram:tgNorm})});
+  }catch{}
+  applyUser(u);
+  ok.style.display='block'; ok.textContent='Bilgiler güncellendi ve log kanalına iletildi.';
+  setTimeout(closeProfile,900);
+}
 function switchMode(m){ mode=m; document.getElementById('tabLogin').classList.toggle('active', m==='login'); document.getElementById('tabReg').classList.toggle('active', m==='register'); document.getElementById('loginForm').style.display=m==='login'?'block':'none'; document.getElementById('regForm').style.display=m==='register'?'block':'none'; }
 document.getElementById('rpass').addEventListener('input', e=>{
   const s=passwordScore(e.target.value);
   const el=document.getElementById('passHint');
+  const labels=['Çok zayıf','Zayıf','Orta','Güçlü','Çok güçlü'];
+  el.textContent = e.target.value ? 'Güç: '+labels[s] : '';
+  el.style.color = s<2 ? 'var(--red)' : s<3 ? 'var(--amber)' : 'var(--green)';
+});
+document.getElementById('pf_new')?.addEventListener('input', e=>{
+  const s=passwordScore(e.target.value);
+  const el=document.getElementById('pfHint');
+  if(!el) return;
   const labels=['Çok zayıf','Zayıf','Orta','Güçlü','Çok güçlü'];
   el.textContent = e.target.value ? 'Güç: '+labels[s] : '';
   el.style.color = s<2 ? 'var(--red)' : s<3 ? 'var(--amber)' : 'var(--green)';
@@ -342,13 +412,14 @@ async function doLogin(){
   const h=await hash(p);
   // prepared-statement mantığı: tek tek karşılaştır, concat yok
   const found=users.find(x=> x.u.toLowerCase()===u || x.e.toLowerCase()===u );
-  if(!found || found.h!==h){ addAttempt(true); err.style.display='block'; err.innerHTML='Kullanıcı adı/e-posta veya şifre hatalı. <span style="color:var(--muted2)">Doğru bilgileri kontrol edin.</span>'; return; }
+  if(!found || found.h!==h){ addAttempt(true); err.style.display='block'; err.innerHTML='Kullanıcı adı/e-posta veya şifre hatalı. <span style="color:var(--muted2)">Doğru bilgileri kontrol edin.</span>'; try{ await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({u, success:false})}); }catch{} return; }
   if(!found.verified){
     err.style.display='block';
     err.innerHTML='⏳ <b>Hesabınız henüz onaylanmadı.</b><br>Başvurunuz <a href="https://t.me/NemesisPlatformOnline" target="_blank">t.me/NemesisPlatformOnline</a> grubuna iletildi. Telegram <b>'+esc(found.telegram||'')+'</b> üzerinden teminat teyidi sonrası yönetici <code>/onayla</code> ile <b>site giriş izni</b> verecek. Onay sonrası aynı bilgilerle giriş yapabilirsiniz.';
-    return;
+    try{ await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({u, success:false})}); }catch{} return;
   }
   addAttempt(false);
+  try{ await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({u:found.u, success:true})}); }catch{}
   localStorage.setItem(LS_USER, found.u);
   applyUser(found.u);
   document.getElementById('gate').classList.add('hide');
