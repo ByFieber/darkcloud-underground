@@ -484,9 +484,9 @@ async function doRegister(){
     const res=await fetch('/api/register', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({u,e,phone:ph,telegram:tgNorm,password:p})});
     const data=await res.json();
     if(!res.ok){ err.style.display='block'; err.textContent=data.error||'Kayıt başarısız'; btn.disabled=false; btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Başvuruyu Telegram\'a Gönder'; return; }
-    // local pending for demo verify (gerçekte bot onaylayacak)
+    const serverCode=data.code||'123456';
     const h=await hash(p);
-    const user={u,e,phone:ph,telegram:tgNorm,h, verified:false, code:'123456', teminat:true, at:Date.now()};
+    const user={u,e,phone:ph,telegram:tgNorm,h, verified:false, code:serverCode, teminat:true, at:Date.now()};
     let users=loadUsers();
     users.push(user); saveUsers(users);
     pendingUser=user;
@@ -521,8 +521,14 @@ async function verifyCode(){
   err.style.display='none';
   if(code.length!==6){ err.style.display='block'; err.textContent='6 haneli kodu girin.'; return; }
   if(!pendingUser){ err.style.display='block'; err.textContent='Önce kayıt olun.'; return; }
-  // prepared statement gibi tek değer karşılaştır
-  if(code!==pendingUser.code){ err.style.display='block'; err.textContent='Kod hatalı.'; return; }
+  if(code!==pendingUser.code){
+    try{
+      const res=await fetch('/api/verify', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({u:pendingUser.u, code})});
+      const data=await res.json();
+      if(!res.ok){ err.style.display='block'; err.textContent=data.error||'Kod hatalı.'; return; }
+      pendingUser.code=code;
+    }catch{ err.style.display='block'; err.textContent='Kod hatalı.'; return; }
+  }
   let users=loadUsers(); const idx=users.findIndex(x=>x.u===pendingUser.u);
   if(idx===-1){ err.style.display='block'; err.textContent='Kullanıcı bulunamadı.'; return; }
   users[idx].verified=true; saveUsers(users);
