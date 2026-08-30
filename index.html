@@ -270,7 +270,7 @@ footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px soli
   </div>
   <aside class="side" id="side">
     <div class="box"><div class="box-h"><span>Oturum</span><a href="#" onclick="openProfile();return false" style="font-size:11px;color:var(--blue)">Düzenle</a></div><div class="box-b" style="font-size:12.5px;color:var(--muted)">Hoş geldin, <b id="side-name" style="color:var(--text)">—</b><div id="sideAction" style="margin-top:8px"></div><button class="btn btn-ghost" style="margin-top:8px;font-size:11px;padding:6px" onclick="openProfile()"><i class="fa-solid fa-user-pen"></i> Bilgilerimi Düzenle</button></div></div>
-    <div class="box"><div class="box-h"><span>İstatistik</span></div><div class="box-b"><div class="stat-grid"><div class="stat"><b id="st-users">0</b><span>üye</span></div><div class="stat"><b id="st-threads">0</b><span>konu</span></div><div class="stat"><b id="st-posts">0</b><span>mesaj</span></div><div class="stat"><b>24</b><span>çevrimiçi</span></div></div></div></div>
+    <div class="box"><div class="box-h"><span>İstatistik</span><span style="font-size:10px;color:var(--green)">● Canlı</span></div><div class="box-b"><div class="stat-grid"><div class="stat"><b id="st-users">0</b><span>üye</span></div><div class="stat"><b id="st-threads">0</b><span>konu</span></div><div class="stat"><b id="st-posts">0</b><span>mesaj</span></div><div class="stat"><b id="st-online">1</b><span>çevrimiçi</span></div></div></div></div>
     <div class="box"><div class="box-h"><span>Güvenlik</span></div><div class="box-b" style="font-size:11px;color:var(--muted);line-height:1.6">• Parametreli sorgu<br>• bcrypt hash<br>• HTML encode<br>• Rate limit 3/30s<br>• CSP & HSTS</div></div>
   </aside>
 </div>
@@ -376,13 +376,11 @@ function switchView(viewId){
   const t=document.getElementById(viewId);
   if(t){ t.style.display='block'; requestAnimationFrame(()=>t.classList.add('active')); }
 }
-function switchMode(m){ // eski uyumluluk
-  if(m==='login') switchView('loginView');
-  else switchView('registerView');
-}
+function switchMode(m){ if(m==='login') switchView('loginView'); else switchView('registerView'); }
+function syncBodyScroll(){ document.body.classList.toggle('gate-open', !document.getElementById('gate').classList.contains('hide')); }
 function openProfile(){
   const u=localStorage.getItem(LS_USER);
-  if(!u){ document.getElementById('gate').classList.remove('hide'); return; }
+  if(!u){ document.getElementById('gate').classList.remove('hide'); syncBodyScroll(); return; }
   const users=loadUsers(); const me=users.find(x=>x.u===u);
   if(!me) return;
   document.getElementById('pf_u').value=me.u;
@@ -428,8 +426,7 @@ async function saveProfile(){
   ok.style.display='block'; ok.textContent='Bilgiler güncellendi ve log kanalına iletildi.';
   setTimeout(closeProfile,900);
 }
-function switchMode(m){ mode=m; document.getElementById('tabLogin').classList.toggle('active', m==='login'); document.getElementById('tabReg').classList.toggle('active', m==='register'); document.getElementById('loginForm').style.display=m==='login'?'block':'none'; document.getElementById('regForm').style.display=m==='register'?'block':'none'; }
-document.getElementById('rpass').addEventListener('input', e=>{
+document.getElementById('rpass')?.addEventListener('input', e=>{
   const s=passwordScore(e.target.value);
   const el=document.getElementById('passHint');
   const labels=['Çok zayıf','Zayıf','Orta','Güçlü','Çok güçlü'];
@@ -465,7 +462,7 @@ async function doLogin(){
   try{ await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({u:found.u, success:true})}); }catch{}
   localStorage.setItem(LS_USER, found.u);
   applyUser(found.u);
-  document.getElementById('gate').classList.add('hide');
+  document.getElementById('gate').classList.add('hide'); syncBodyScroll();
 }
 async function doRegister(){
   const u=document.getElementById('ru').value.trim().toLowerCase();
@@ -539,9 +536,9 @@ async function verifyCode(){
   users[idx].verified=true; saveUsers(users);
   clearInterval(timerInt);
   ok.style.display='block'; ok.textContent='Doğrulandı! Giriş yapılıyor...';
-  setTimeout(()=>{ localStorage.setItem(LS_USER, pendingUser.u); applyUser(pendingUser.u); document.getElementById('gate').classList.add('hide'); },800);
+  setTimeout(()=>{ localStorage.setItem(LS_USER, pendingUser.u); applyUser(pendingUser.u); document.getElementById('gate').classList.add('hide'); syncBodyScroll(); },800);
 }
-function logout(e){ e.preventDefault(); localStorage.removeItem(LS_USER); applyUser(null); document.getElementById('gate').classList.remove('hide'); }
+function logout(e){ e.preventDefault(); localStorage.removeItem(LS_USER); applyUser(null); document.getElementById('gate').classList.remove('hide'); syncBodyScroll(); }
 function applyUser(name){
   const display=name||'—';
   document.getElementById('ub-name').textContent=display;
@@ -578,6 +575,7 @@ function render(){
   document.getElementById('st-posts').textContent=threads.reduce((a,b)=>a+1+b.posts.length,0);
   const verifiedCount=loadUsers().filter(u=>u.verified).length;
   document.getElementById('st-users').textContent=verifiedCount;
+  const onlineEl=document.getElementById('st-online'); if(onlineEl) onlineEl.textContent=Math.max(1, verifiedCount);
   const byForum=f=>threads.filter(t=>t.forum===f);
   const upd=(forum, idKon, idMsg, idLast, idBy)=>{
     const arr=byForum(forum);
@@ -603,7 +601,7 @@ function openForum(name){ currentForum=name; render(); window.scrollTo({top:0,be
 function showForum(){ currentForum=null; activeThreadId=null; document.getElementById('mainForum').style.display='block'; document.getElementById('threadView').style.display='none'; document.getElementById('side').style.display='flex'; render(); }
 function filterThreads(f,btn){ currentFilter=f; document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); render(); }
 function openThread(id){
-  const user=localStorage.getItem(LS_USER); if(!user){ document.getElementById('gate').classList.remove('hide'); return; }
+  const user=localStorage.getItem(LS_USER); if(!user){ document.getElementById('gate').classList.remove('hide'); syncBodyScroll(); return; }
   const t=threads.find(x=>x.id===id); if(!t) return;
   t.views=(t.views||0)+1; saveThreads(threads);
   activeThreadId=id;
@@ -622,7 +620,7 @@ function openThread(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function sendReply(){
-  const name=localStorage.getItem(LS_USER); if(!name){ document.getElementById('gate').classList.remove('hide'); return; }
+  const name=localStorage.getItem(LS_USER); if(!name){ document.getElementById('gate').classList.remove('hide'); syncBodyScroll(); return; }
   const txt=document.getElementById('replyText').value.trim();
   if(txt.length<3){ document.getElementById('replyHint').textContent='En az 3 karakter.'; return; }
   // XSS: esc ile encode, SQL yok zaten client-side, sunucuda prepared statement
@@ -631,7 +629,7 @@ function sendReply(){
   document.getElementById('replyText').value=''; document.getElementById('replyHint').textContent='Gönderildi ✓'; setTimeout(()=>document.getElementById('replyHint').textContent='',1500);
   openThread(activeThreadId); render();
 }
-function openNewTopic(){ const u=localStorage.getItem(LS_USER); if(!u){ document.getElementById('gate').classList.remove('hide'); return; } document.getElementById('newModal').classList.add('show'); }
+function openNewTopic(){ const u=localStorage.getItem(LS_USER); if(!u){ document.getElementById('gate').classList.remove('hide'); syncBodyScroll(); return; } document.getElementById('newModal').classList.add('show'); }
 function closeNewTopic(){ document.getElementById('newModal').classList.remove('show'); document.getElementById('ntErr').style.display='none'; }
 function createTopic(){
   const title=document.getElementById('ntTitle').value.trim();
@@ -652,6 +650,7 @@ if(saved){
   const users=loadUsers(); const found=users.find(x=>x.u===saved && x.verified);
   if(found){ applyUser(saved); document.getElementById('gate').classList.add('hide'); } else { localStorage.removeItem(LS_USER); applyUser(null); }
 } else applyUser(null);
+syncBodyScroll();
 document.getElementById('q').addEventListener('input', render);
 render(); setInterval(render,60000);
 </script>
