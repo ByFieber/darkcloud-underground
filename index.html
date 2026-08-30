@@ -4,264 +4,413 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nemesisplatform.online — Forum</title>
+<meta name="description" content="nemesisplatform.online — sade ve gerçek topluluk forumu. Yazılım, güvenlik, otomasyon ve yardımlaşma.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root{
-  --bg:#0e1217;
-  --panel:#161c22;
-  --panel2:#1c232c;
-  --border:#232e3a;
-  --border2:#2a3645;
-  --text:#d6dde6;
-  --muted:#8a97a8;
-  --muted2:#6b7a8c;
-  --blue:#4a7cff;
-  --blue-dim:rgba(74,124,255,.12);
-  --green:#2ecc71;
-}
+:root{--bg:#0e1217;--panel:#161c22;--panel2:#1c232c;--border:#232e3a;--border2:#2a3645;--text:#d6dde6;--muted:#8a97a8;--muted2:#6b7a8c;--blue:#4a7cff;--green:#2ecc71;--red:#ff4d4d}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:14px}
 a{color:inherit;text-decoration:none}
 a:hover{color:var(--blue)}
-/* LOGIN GATE */
-#gate{position:fixed;inset:0;z-index:100;background:#0e1217;display:flex;align-items:center;justify-content:center;padding:20px}
-#gate.hide{display:none}
-.gate-card{width:100%;max-width:880px;background:var(--panel);border:1px solid var(--border);display:grid;grid-template-columns:1fr 380px;overflow:hidden}
+/* GATE */
+.gate{position:fixed;inset:0;z-index:100;background:#0e1217;display:flex;align-items:center;justify-content:center;padding:16px}
+.gate.hide{display:none}
+.gate-card{width:100%;max-width:860px;background:var(--panel);border:1px solid var(--border);display:grid;grid-template-columns:1fr 375px}
 @media(max-width:760px){.gate-card{grid-template-columns:1fr}}
-.gate-left{padding:36px 32px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center}
-.gate-left h1{font-size:22px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
+.gate-left{padding:32px;border-right:1px solid var(--border)}
+.gate-left h1{font-size:21px;font-weight:700;margin-bottom:8px}
 .gate-left h1 span{color:var(--blue)}
 .gate-left p{color:var(--muted);font-size:13px;line-height:1.6}
-.gate-left ul{margin-top:18px;list-style:none;display:flex;flex-direction:column;gap:8px}
+.gate-left ul{margin-top:16px;list-style:none;display:flex;flex-direction:column;gap:7px}
 .gate-left li{font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:center}
 .gate-left li i{color:var(--muted2);width:16px;text-align:center}
-.gate-right{padding:28px 26px;background:var(--panel2)}
+.gate-right{padding:24px;background:var(--panel2)}
 .gate-right h2{font-size:15px;font-weight:600;margin-bottom:4px}
-.gate-right .sub{font-size:12.5px;color:var(--muted);margin-bottom:18px}
-.field{margin-bottom:12px}
-.field label{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
-.field input{width:100%;background:#0e1217;border:1px solid var(--border);color:var(--text);padding:10px 12px;font-size:13.5px;outline:none}
-.field input:focus{border-color:var(--blue)}
-.field input::placeholder{color:var(--muted2)}
-.row-between{display:flex;justify-content:space-between;align-items:center;margin:10px 0 14px}
-.check{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
-.check input{accent-color:var(--blue)}
-.link{font-size:12px;color:var(--blue)}
-.btn{width:100%;padding:10px;border:1px solid transparent;font-weight:600;font-size:13.5px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:7px}
+.sub{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.field{margin-bottom:10px}
+.field label{font-size:11.5px;font-weight:600;color:var(--muted);display:block;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;background:#0e1217;border:1px solid var(--border);color:var(--text);padding:9px 11px;font-size:13px;outline:none;font-family:inherit}
+.field textarea{resize:vertical;min-height:80px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue)}
+.err{font-size:12px;color:#ff6b6b;background:rgba(255,90,90,.08);border:1px solid rgba(255,90,90,.2);padding:8px 10px;margin-bottom:10px;display:none}
+.row-between{display:flex;justify-content:space-between;align-items:center;margin:8px 0 12px}
+.check{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.link{font-size:12px;color:var(--blue);cursor:pointer}
+.btn{width:100%;padding:9px;border:1px solid transparent;font-weight:600;font-size:13px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:6px}
 .btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{filter:brightness(1.07)}
+.btn-primary:hover{filter:brightness(1.06)}
 .btn-ghost{background:transparent;border-color:var(--border);color:var(--muted);margin-top:8px}
-.btn-ghost:hover{color:var(--text);border-color:var(--border2)}
-.divider{margin:14px 0;border:none;border-top:1px solid var(--border);position:relative}
-.divider span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--panel2);padding:0 8px;font-size:11px;color:var(--muted2)}
-.err{font-size:12px;color:#ff5a5a;margin-bottom:10px;display:none;background:rgba(255,90,90,.08);border:1px solid rgba(255,90,90,.2);padding:8px 10px}
+.btn-ghost:hover{border-color:var(--border2);color:var(--text)}
+.btn-small{width:auto;padding:6px 12px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 /* HEADER */
-.header{height:56px;background:var(--panel);border-bottom:1px solid var(--border);display:flex;align-items:center;position:sticky;top:0;z-index:20}
-.header-in{max-width:1180px;margin:0 auto;padding:0 16px;width:100%;display:flex;align-items:center;gap:18px}
-.logo{font-weight:700;font-size:15px;letter-spacing:-.3px;white-space:nowrap}
+.header{height:52px;background:var(--panel);border-bottom:1px solid var(--border);display:flex;align-items:center;position:sticky;top:0;z-index:20}
+.header-in{max-width:1160px;margin:0 auto;padding:0 14px;width:100%;display:flex;align-items:center;gap:16px}
+.logo{font-weight:700;font-size:14.5px;letter-spacing:-.3px;white-space:nowrap}
 .logo b{color:var(--blue)}
 .nav{display:flex;gap:2px}
-.nav a{padding:7px 10px;font-size:13px;color:var(--muted);border:1px solid transparent}
-.nav a.active,.nav a:hover{color:var(--text);background:var(--panel2);border-color:var(--border)}
+.nav a{padding:6px 10px;font-size:12.5px;color:var(--muted);border:1px solid transparent}
+.nav a.active,.nav a:hover{background:var(--panel2);border-color:var(--border);color:var(--text)}
 .search{margin-left:auto;position:relative}
-.search input{background:#0e1217;border:1px solid var(--border);color:var(--text);padding:7px 10px 7px 30px;font-size:12.5px;width:220px;outline:none}
+.search input{background:#0e1217;border:1px solid var(--border);color:var(--text);padding:6px 10px 6px 28px;font-size:12.5px;width:210px;outline:none}
 .search input:focus{border-color:var(--blue)}
-.search i{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted2);font-size:12px}
-.userbox{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
-.userbox .av{width:28px;height:28px;background:var(--border2);border:1px solid var(--border);display:grid;place-items:center;font-size:11px;font-weight:700}
+.search i{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--muted2);font-size:11px}
+.userbox{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);white-space:nowrap}
+.userbox .av{width:26px;height:26px;background:var(--border2);border:1px solid var(--border);display:grid;place-items:center;font-size:11px;font-weight:700}
 @media(max-width:860px){.nav{display:none}.search{display:none}}
 /* LAYOUT */
-.wrap{max-width:1180px;margin:0 auto;padding:16px;display:grid;grid-template-columns:1fr 280px;gap:16px}
+.wrap{max-width:1160px;margin:0 auto;padding:14px;display:grid;grid-template-columns:1fr 270px;gap:14px}
 @media(max-width:980px){.wrap{grid-template-columns:1fr}}
-.crumb{font-size:12px;color:var(--muted2);margin:10px 0 0;max-width:1180px;margin-left:auto;margin-right:auto;padding:0 16px}
-.crumb a:hover{color:var(--text)}
-.notice{max-width:1180px;margin:12px auto 0;padding:10px 12px;background:rgba(74,124,255,.08);border:1px solid rgba(74,124,255,.2);font-size:12.5px;color:var(--text);display:flex;gap:10px;align-items:center}
+.crumb{font-size:11.5px;color:var(--muted2);max-width:1160px;margin:10px auto 0;padding:0 14px}
+.notice{max-width:1160px;margin:10px auto 0;padding:9px 11px;background:rgba(74,124,255,.07);border:1px solid rgba(74,124,255,.18);font-size:12.5px;display:flex;gap:8px;align-items:center}
 .notice i{color:var(--blue)}
-/* CATEGORY TABLE */
-.cat{border:1px solid var(--border);background:var(--panel);margin-bottom:14px}
-.cat-head{padding:10px 12px;background:var(--panel2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.cat-head h2{font-size:12.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--text)}
-.cat-head span{font-size:11px;color:var(--muted2);margin-left:6px}
+.cat{border:1px solid var(--border);background:var(--panel);margin-bottom:12px}
+.cat-head{padding:9px 11px;background:var(--panel2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.cat-head h2{font-size:11.5px;font-weight:700;letter-spacing:.35px;text-transform:uppercase}
+.cat-head span{font-size:11px;color:var(--muted2)}
 .cat-head button{margin-left:auto;background:none;border:1px solid var(--border);color:var(--muted2);padding:2px 6px;cursor:pointer;font-size:11px}
-.forum-row{display:grid;grid-template-columns:38px 1fr 70px 70px 180px;gap:10px;padding:11px 12px;border-bottom:1px solid var(--border);align-items:center}
+.forum-row{display:grid;grid-template-columns:34px 1fr 65px 65px 170px;gap:8px;padding:10px 11px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer}
 .forum-row:last-child{border-bottom:none}
 .forum-row:hover{background:rgba(255,255,255,.015)}
-.forum-row .ico{width:34px;height:34px;background:#0e1217;border:1px solid var(--border);display:grid;place-items:center;font-size:14px;color:var(--muted)}
-.forum-row h3{font-size:13px;font-weight:600}
-.forum-row h3 a:hover{color:var(--blue)}
-.forum-row p{font-size:11.5px;color:var(--muted2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:380px}
-.meta{font-size:12px;text-align:center;color:var(--muted2)}
-.meta b{color:var(--text);font-size:13px;display:block}
-.last{font-size:11.5px}
-.last a{font-weight:500;color:var(--text);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.forum-row .ico{width:32px;height:32px;background:#0e1217;border:1px solid var(--border);display:grid;place-items:center;font-size:13px;color:var(--muted)}
+.forum-row h3{font-size:12.5px;font-weight:600}
+.forum-row p{font-size:11px;color:var(--muted2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:11px;text-align:center;color:var(--muted2)}
+.meta b{color:var(--text);font-size:12.5px;display:block}
+.last{font-size:11px}
+.last a{font-weight:500;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .last .by{color:var(--muted2);font-size:11px}
-@media(max-width:760px){.forum-row{grid-template-columns:38px 1fr}.meta,.last{display:none}}
-/* THREAD LIST */
+@media(max-width:760px){.forum-row{grid-template-columns:34px 1fr}.meta,.last{display:none}}
 .threads{border:1px solid var(--border);background:var(--panel)}
-.threads-head{padding:10px 12px;background:var(--panel2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.threads-head h2{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.threads-head{padding:9px 11px;background:var(--panel2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.threads-head h2{font-size:11.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
 .tabs{display:flex;gap:4px}
 .tabs button{font-size:11px;padding:4px 8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer}
 .tabs button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-.trow{display:grid;grid-template-columns:1fr 70px 140px;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);align-items:center}
-.trow:last-child{border-bottom:none}
+.trow{display:grid;grid-template-columns:1fr 65px 135px;gap:8px;padding:9px 11px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer}
 .trow:hover{background:rgba(255,255,255,.015)}
 .trow h3{font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.trow .info{font-size:11px;color:var(--muted2);margin-top:3px;display:flex;gap:8px}
+.trow .info{font-size:11px;color:var(--muted2);margin-top:2px;display:flex;gap:6px;flex-wrap:wrap}
 .trow .c{font-size:11px;text-align:center;color:var(--muted2)}
 .trow .c b{color:var(--text)}
 @media(max-width:700px){.trow{grid-template-columns:1fr}.c,.trow .last{display:none}}
-/* SIDEBAR */
-.side{display:flex;flex-direction:column;gap:14px}
+.side{display:flex;flex-direction:column;gap:12px}
 .box{border:1px solid var(--border);background:var(--panel)}
-.box-h{padding:9px 10px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;display:flex;justify-content:space-between;align-items:center}
-.box-b{padding:10px 12px}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.stat{border:1px solid var(--border);background:#0e1217;padding:10px;text-align:center}
-.stat b{font-size:15px;display:block}
+.box-h{padding:8px 10px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.box-b{padding:10px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stat{border:1px solid var(--border);background:#0e1217;padding:9px;text-align:center}
+.stat b{font-size:14px;display:block}
 .stat span{font-size:10px;color:var(--muted2);letter-spacing:.3px;text-transform:uppercase}
-.online li{list-style:none;display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12.5px}
-.online li:last-child{border:none}
+.online li{list-style:none;display:flex;gap:7px;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px}
 .dot{width:6px;height:6px;background:var(--green);border-radius:50%}
-footer{max-width:1180px;margin:20px auto 0;padding:14px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted2);font-size:11.5px}
+footer{max-width:1160px;margin:18px auto 0;padding:12px 14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted2);font-size:11px}
+/* MODALS */
+.modal{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-card{width:100%;max-width:560px;background:var(--panel);border:1px solid var(--border2)}
+.modal-head{padding:12px 14px;background:var(--panel2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{font-size:13px;font-weight:700}
+.modal-head button{background:none;border:1px solid var(--border);color:var(--muted2);padding:4px 8px;cursor:pointer}
+.modal-body{padding:14px}
+/* THREAD VIEW */
+#threadView{display:none}
+.post{border:1px solid var(--border);background:var(--panel);margin-bottom:10px;display:grid;grid-template-columns:160px 1fr}
+.post-side{padding:12px;border-right:1px solid var(--border);background:var(--panel2);text-align:center}
+.post-side .pav{width:52px;height:52px;margin:0 auto 8px;background:var(--border2);border:1px solid var(--border);display:grid;place-items:center;font-weight:700}
+.post-side b{font-size:12.5px;display:block}
+.post-side span{font-size:11px;color:var(--muted2)}
+.post-body{padding:12px}
+.post-meta{font-size:11px;color:var(--muted2);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:10px;display:flex;justify-content:space-between}
+.post-text{font-size:13px;line-height:1.65;color:var(--text);white-space:pre-wrap;word-break:break-word}
+@media(max-width:640px){.post{grid-template-columns:1fr}.post-side{border-right:none;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;text-align:left}.post-side .pav{margin:0}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN GATE - ilk karsilama -->
-<div id="gate">
+<!-- LOGIN -->
+<div id="gate" class="gate">
   <div class="gate-card">
     <div class="gate-left">
-      <div style="font-size:11px;letter-spacing:1.2px;color:var(--muted2);margin-bottom:10px">NEMESISPLATFORM.ONLINE</div>
+      <div style="font-size:10px;letter-spacing:1px;color:var(--muted2);margin-bottom:8px">NEMESISPLATFORM.ONLINE</div>
       <h1>Foruma <span>giriş yap</span></h1>
-      <p>Nemesis Platform — sade, hızlı ve gerçek bir topluluk forumu. Devam etmek için giriş yap veya misafir olarak göz at.</p>
+      <p>Sade, hızlı ve gerçek bir topluluk forumu. Devam etmek için giriş yap.</p>
       <ul>
-        <li><i class="fa-solid fa-check"></i> Eski illegalplatform ruhu, sade arayüz</li>
-        <li><i class="fa-solid fa-check"></i> Reklamsız, hızlı, mobil uyumlu</li>
-        <li><i class="fa-solid fa-check"></i> Konular, yardımlaşma ve araçlar tek yerde</li>
+        <li><i class="fa-solid fa-check"></i> Eski forum ruhu, sade arayüz</li>
+        <li><i class="fa-solid fa-check"></i> Hızlı, reklamsız, mobil uyumlu</li>
+        <li><i class="fa-solid fa-check"></i> Yazılım, güvenlik ve yardımlaşma</li>
       </ul>
-      <div style="margin-top:18px;font-size:11px;color:var(--muted2)">© 2026 nemesisplatform.online</div>
+      <div style="margin-top:14px;font-size:11px;color:var(--muted2)">© 2026 nemesisplatform.online</div>
     </div>
     <div class="gate-right">
-      <h2>Giriş</h2>
-      <div class="sub">Hesabınla devam et. Yeni misin? <a href="#" onclick="showRegister(event)" style="color:var(--blue)">Kayıt ol</a></div>
+      <h2 id="gateTitle">Giriş</h2>
+      <div class="sub" id="gateSub">Hesabınla devam et. <span class="link" onclick="switchGate()">Kayıt ol</span></div>
       <div id="err" class="err"></div>
-      <div class="field"><label>Kullanıcı adı veya e-posta</label><input id="u" placeholder="ornek: nemesis" autocomplete="username"></div>
+      <div class="field"><label>Kullanıcı adı</label><input id="u" placeholder="örn: nemesis" autocomplete="username"></div>
       <div class="field"><label>Şifre</label><input id="p" type="password" placeholder="••••••••" autocomplete="current-password"></div>
-      <div class="row-between"><label class="check"><input type="checkbox" checked> Beni hatırla</label><a href="#" class="link" onclick="event.preventDefault();alert('Şifre sıfırlama yakında')">Şifremi unuttum</a></div>
-      <button class="btn btn-primary" onclick="doLogin()"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
+      <div id="regExtra" style="display:none"><div class="field"><label>E-posta</label><input id="e" placeholder="mail@ornek.com"></div></div>
+      <div class="row-between"><label class="check"><input type="checkbox" checked> Beni hatırla</label><a class="link" onclick="alert('Şifre sıfırlama için yöneticiye yazın.')">Şifremi unuttum</a></div>
+      <button class="btn btn-primary" id="gateBtn" onclick="doGate()"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
       <button class="btn btn-ghost" onclick="guest()">Misafir olarak devam et</button>
-      <hr class="divider"><span style="display:none"></span>
-      <div style="text-align:center;margin-top:10px"><span style="font-size:11px;color:var(--muted2)">Giriş yaparak <a href="#" style="color:var(--muted)">kuralları</a> kabul etmiş olursun.</span></div>
+      <div style="text-align:center;margin-top:10px"><span style="font-size:11px;color:var(--muted2)">Giriş yaparak kuralları kabul etmiş olursun.</span></div>
     </div>
   </div>
 </div>
 
 <header class="header">
   <div class="header-in">
-    <a class="logo" href="#">nemesis<b>platform</b><span style="color:var(--muted2);font-weight:400">.online</span></a>
+    <a class="logo" href="#" onclick="showForum()">nemesis<b>platform</b><span style="color:var(--muted2);font-weight:400">.online</span></a>
     <nav class="nav">
-      <a class="active" href="#">Forum</a>
-      <a href="#">Konular</a>
-      <a href="#">Üyeler</a>
-      <a href="#">Araçlar</a>
+      <a class="active" href="#" onclick="showForum()">Forum</a>
+      <a href="#" onclick="filterThreads('all')">Konular</a>
+      <a href="#" onclick="alert('Üye listesi yakında')">Üyeler</a>
       <a href="#">Kurallar</a>
     </nav>
     <label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="q" placeholder="Ara..."></label>
-    <div class="userbox" id="userbox"><span id="ub-name">Misafir</span><div class="av" id="ub-av">M</div><a href="#" onclick="logout(event)" style="font-size:11px;margin-left:6px;color:var(--muted)">Çıkış</a></div>
+    <div class="userbox"><span id="ub-name">Misafir</span><div class="av" id="ub-av">M</div><a href="#" onclick="logout(event)" style="font-size:11px;margin-left:4px;color:var(--muted)">Çıkış</a></div>
   </div>
 </header>
 
-<div class="crumb"><a href="#">Ana Sayfa</a> › Forum</div>
-<div class="notice"><i class="fa-solid fa-circle-info"></i><span><b>Duyuru:</b> Forum kuralları güncellendi. Lütfen giriş sonrası kuralları okuyun. — <a href="#" style="color:var(--blue)">kurallar</a></span><span style="margin-left:auto;cursor:pointer;color:var(--muted2)" onclick="this.parentElement.style.display='none'">×</span></div>
+<div class="crumb" id="crumb"><a href="#" onclick="showForum()">Ana Sayfa</a> › Forum</div>
+<div class="notice"><i class="fa-solid fa-circle-info"></i><span><b>Duyuru:</b> Hoş geldin. Lütfen kuralları oku. — <a href="#" style="color:var(--blue)">kurallar</a></span><span style="margin-left:auto;cursor:pointer;color:var(--muted2)" onclick="this.parentElement.style.display='none'">×</span></div>
 
-<div class="wrap">
-  <main>
+<div class="wrap" id="forumWrap">
+  <main id="mainForum">
     <div class="cat">
-      <div class="cat-head"><h2>Genel</h2><span>2 bölüm</span><button onclick="toggle(this)">−</button></div>
-      <div class="forum-row"><div class="ico"><i class="fa-regular fa-bell"></i></div><div><h3><a href="#">Duyurular</a></h3><p>Yönetim duyuruları ve güncellemeler</p></div><div class="meta"><b>34</b> konu</div><div class="meta"><b>412</b> mesaj</div><div class="last"><a href="#">Forum v1 yayında</a><div class="by">admin • 2 saat önce</div></div></div>
-      <div class="forum-row"><div class="ico"><i class="fa-regular fa-file-lines"></i></div><div><h3><a href="#">Kurallar & Rehber</a></h3><p>Okumadan yazma</p></div><div class="meta"><b>6</b> konu</div><div class="meta"><b>89</b> mesaj</div><div class="last"><a href="#">Yeni üye rehberi</a><div class="by">moderator • dün</div></div></div>
+      <div class="cat-head"><h2>Genel</h2><span>2 bölüm</span><button onclick="toggleCat(this)">−</button></div>
+      <div class="forum-row" onclick="openForum('Duyurular')"><div class="ico"><i class="fa-regular fa-bell"></i></div><div><h3>Duyurular</h3><p>Yönetim duyuruları</p></div><div class="meta"><b id="c-duyuru-kon">0</b>konu</div><div class="meta"><b>—</b>mesaj</div><div class="last"><a href="#" onclick="event.stopPropagation();openForum('Duyurular')">Son konulara git →</a><div class="by">tüm duyurular</div></div></div>
+      <div class="forum-row" onclick="openForum('Kurallar')"><div class="ico"><i class="fa-regular fa-file-lines"></i></div><div><h3>Kurallar & Rehber</h3><p>Okumadan yazma</p></div><div class="meta"><b>6</b>konu</div><div class="meta"><b>89</b>mesaj</div><div class="last"><a href="#">Yeni üye rehberi</a><div class="by">moderator • dün</div></div></div>
+    </div>
+    <div class="cat">
+      <div class="cat-head"><h2>Forum</h2><span>4 bölüm</span><button onclick="toggleCat(this)">−</button></div>
+      <div class="forum-row" onclick="openForum('Yazılım & Güvenlik')"><div class="ico"><i class="fa-solid fa-code"></i></div><div><h3>Yazılım & Güvenlik</h3><p>Web, API, ağ güvenliği</p></div><div class="meta"><b id="c-yaz-kon">0</b>konu</div><div class="meta"><b id="c-yaz-msg">0</b>mesaj</div><div class="last"><a id="c-yaz-last" href="#">—</a><div class="by" id="c-yaz-by">—</div></div></div>
+      <div class="forum-row" onclick="openForum('Otomasyon')"><div class="ico"><i class="fa-solid fa-robot"></i></div><div><h3>Otomasyon & Botlar</h3><p>Telegram, scraper</p></div><div class="meta"><b id="c-oto-kon">0</b>konu</div><div class="meta"><b>—</b>mesaj</div><div class="last"><a id="c-oto-last" href="#">—</a><div class="by" id="c-oto-by">—</div></div></div>
+      <div class="forum-row" onclick="openForum('Gizlilik')"><div class="ico"><i class="fa-solid fa-shield-halved"></i></div><div><h3>Gizlilik</h3><p>OPSEC, şifreleme</p></div><div class="meta"><b>31</b>konu</div><div class="meta"><b>201</b>mesaj</div><div class="last"><a href="#">PGP kullanımı</a><div class="by">anon • 3 gün önce</div></div></div>
+      <div class="forum-row" onclick="openForum('Araçlar')"><div class="ico"><i class="fa-solid fa-wrench"></i></div><div><h3>Araçlar</h3><p>Scriptler</p></div><div class="meta"><b>52</b>konu</div><div class="meta"><b>310</b>mesaj</div><div class="last"><a href="#">Port scanner</a><div class="by">dev07 • 5 saat önce</div></div></div>
+    </div>
+    <div class="cat">
+      <div class="cat-head"><h2>Topluluk</h2><span>2 bölüm</span><button onclick="toggleCat(this)">−</button></div>
+      <div class="forum-row" onclick="openForum('Genel Sohbet')"><div class="ico"><i class="fa-regular fa-comments"></i></div><div><h3>Genel Sohbet</h3><p>Gündem</p></div><div class="meta"><b id="c-gen-kon">0</b>konu</div><div class="meta"><b>—</b>mesaj</div><div class="last"><a id="c-gen-last" href="#">—</a><div class="by" id="c-gen-by">—</div></div></div>
+      <div class="forum-row" onclick="openForum('Yardım')"><div class="ico"><i class="fa-regular fa-circle-question"></i></div><div><h3>Yardım</h3><p>Sorular</p></div><div class="meta"><b>88</b>konu</div><div class="meta"><b>540</b>mesaj</div><div class="last"><a href="#">asyncio sorusu</a><div class="by">harun • 45 dk önce</div></div></div>
     </div>
 
-    <div class="cat">
-      <div class="cat-head"><h2>Forum</h2><span>4 bölüm</span><button onclick="toggle(this)">−</button></div>
-      <div class="forum-row"><div class="ico"><i class="fa-solid fa-code"></i></div><div><h3><a href="#">Yazılım & Güvenlik</a></h3><p>Web, API, ağ güvenliği tartışmaları</p></div><div class="meta"><b>128</b> konu</div><div class="meta"><b>1.4k</b> mesaj</div><div class="last"><a href="#">Rate limit bypass notları</a><div class="by">nemesis • 40 dk önce</div></div></div>
-      <div class="forum-row"><div class="ico"><i class="fa-solid fa-robot"></i></div><div><h3><a href="#">Otomasyon & Botlar</a></h3><p>Telegram, scraper, otomasyon</p></div><div class="meta"><b>74</b> konu</div><div class="meta"><b>620</b> mesaj</div><div class="last"><a href="#">Telethon örnekleri</a><div class="by">member42 • 1 saat önce</div></div></div>
-      <div class="forum-row"><div class="ico"><i class="fa-solid fa-shield-halved"></i></div><div><h3><a href="#">Gizlilik</a></h3><p>OPSEC, şifreleme, anonimlik</p></div><div class="meta"><b>31</b> konu</div><div class="meta"><b>201</b> mesaj</div><div class="last"><a href="#">PGP kullanımı</a><div class="by">anon • 3 gün önce</div></div></div>
-      <div class="forum-row"><div class="ico"><i class="fa-solid fa-wrench"></i></div><div><h3><a href="#">Araçlar</a></h3><p>Paylaşımlar ve scriptler</p></div><div class="meta"><b>52</b> konu</div><div class="meta"><b>310</b> mesaj</div><div class="last"><a href="#">Basit port scanner</a><div class="by">dev07 • 5 saat önce</div></div></div>
-    </div>
-
-    <div class="cat">
-      <div class="cat-head"><h2>Topluluk</h2><span>2 bölüm</span><button onclick="toggle(this)">−</button></div>
-      <div class="forum-row"><div class="ico"><i class="fa-regular fa-comments"></i></div><div><h3><a href="#">Genel Sohbet</a></h3><p>Gündem ve muhabbet</p></div><div class="meta"><b>201</b> konu</div><div class="meta"><b>3.2k</b> mesaj</div><div class="last"><a href="#">VPS önerisi 2026?</a><div class="by">user11 • 11 dk önce</div></div></div>
-      <div class="forum-row"><div class="ico"><i class="fa-regular fa-circle-question"></i></div><div><h3><a href="#">Yardım</a></h3><p>Sorular ve destek</p></div><div class="meta"><b>88</b> konu</div><div class="meta"><b>540</b> mesaj</div><div class="last"><a href="#">asyncio sorusu</a><div class="by">harun • 45 dk önce</div></div></div>
-    </div>
-
-    <div class="threads" style="margin-top:14px">
-      <div class="threads-head"><h2>Son konular</h2><div class="tabs"><button class="active">Yeni</button><button>Popüler</button></div></div>
-      <div id="list">
-        <div class="trow"><div><h3><a href="#">Cloudflare bypass — 2026 notları</a></h3><div class="info"><span>nemesis</span><span>• 18 dk önce</span><span>Yazılım & Güvenlik</span></div></div><div class="c"><b>12</b> yanıt</div><div class="last"><a href="#">son: admin</a><div class="by">2 dk önce</div></div></div>
-        <div class="trow"><div><h3><a href="#">Telegram bot — TTL silme</a></h3><div class="info"><span>member42</span><span>• 51 dk önce</span><span>Otomasyon</span></div></div><div class="c"><b>4</b> yanıt</div><div class="last"><a href="#">son: user11</a><div class="by">9 dk önce</div></div></div>
-        <div class="trow"><div><h3><a href="#">Duyuru: kurallar güncellendi</a></h3><div class="info"><span>admin</span><span>• 2 saat önce</span><span>Duyurular</span></div></div><div class="c"><b>8</b> yanıt</div><div class="last"><a href="#">son: moderator</a><div class="by">14 dk önce</div></div></div>
-      </div>
+    <div class="threads" style="margin-top:12px">
+      <div class="threads-head"><h2 id="threadsTitle">Son konular</h2><div style="display:flex;gap:6px"><button class="btn btn-primary btn-small" onclick="openNewTopic()"><i class="fa-solid fa-plus"></i> Konu Aç</button><div class="tabs"><button class="active" onclick="filterThreads('all',this)">Yeni</button><button onclick="filterThreads('pop',this)">Popüler</button></div></div></div>
+      <div id="list"></div>
+      <div id="empty" style="padding:18px;text-align:center;color:var(--muted2);font-size:12.5px;display:none">Konu bulunamadı.</div>
     </div>
   </main>
 
-  <aside class="side">
-    <div class="box"><div class="box-h"><span>Giriş</span></div><div class="box-b" style="font-size:12.5px;color:var(--muted)">Hoş geldin, <b id="side-name" style="color:var(--text)">Misafir</b>. <br>Devam etmek için giriş yap.<br><button class="btn btn-primary" style="margin-top:10px" onclick="document.getElementById('gate').classList.remove('hide')">Giriş Yap</button></div></div>
-    <div class="box"><div class="box-h"><span>İstatistik</span></div><div class="box-b"><div class="stat-grid"><div class="stat"><b>1.2k</b><span>üye</span></div><div class="stat"><b>512</b><span>konu</span></div><div class="stat"><b>4.8k</b><span>mesaj</span></div><div class="stat"><b>24</b><span>çevrimiçi</span></div></div></div></div>
-    <div class="box"><div class="box-h"><span>Çevrimiçi</span><a href="#" style="font-size:11px;color:var(--muted)">tümü</a></div><div class="box-b"><ul class="online"><li><span class="dot"></span>admin <span style="margin-left:auto;color:var(--muted2);font-size:11px">kurucu</span></li><li><span class="dot"></span>moderator</li><li><span class="dot" style="background:var(--muted2)"></span>member42</li><li><span class="dot"></span>nemesis</li></ul></div></div>
+  <div id="threadView" style="display:none">
+    <button class="btn btn-ghost" style="width:auto;margin-bottom:10px" onclick="showForum()"><i class="fa-solid fa-arrow-left"></i> Geri</button>
+    <div class="box" style="margin-bottom:10px"><div class="box-b"><h2 id="tvTitle" style="font-size:15px;font-weight:700"></h2><div id="tvMeta" style="font-size:11px;color:var(--muted2);margin-top:4px"></div><div id="tvBody" class="post-text" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)"></div></div></div>
+    <div id="tvPosts"></div>
+    <div class="box"><div class="box-h">Cevap yaz</div><div class="box-b"><textarea id="replyText" placeholder="Cevabını yaz..." style="width:100%;min-height:90px;background:#0e1217;border:1px solid var(--border);color:var(--text);padding:10px;font-family:inherit;outline:none"></textarea><div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-primary btn-small" onclick="sendReply()">Gönder</button><span id="replyHint" style="font-size:11px;color:var(--muted2);align-self:center"></span></div></div></div>
+  </div>
+
+  <aside class="side" id="side">
+    <div class="box"><div class="box-h"><span>Oturum</span></div><div class="box-b" style="font-size:12.5px;color:var(--muted)">Hoş geldin, <b id="side-name" style="color:var(--text)">Misafir</b>.<div id="sideAction" style="margin-top:8px"><button class="btn btn-primary" onclick="document.getElementById('gate').classList.remove('hide')">Giriş Yap</button></div></div></div>
+    <div class="box"><div class="box-h"><span>İstatistik</span></div><div class="box-b"><div class="stat-grid"><div class="stat"><b id="st-users">0</b><span>üye</span></div><div class="stat"><b id="st-threads">0</b><span>konu</span></div><div class="stat"><b id="st-posts">0</b><span>mesaj</span></div><div class="stat"><b>24</b><span>çevrimiçi</span></div></div></div></div>
+    <div class="box"><div class="box-h"><span>Çevrimiçi</span></div><div class="box-b"><ul class="online" id="onlineList"></ul></div></div>
     <div class="box"><div class="box-h"><span>Kurallar</span></div><div class="box-b" style="font-size:12px;color:var(--muted);line-height:1.6">1. Saygı<br>2. Spam yasak<br>3. Dolandırıcılık yasak<br>4. Provokasyon yasak<br><a href="#" style="color:var(--blue)">Tümünü oku →</a></div></div>
   </aside>
 </div>
 
-<footer><div><b style="color:var(--text)">nemesisplatform.online</b> — sade forum. <span>© 2026</span></div><div style="display:flex;gap:12px"><a href="#">Gizlilik</a><a href="#">İletişim</a></div></footer>
+<footer><div><b style="color:var(--text)">nemesisplatform.online</b> — sade forum. © 2026</div><div style="display:flex;gap:12px"><a href="#">Gizlilik</a><a href="#">İletişim</a></div></footer>
+
+<!-- NEW TOPIC MODAL -->
+<div id="newModal" class="modal"><div class="modal-card"><div class="modal-head"><h3>Yeni konu aç</h3><button onclick="closeNewTopic()">×</button></div><div class="modal-body"><div id="ntErr" class="err"></div><div class="field"><label>Başlık</label><input id="ntTitle" placeholder="Konu başlığı"></div><div class="field"><label>Bölüm</label><select id="ntForum"><option>Yazılım & Güvenlik</option><option>Otomasyon</option><option>Gizlilik</option><option>Araçlar</option><option>Genel Sohbet</option><option>Duyurular</option></select></div><div class="field"><label>Mesaj</label><textarea id="ntBody" placeholder="Konuyu açıkla..."></textarea></div><button class="btn btn-primary" onclick="createTopic()">Oluştur</button></div></div></div>
 
 <script>
-const gate=document.getElementById('gate');
-const err=document.getElementById('err');
-function showGate(show){ gate.classList.toggle('hide', !show); }
-function doLogin(){
-  const u=document.getElementById('u').value.trim();
-  const p=document.getElementById('p').value.trim();
-  if(u.length<3){ err.style.display='block'; err.textContent='Kullanıcı adı en az 3 karakter olmalı.'; return; }
-  if(p.length<4){ err.style.display='block'; err.textContent='Şifre en az 4 karakter olmalı.'; return; }
-  localStorage.setItem('np_user', u);
-  applyUser(u); gate.classList.add('hide'); err.style.display='none';
+// --- STORAGE ---
+const LS_USER='np_user', LS_USERS='np_users', LS_THREADS='np_threads';
+let mode='login'; // login | register
+let currentFilter='all';
+let currentForum=null;
+let activeThreadId=null;
+function loadUsers(){ try{return JSON.parse(localStorage.getItem(LS_USERS)||'[]')}catch{return []} }
+function saveUsers(u){ localStorage.setItem(LS_USERS, JSON.stringify(u)) }
+function loadThreads(){
+  try{
+    const t=JSON.parse(localStorage.getItem(LS_THREADS)||'null');
+    if(t) return t;
+  }catch{}
+  const seed=[
+    {id:1, title:'Forum v1 yayında — hoş geldiniz', forum:'Duyurular', author:'admin', time:Date.now()-7200000, views:124, body:'Nemesis Platform yayında. Sade ve hızlı bir forum hedefliyoruz. Önerilerinizi bekliyoruz.', posts:[{author:'admin', body:'İlk mesaj. Kuralları okumayı unutmayın.', time:Date.now()-7100000}]},
+    {id:2, title:'Cloudflare bypass — 2026 notları', forum:'Yazılım & Güvenlik', author:'nemesis', time:Date.now()-1080000, views:89, body:'Rate limit ve bot koruması üzerine notlar. Tartışalım.', posts:[{author:'moderator', body:'Güzel derleme, ek kaynak ekledim.', time:Date.now()-600000}]},
+    {id:3, title:'Telegram bot — TTL silme', forum:'Otomasyon', author:'member42', time:Date.now()-3060000, views:56, body:'Mesajları belirli süre sonra otomatik silen bot örneği.', posts:[]},
+    {id:4, title:'VPS önerisi 2026?', forum:'Genel Sohbet', author:'user11', time:Date.now()-660000, views:42, body:'Hangi sağlayıcıyı önerirsiniz? Fiyat/performans?', posts:[{author:'anon', body:'Hetzner fiyat iyi ama destek yavaş.', time:Date.now()-300000}]},
+  ];
+  localStorage.setItem(LS_THREADS, JSON.stringify(seed));
+  return seed;
 }
-function guest(){ localStorage.setItem('np_user','Misafir'); applyUser('Misafir'); gate.classList.add('hide'); }
-function logout(e){ e.preventDefault(); localStorage.removeItem('np_user'); applyUser('Misafir'); gate.classList.remove('hide'); }
+function saveThreads(t){ localStorage.setItem(LS_THREADS, JSON.stringify(t)) }
+let threads=loadThreads();
+function timeAgo(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60) return 'az önce';
+  if(s<3600) return Math.floor(s/60)+' dk önce';
+  if(s<86400) return Math.floor(s/3600)+' saat önce';
+  return Math.floor(s/86400)+' gün önce';
+}
+// --- GATE ---
+const gate=document.getElementById('gate'), err=document.getElementById('err');
+function switchGate(){
+  mode = mode==='login' ? 'register' : 'login';
+  document.getElementById('gateTitle').textContent = mode==='login' ? 'Giriş' : 'Kayıt ol';
+  document.getElementById('gateBtn').innerHTML = mode==='login' ? '<i class="fa-solid fa-right-to-bracket"></i> Giriş Yap' : '<i class="fa-solid fa-user-plus"></i> Kayıt Ol';
+  document.getElementById('gateSub').innerHTML = mode==='login' ? 'Hesabınla devam et. <span class="link" onclick="switchGate()">Kayıt ol</span>' : 'Yeni hesap oluştur. <span class="link" onclick="switchGate()">Giriş yap</span>';
+  document.getElementById('regExtra').style.display = mode==='register' ? 'block' : 'none';
+  err.style.display='none';
+}
+function doGate(){
+  const u=document.getElementById('u').value.trim();
+  const p=document.getElementById('p').value;
+  const e=document.getElementById('e').value.trim();
+  if(u.length<3){ err.style.display='block'; err.textContent='Kullanıcı adı en az 3 karakter.'; return; }
+  if(p.length<4){ err.style.display='block'; err.textContent='Şifre en az 4 karakter.'; return; }
+  let users=loadUsers();
+  if(mode==='register'){
+    if(!e || !e.includes('@')){ err.style.display='block'; err.textContent='Geçerli e-posta gir.'; return; }
+    if(users.find(x=>x.u.toLowerCase()===u.toLowerCase())){ err.style.display='block'; err.textContent='Bu kullanıcı adı zaten var.'; return; }
+    users.push({u,p,e, at:Date.now()}); saveUsers(users);
+    localStorage.setItem(LS_USER, u); applyUser(u); gate.classList.add('hide'); err.style.display='none';
+  } else {
+    const found=users.find(x=>x.u.toLowerCase()===u.toLowerCase());
+    if(!found){ err.style.display='block'; err.textContent='Kullanıcı bulunamadı. Kayıt ol.'; return; }
+    if(found.p!==p){ err.style.display='block'; err.textContent='Şifre hatalı.'; return; }
+    localStorage.setItem(LS_USER, found.u); applyUser(found.u); gate.classList.add('hide'); err.style.display='none';
+  }
+}
+function guest(){ localStorage.setItem(LS_USER,'Misafir'); applyUser('Misafir'); gate.classList.add('hide'); }
+function logout(e){ e.preventDefault(); localStorage.removeItem(LS_USER); applyUser('Misafir'); gate.classList.remove('hide'); }
 function applyUser(name){
   document.getElementById('ub-name').textContent=name;
   document.getElementById('side-name').textContent=name;
   document.getElementById('ub-av').textContent=name.charAt(0).toUpperCase();
+  const sa=document.getElementById('sideAction');
+  if(name==='Misafir') sa.innerHTML='<button class="btn btn-primary" onclick="document.getElementById(\'gate\').classList.remove(\'hide\')">Giriş Yap</button>';
+  else sa.innerHTML='<div style="font-size:11px;color:var(--muted2)">Giriş yapıldı ✓</div>';
 }
-function showRegister(e){ e.preventDefault(); alert('Kayıt ekranı yakında — şimdilik herhangi bir kullanıcı adı/şifre ile giriş yapabilirsin.'); }
-function toggle(btn){
-  const body=btn.parentElement.nextElementSibling;
-  // find all rows until next cat-head
+// --- FORUM RENDER ---
+function render(){
+  const q=(document.getElementById('q').value||'').toLowerCase();
+  let list=[...threads];
+  if(currentForum) list=list.filter(t=>t.forum===currentForum);
+  if(currentFilter==='pop') list.sort((a,b)=> (b.posts.length+b.views)-(a.posts.length+a.views));
+  else list.sort((a,b)=> b.time - a.time);
+  if(q) list=list.filter(t=> (t.title+' '+t.body+' '+t.author+' '+t.forum).toLowerCase().includes(q));
+  const el=document.getElementById('list'), empty=document.getElementById('empty');
+  el.innerHTML='';
+  if(list.length===0){ empty.style.display='block'; } else { empty.style.display='none';
+    list.forEach(t=>{
+      const d=document.createElement('div'); d.className='trow';
+      d.innerHTML=`<div><h3><a href="#">${esc(t.title)}</a></h3><div class="info"><span>${esc(t.author)}</span><span>• ${timeAgo(t.time)}</span><span>${esc(t.forum)}</span></div></div><div class="c"><b>${t.posts.length}</b> yanıt</div><div class="last"><a href="#">${t.views} görüntü</a><div class="by">${esc(t.forum)}</div></div>`;
+      d.onclick=()=>openThread(t.id);
+      el.appendChild(d);
+    });
+  }
+  // stats
+  document.getElementById('st-threads').textContent=threads.length;
+  document.getElementById('st-posts').textContent=threads.reduce((a,b)=>a+1+b.posts.length,0);
+  document.getElementById('st-users').textContent=loadUsers().length || 1;
+  // per forum counts
+  const byForum=f=>threads.filter(t=>t.forum===f).length;
+  document.getElementById('c-yaz-kon').textContent=byForum('Yazılım & Güvenlik');
+  document.getElementById('c-oto-kon').textContent=byForum('Otomasyon');
+  document.getElementById('c-gen-kon').textContent=byForum('Genel Sohbet');
+  document.getElementById('c-duyuru-kon').textContent=byForum('Duyurular');
+  // last
+  function lastOf(f){
+    const arr=threads.filter(t=>t.forum===f).sort((a,b)=>b.time-a.time)[0];
+    return arr;
+  }
+  const y=lastOf('Yazılım & Güvenlik'); if(y){ document.getElementById('c-yaz-last').textContent=y.title; document.getElementById('c-yaz-by').textContent=y.author+' • '+timeAgo(y.time); document.getElementById('c-yaz-msg').textContent=y.posts.length+1; }
+  const o=lastOf('Otomasyon'); if(o){ document.getElementById('c-oto-last').textContent=o.title; document.getElementById('c-oto-by').textContent=o.author+' • '+timeAgo(o.time); }
+  const g=lastOf('Genel Sohbet'); if(g){ document.getElementById('c-gen-last').textContent=g.title; document.getElementById('c-gen-by').textContent=g.author+' • '+timeAgo(g.time); }
+  // online
+  const users=loadUsers().slice(-6).map(u=>u.u);
+  const base=['admin','moderator',...users];
+  document.getElementById('onlineList').innerHTML=[...new Set(base)].slice(0,6).map(n=>`<li><span class="dot"></span>${esc(n)}<span style="margin-left:auto;color:var(--muted2);font-size:11px">${Math.floor(Math.random()*5+1)} dk</span></li>`).join('');
+  document.getElementById('threadsTitle').textContent = currentForum ? currentForum : 'Son konular';
+  document.getElementById('crumb').innerHTML = currentForum ? `<a href="#" onclick="showForum()">Ana Sayfa</a> › <a href="#" onclick="showForum()">${esc(currentForum)}</a>` : `<a href="#" onclick="showForum()">Ana Sayfa</a> › Forum`;
+}
+function esc(s){ return String(s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])) }
+function openForum(name){ currentForum=name; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+function showForum(){ currentForum=null; activeThreadId=null; document.getElementById('mainForum').style.display='block'; document.getElementById('threadView').style.display='none'; document.getElementById('side').style.display='flex'; render(); }
+function filterThreads(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  render();
+}
+function toggleCat(btn){
   let el=btn.parentElement.nextElementSibling;
-  let hidden = el && el.style.display==='none';
+  const hide = el && el.style.display==='none';
   while(el && !el.classList.contains('cat-head')){
-    if(el.classList.contains('forum-row')) el.style.display = hidden ? '' : 'none';
-    el = el.nextElementSibling;
+    if(el.classList.contains('forum-row')) el.style.display= hide ? '' : 'none';
+    el=el.nextElementSibling;
     if(!el || el.classList.contains('cat')) break;
   }
-  btn.textContent = hidden ? '−' : '+';
+  btn.textContent= hide ? '−' : '+';
 }
-// restore
-const saved=localStorage.getItem('np_user');
-if(saved){ applyUser(saved); gate.classList.add('hide'); }
-// search
-document.getElementById('q')?.addEventListener('input', e=>{
-  const q=e.target.value.toLowerCase();
-  document.querySelectorAll('.forum-row,.trow').forEach(r=>{
-    r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
+// THREAD VIEW
+function openThread(id){
+  const t=threads.find(x=>x.id===id); if(!t) return;
+  t.views=(t.views||0)+1; saveThreads(threads);
+  activeThreadId=id;
+  document.getElementById('mainForum').style.display='none';
+  document.getElementById('threadView').style.display='block';
+  document.getElementById('side').style.display='none';
+  document.getElementById('tvTitle').textContent=t.title;
+  document.getElementById('tvMeta').textContent=t.forum+' • '+t.author+' • '+timeAgo(t.time)+' • '+t.views+' görüntü';
+  document.getElementById('tvBody').textContent=t.body;
+  const posts=document.getElementById('tvPosts'); posts.innerHTML='';
+  t.posts.forEach(p=>{
+    const d=document.createElement('div'); d.className='post';
+    d.innerHTML=`<div class="post-side"><div class="pav">${esc(p.author.charAt(0).toUpperCase())}</div><div><b>${esc(p.author)}</b><span>Üye</span></div></div><div class="post-body"><div class="post-meta"><span>${timeAgo(p.time)}</span><span>#</span></div><div class="post-text">${esc(p.body)}</div></div>`;
+    posts.appendChild(d);
   });
-});
-document.getElementById('p')?.addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
-document.getElementById('u')?.addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function sendReply(){
+  const name=localStorage.getItem(LS_USER);
+  if(!name || name==='Misafir'){ document.getElementById('replyHint').textContent='Yazmak için giriş yapmalısın.'; document.getElementById('gate').classList.remove('hide'); return; }
+  const txt=document.getElementById('replyText').value.trim();
+  if(txt.length<3){ document.getElementById('replyHint').textContent='En az 3 karakter.'; return; }
+  const t=threads.find(x=>x.id===activeThreadId); if(!t) return;
+  t.posts.push({author:name, body:txt, time:Date.now()}); saveThreads(threads);
+  document.getElementById('replyText').value=''; document.getElementById('replyHint').textContent='Gönderildi ✓'; setTimeout(()=>document.getElementById('replyHint').textContent='',1500);
+  openThread(activeThreadId); render();
+}
+function openNewTopic(){ 
+  const name=localStorage.getItem(LS_USER);
+  if(!name || name==='Misafir'){ document.getElementById('gate').classList.remove('hide'); return; }
+  document.getElementById('newModal').classList.add('show'); 
+}
+function closeNewTopic(){ document.getElementById('newModal').classList.remove('show'); document.getElementById('ntErr').style.display='none'; }
+function createTopic(){
+  const title=document.getElementById('ntTitle').value.trim();
+  const forum=document.getElementById('ntForum').value;
+  const body=document.getElementById('ntBody').value.trim();
+  const err=document.getElementById('ntErr');
+  if(title.length<5){ err.style.display='block'; err.textContent='Başlık en az 5 karakter.'; return; }
+  if(body.length<10){ err.style.display='block'; err.textContent='Mesaj en az 10 karakter.'; return; }
+  const name=localStorage.getItem(LS_USER)||'Misafir';
+  const id=Date.now();
+  threads.unshift({id, title, forum, author:name, time:Date.now(), views:0, body, posts:[]});
+  saveThreads(threads); closeNewTopic(); document.getElementById('ntTitle').value=''; document.getElementById('ntBody').value=''; currentForum=forum; showForum(); // showForum zaten render
+  setTimeout(()=>openThread(id),200);
+}
+// init
+const saved=localStorage.getItem(LS_USER);
+if(saved){ applyUser(saved); gate.classList.add('hide'); }
+document.getElementById('q')?.addEventListener('input', render);
+document.getElementById('p')?.addEventListener('keydown', e=>{ if(e.key==='Enter') doGate(); });
+document.getElementById('u')?.addEventListener('keydown', e=>{ if(e.key==='Enter') doGate(); });
+render();
+setInterval(render, 60000);
 </script>
 </body>
 </html>
