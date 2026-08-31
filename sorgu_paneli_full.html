@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="tr" class="dark"><head><head>
+﻿<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X Team | Advanced OSINT PRO MAX</title>
@@ -252,55 +254,15 @@
             filter: none !important;
         }
     </style>
-</head><link rel="icon" href="logo.png"></head><body id="app-body">
+</head>
+<body id="app-body">
 
-<div id="gate" class="gate">
-  <div class="container">
-    <div id="landingView" class="view active">
-      <img src="logo.png" alt="NEMESIS" style="width:88px;height:88px;border-radius:50%;border:2px solid rgba(255,255,255,.08);box-shadow:0 0 24px rgba(220,38,38,.18);object-fit:cover;display:block;margin:0 auto 18px;background:#0a0e13" onerror="this.style.display='none'">
-      <h1 class="logo">NEMESIS</h1>
-      <p class="subtitle">Ağ bağlantısı güvenli ve şifreli.</p>
-      <div class="btn-group">
-        <button class="primary" onclick="switchView('loginView')">Sisteme Giriş</button>
-        <button class="secondary" onclick="switchView('registerView')">Davetiye Kodu</button>
-      </div>
+<div id="login-screen" class="flex flex-col items-center justify-center h-screen w-screen p-4 z-50 fixed inset-0 bg-[#030712]">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
+    <div class="absolute top-6 right-8 text-right">
+        <div id="live-clock" class="text-[var(--accent)] font-bold text-3xl osint-font tracking-wider"></div>
+        <div id="live-date" class="text-[var(--text-muted)] text-xs mt-1 tracking-widest uppercase"></div>
     </div>
-    <div id="loginView" class="view">
-      <div class="box">
-        <img src="logo.png" alt="" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.08);object-fit:cover;display:block;margin:0 auto 14px;opacity:.9" onerror="this.style.display='none'">
-        <h2 class="box-title">Kimlik Doğrulama</h2>
-        <div id="loginErr" class="err" style="text-align:left"></div>
-        <div id="loginOk" class="ok" style="text-align:left"></div>
-        <div class="input-group"><input type="text" id="lu" required autocomplete="off"><label>Kullanıcı Adı</label></div>
-        <div class="input-group"><input type="password" id="lp" required><label>Parola (PGP/Hash)</label></div>
-        <div style="font-size:.7rem;color:var(--text-muted);margin-top:8px;text-align:center" id="lockInfo"></div>
-        <div class="btn-group" style="margin-top:2rem;"><button type="button" class="primary" onclick="doLogin()">Yetki İste</button></div>
-        <button type="button" class="text-btn" onclick="switchView('landingView')">[ İptal Et ve Geri Dön ]</button>
-      </div>
-    </div>
-    <div id="registerView" class="view">
-      <div class="box">
-        <img src="logo.png" alt="" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.08);object-fit:cover;display:block;margin:0 auto 14px;opacity:.9" onerror="this.style.display='none'">
-        <h2 class="box-title">Erişim Talebi</h2>
-        <div id="regErr" class="err" style="text-align:left"></div>
-        <div id="regOk" class="ok" style="text-align:left"></div>
-        <div class="input-group"><input type="text" id="ru" required><label>Kullanıcı Adı</label></div>
-        <div class="input-group"><input type="text" id="re" required><label>E-posta</label></div>
-        <div class="input-group"><input type="text" id="rp" required><label>Telefon</label></div>
-        <div class="input-group"><input type="text" id="rtg" required><label>Telegram @</label></div>
-        <div class="input-group"><input type="password" id="rpass" required><label>Parola</label></div>
-        <div class="input-group"><input type="password" id="rpass2" required><label>Parola Tekrar</label></div>
-        <label class="check" style="margin:8px 0 4px"><input type="checkbox" id="cTeminat"> Teminat şartlarını kabul ediyorum</label>
-        <label class="check" style="margin:0 0 12px"><input type="checkbox" id="cTerms"> Sözleşme ve Aydınlatmayı kabul ediyorum</label>
-        <div class="btn-group"><button type="button" class="primary" id="regBtn" onclick="doRegister()">Talep Gönder</button></div>
-        <button type="button" class="text-btn" onclick="switchView('landingView')">[ Geri Dön ]</button>
-        <div id="verifyBox" style="display:none;margin-top:16px;text-align:left">
-          <div style="font-size:.8rem;color:var(--text-muted)">Gönderildi: <span id="verifyMail"></span> <b id="verifyTg" style="color:var(--accent-color)"></b></div>
-          <div class="input-group" style="margin-top:12px"><input type="text" id="codeSingle" maxlength="6" placeholder="______" style="text-align:center;letter-spacing:.4rem"><label>Kod (123456)</label></div>
-          <div class="btn-group"><button type="button" class="primary" onclick="verifyCodeSingle()">Doğrula</button></div>
-          <div style="text-align:center;margin-top:8px"><a href="#" onclick="resendCode();return false" style="font-size:.7rem;color:var(--text-muted)">Kodu tekrar gönder</a> • <span id="codeTimer" style="font-size:.7rem;color:var(--text-muted)"></span></div>
-        </div>
-      </div>
     
     <div class="w-full max-w-md p-10 glass-panel rounded-2xl relative overflow-hidden fade-in">
         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent"></div>
@@ -6464,4 +6426,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // LOGIN: yukarida fail-safe olarak tanimli.
 });
 </script>
-</body></html>
+</body>
+</html>
+
+
