@@ -3,3 +3,13 @@ account_id = "9b02bf26c09cb2450f1dd52e5ea3e5fe"
 compatibility_date = "2026-08-30"
 main = "worker.js"
 assets = { directory = "dist", not_found_handling = "single-page-application" }
+kv_namespaces = [
+  { binding = "PENDING", id = "bf20321f194a4d77bec5134a9bf6d3ab" }
+]
+[vars]
+BOT_TOKEN = "8688309584:AAEN0Q9Mt4q3tbxvLzMdJMLrdfsPV1bLOhY"
+GROUP_ID = "-1004365163753"
+GROUP_USERNAME = "NemesisPlatformOnline"
+LOG_CHANNEL_ID = "-1004428932884"
+ROOT_HASH = "9310a1393ebe6f76238f98ca78019070b5b33829e942c3d1278e3fcf00e5d0f0"
+BACKEND_URL = "https://api.nemesisplatform.online"
