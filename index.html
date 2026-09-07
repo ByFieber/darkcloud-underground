@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
@@ -124,109 +124,156 @@ body::before{opacity:.18}
 </style>
 </head>
 <body>
-<div id="gate" style="position:fixed;inset:0;z-index:9999;background:#0b0b10;overflow:hidden;overflow-y:auto">
+<div id="gate" style="position:fixed;inset:0;z-index:9999;background:#060a13;overflow:hidden;overflow-y:auto">
 <style>
-  #gate *{margin:0;padding:0;box-sizing:border-box}
-  #gate{--red:#b31b1b;--red-hover:#d12424;--red-press:#8f1515;--panel:#1e1e24;--panel-dark:#0f0f13;--muted:#666666;--green:#00ff88;--green-glow:0 0 14px rgba(0,255,136,.85);font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif;color:#ffffff;background:#0b0b10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-  #gate .card{position:relative;width:min(800px,100%);height:min(450px,92vh);display:flex;background:var(--panel);border-radius:15px;overflow:hidden;box-shadow:0 24px 90px rgba(0,0,0,.7), 0 6px 26px rgba(0,0,0,.5)}
-  #gate .left{flex:0 0 300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--panel-dark);border-right:2px solid var(--red);border-radius:15px 0 0 15px;position:relative;padding:24px}
-  #gate .left .logo{font-size:42px;font-weight:900;letter-spacing:6px;color:#ffffff;user-select:none}
-  #gate .left .sub{font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--red);text-transform:uppercase;user-select:none}
-  #gate .left .foot{position:absolute;bottom:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);font-family:ui-monospace,Consolas,monospace}
-  #gate .left .led{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px rgba(179,27,27,.9);animation:gatePulse 2s ease-in-out infinite}
-  @keyframes gatePulse{50%{opacity:.35}}
-  #gate .right{flex:1;background:var(--panel);padding:56px 52px 34px;position:relative;display:flex;flex-direction:column;justify-content:center}
-  #gate .close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:19px;font-weight:700;cursor:pointer;line-height:1;padding:2px 4px}
-  #gate .close:hover{color:var(--red)}
-  #gate .right h2{font-size:27px;font-weight:700;color:#ffffff;letter-spacing:.2px}
-  #gate .field{margin-top:18px}
-  #gate .field input{width:100%;background:transparent;border:none;border-bottom:2px solid #444444;color:#ffffff;font-size:15px;padding:2px 2px 9px;outline:none;transition:border-color .18s, border-bottom-width .18s;caret-color:var(--red)}
-  #gate .field input::placeholder{color:#666b72}
-  #gate .field input:focus{border-bottom-color:var(--red)}
-  #gate .err,#gate .ok{display:none;font-size:12px;margin-top:14px;padding:8px 10px;border-radius:4px;border-left:3px solid var(--red);background:rgba(179,27,27,.14);color:#ff9aa0}
-  #gate .ok{border-left-color:#1fbf66;background:rgba(31,191,102,.08);color:#7ee8a9}
-  #gate .sysline{display:none;margin-top:12px;font-size:11px;color:#99a0a8;font-family:ui-monospace,Consolas,monospace;letter-spacing:.2px}
-  #gate .sysline.err{color:#ff9aa0}
-  #gate .btn-login{margin-top:26px;background:var(--red);color:#ffffff;font-size:14px;font-weight:700;letter-spacing:.5px;border:none;border-radius:5px;padding:13px;cursor:pointer;transition:background .16s, opacity .16s}
-  #gate .btn-login:hover{background:var(--red-hover)}
-  #gate .btn-login:active{background:var(--red-press)}
-  #gate .btn-login:disabled{opacity:.55;cursor:not-allowed}
-  #gate .hint{margin-top:22px;font-size:10px;color:var(--muted);letter-spacing:.3px}
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  #gate *{box-sizing:border-box;margin:0;padding:0;font-family:'Share Tech Mono','Consolas',monospace}
+  #gate{--bg:#060a13;--cyan:#00d2ff;--cyan-dim:#005577;--amber:#ffcc00;--red:#ff3333;--orange:#ff8800;--green:#00ff66;--soft:#7fd8ff;color:var(--cyan);background-color:#060a13;background-image:radial-gradient(circle at center,#0a1122 0%,#03050a 100%),linear-gradient(0deg,transparent 24%,rgba(0,210,255,.04) 25%,rgba(0,210,255,.04) 26%,transparent 27%,transparent 74%,rgba(0,210,255,.04) 75%,rgba(0,210,255,.04) 76%,transparent 77%,transparent);background-size:100% 100%,50px 50px;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  #gate .hud{position:relative;width:min(800px,100%);height:min(450px,94vh);padding:44px 40px 30px;display:flex;flex-direction:column;justify-content:space-between}
+  #gate .corner{position:absolute;width:22px;height:26px;border-color:rgba(0,210,255,.55);border-style:solid;filter:drop-shadow(0 0 5px rgba(0,210,255,.55));pointer-events:none}
+  #gate .tl{top:0;left:0;border-width:2px 0 0 2px}
+  #gate .tr{top:0;right:0;border-width:2px 2px 0 0}
+  #gate .bl{bottom:0;left:0;border-width:0 0 2px 2px}
+  #gate .br{bottom:0;right:0;border-width:0 2px 2px 0}
+  #gate .hud-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+  #gate .lhead h1{font-size:1.35rem;font-weight:400;letter-spacing:5px;color:var(--cyan);text-shadow:0 0 8px rgba(0,210,255,.6)}
+  #gate .lhead .sub{font-size:0.6rem;letter-spacing:2.5px;color:var(--cyan-dim);margin-top:6px}
+  #gate .lhead .clock{font-size:0.6rem;letter-spacing:1.5px;color:rgba(0,210,255,.4);margin-top:5px}
+  #gate .rhead{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+  #gate .op{display:flex;flex-direction:column;align-items:flex-end}
+  #gate .op .lbl,#gate .entropy .lbl{font-size:0.6rem;letter-spacing:2.5px;color:var(--cyan-dim);margin-bottom:3px}
+  #gate .op input{background:transparent;border:none;border-bottom:1px solid rgba(0,210,255,.35);color:var(--amber);font-size:0.95rem;text-align:right;letter-spacing:3px;width:200px;padding:1px 2px 4px;outline:none;text-shadow:0 0 8px rgba(255,204,0,.5);caret-color:var(--amber)}
+  #gate .op input:focus{border-bottom-color:var(--cyan)}
+  #gate .op input::placeholder{color:rgba(0,210,255,.3);letter-spacing:2px}
+  #gate .entropy{display:flex;flex-direction:column;align-items:flex-end}
+  #gate .entropy .value{font-size:1.45rem;color:var(--red);text-shadow:0 0 10px rgba(255,51,51,.6);transition:color .3s, text-shadow .3s}
+  #gate .entropy .value b{font-weight:400}
+  #gate .entropy .value .unit{font-size:0.7rem;color:var(--cyan-dim)}
+  #gate .hud-main{flex-grow:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;padding:10px 0}
+  #gate .pw-stage{display:flex;flex-direction:column;align-items:center;width:100%;max-width:520px}
+  #gate .pw-area{position:relative;width:100%;min-height:64px;display:flex;align-items:center;justify-content:center;cursor:default}
+  #gate .pw-area input{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:none;outline:none;background:transparent;cursor:default;caret-color:transparent}
+  #gate .mask{display:flex;align-items:center;justify-content:center;gap:15px;font-size:2.2rem;letter-spacing:8px;color:var(--soft);text-shadow:0 0 12px rgba(0,210,255,.8),0 0 26px rgba(0,210,255,.35);min-height:52px;user-select:none}
+  #gate .mask .ch{display:inline-block;animation:forgePop .12s ease-out;color:var(--amber);text-shadow:0 0 10px rgba(255,204,0,.8)}
+  @keyframes forgePop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+  #gate .mask .cursor{display:inline-block;width:16px;height:5px;background:var(--cyan);box-shadow:0 0 9px var(--cyan);animation:forgeBlink 1s steps(1) infinite}
+  @keyframes forgeBlink{50%{opacity:0}}
+  #gate .platform{width:100%;height:30px;display:flex;flex-direction:column;align-items:center;margin-top:8px}
+  #gate .pline{width:100%;height:1px;background:var(--cyan);box-shadow:0 0 12px rgba(0,210,255,.8);opacity:.7}
+  #gate .pbase{width:96%;height:24px;background:linear-gradient(180deg,rgba(0,210,255,.16) 0%,transparent 100%);clip-path:polygon(0 0,100% 0,96% 100%,4% 100%);border-top:2px solid var(--cyan-dim);margin-top:3px}
+  #gate .stat{min-height:15px;font-size:0.7rem;letter-spacing:1.5px;margin-top:8px;text-align:center;display:none}
+  #gate .stat.err{color:var(--red);text-shadow:0 0 8px rgba(255,51,51,.6)}
+  #gate .stat.ok{color:var(--green);text-shadow:0 0 8px rgba(0,255,102,.55)}
+  #gate .stat.sys{color:rgba(0,210,255,.65)}
+  #gate .hud-btn{margin-top:14px;background:transparent;border:1px solid rgba(0,210,255,.6);color:var(--cyan);font-size:0.75rem;letter-spacing:3px;padding:7px 22px;cursor:pointer;transition:background .16s,color .16s,box-shadow .16s;box-shadow:0 0 12px rgba(0,210,255,.15)}
+  #gate .hud-btn:hover{background:rgba(0,210,255,.14);color:#eafcff;box-shadow:0 0 20px rgba(0,210,255,.4)}
+  #gate .hud-btn:disabled{opacity:.45;cursor:not-allowed}
+  #gate .hud-footer{display:flex;align-items:center;justify-content:center;gap:16px;font-size:0.7rem;letter-spacing:2px}
+  #gate .slab{color:var(--cyan-dim)}
+  #gate .bars{display:flex;gap:4px}
+  #gate .bar{width:16px;height:6px;background-color:#0b1a2a;transition:background-color .25s, box-shadow .25s}
+  #gate .stext{width:62px;text-align:left;transition:color .25s}
   /* ACCESS GRANTED overlay */
-  #gate .access-overlay{position:fixed;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;background:rgba(11,11,16,.94);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s ease}
+  #gate .access-overlay{position:fixed;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;background:rgba(4,8,14,.95);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s ease}
   #gate .access-overlay.show{opacity:1;pointer-events:auto}
   #gate .ao-inner{text-align:center;position:relative;padding:36px 28px}
   #gate .ao-rings{position:relative;width:148px;height:148px;margin:0 auto 26px}
-  #gate .ao-rings .ring{position:absolute;inset:0;border:1px dashed rgba(0,255,136,.35);border-radius:50%;animation:ringPulse 2.4s ease-in-out infinite}
-  #gate .ao-rings .ring.r2{inset:14px;border-color:rgba(0,255,136,.5);animation-delay:.8s}
+  #gate .ao-rings .ring{position:absolute;inset:0;border:1px dashed rgba(0,255,102,.35);border-radius:50%;animation:ringPulse 2.4s ease-in-out infinite}
+  #gate .ao-rings .ring.r2{inset:14px;border-color:rgba(0,255,102,.5);animation-delay:.8s}
   @keyframes ringPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.12);opacity:.12}}
   #gate .ao-lock{position:absolute;inset:0;margin:auto;width:54px;height:54px;overflow:visible}
   #gate .ao-lock .ao-shackle{transition:transform .5s cubic-bezier(.16,1,.3,1);transform-origin:50% 60%}
   #gate .ao-lock .ao-glowr{opacity:0;transition:opacity .45s .12s}
-  #gate .ao-lock.open{filter:drop-shadow(0 0 14px rgba(0,255,136,.85))}
+  #gate .ao-lock.open{filter:drop-shadow(0 0 14px rgba(0,255,102,.85))}
   #gate .ao-lock.open .ao-shackle{transform:translateY(-10px) rotate(-18deg);stroke:#2fff9f}
   #gate .ao-lock.open .ao-glowr{opacity:.95}
-  #gate .ao-title{font-size:clamp(24px,7vw,40px);font-weight:700;letter-spacing:.18em;color:var(--green);text-shadow:0 0 18px rgba(0,255,136,.65), 0 0 48px rgba(0,255,136,.3);position:relative;display:inline-block;animation:aoIn .45s ease both;animation-delay:.1s}
+  #gate .ao-title{font-size:clamp(22px,6vw,38px);font-weight:400;letter-spacing:.22em;color:var(--green);text-shadow:0 0 18px rgba(0,255,102,.65),0 0 48px rgba(0,255,102,.3);position:relative;display:inline-block;animation:aoIn .45s ease both;animation-delay:.1s}
   @keyframes aoIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
   #gate .ao-title::before,#gate .ao-title::after{content:attr(data-text);position:absolute;inset:0;opacity:.5;pointer-events:none}
-  #gate .ao-title::before{color:#22ff9a;animation:glitchA 2.7s infinite steps(2,end)}
+  #gate .ao-title::before{color:#2fff9f;animation:glitchA 2.7s infinite steps(2,end)}
   #gate .ao-title::after{color:#ff5470;animation:glitchB 3.1s infinite steps(2,end)}
   @keyframes glitchA{0%,100%{transform:translate(0)}10%{transform:translate(-2px,1px)}20%{transform:translate(1px,-1px)}32%{transform:translate(-1px,0)}44%{transform:translate(2px,1px)}56%{transform:translate(0,0)}70%{transform:translate(-1px,-1px)}82%{transform:translate(0)}}
   @keyframes glitchB{0%,100%{transform:translate(0)}12%{transform:translate(2px,-1px)}24%{transform:translate(-1px,1px)}36%{transform:translate(1px,0)}48%{transform:translate(-2px,-1px)}62%{transform:translate(0,0)}76%{transform:translate(1px,1px)}88%{transform:translate(0)}}
-  #gate .ao-sub{margin-top:10px;font-size:10px;letter-spacing:.42em;color:rgba(0,255,136,.7);text-transform:uppercase;animation:aoIn .45s ease both;animation-delay:.22s}
+  #gate .ao-sub{margin-top:10px;font-size:10px;letter-spacing:.42em;color:rgba(0,255,102,.7);text-transform:uppercase;animation:aoIn .45s ease both;animation-delay:.22s}
   #gate .ao-meta{margin-top:14px;font-size:11px;letter-spacing:.12em;color:var(--green);animation:aoIn .45s ease both;animation-delay:.34s}
-  #gate .ao-meta .ao-sep{margin:0 10px;color:rgba(0,255,136,.4)}
+  #gate .ao-meta .ao-sep{margin:0 10px;color:rgba(0,255,102,.4)}
   #gate .ao-progress{display:flex;align-items:center;gap:12px;width:min(320px,78vw);margin:26px auto 0;animation:aoIn .45s ease both;animation-delay:.4s}
-  #gate .ao-progress .track{flex:1;height:6px;border:1px solid rgba(0,255,136,.35);background:rgba(0,20,10,.6);position:relative;overflow:hidden}
-  #gate .ao-progress i{position:absolute;inset:0;width:0;background:linear-gradient(90deg,#0a4a2e,#00ff88);box-shadow:0 0 12px rgba(0,255,136,.7)}
-  #gate .ao-pct{font-size:12px;font-weight:700;color:var(--green);min-width:44px;text-align:right;font-variant-numeric:tabular-nums;text-shadow:0 0 8px rgba(0,255,136,.5)}
-  #gate .ao-scanline{position:absolute;left:6%;right:6%;top:20%;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);box-shadow:0 0 16px rgba(0,255,136,.8);animation:aoScan 2.2s ease-in-out infinite}
+  #gate .ao-progress .track{flex:1;height:6px;border:1px solid rgba(0,255,102,.35);background:rgba(0,20,10,.6);position:relative;overflow:hidden}
+  #gate .ao-progress i{position:absolute;inset:0;width:0;background:linear-gradient(90deg,#0a4a2e,#00ff66);box-shadow:0 0 12px rgba(0,255,102,.7)}
+  #gate .ao-pct{font-size:12px;font-weight:400;color:var(--green);min-width:44px;text-align:right;font-variant-numeric:tabular-nums;text-shadow:0 0 8px rgba(0,255,102,.5)}
+  #gate .ao-scanline{position:absolute;left:6%;right:6%;top:20%;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);box-shadow:0 0 16px rgba(0,255,102,.8);animation:aoScan 2.2s ease-in-out infinite}
   @keyframes aoScan{0%{top:18%}50%{top:80%}100%{top:18%}}
-  @media(max-width:640px){
-    #gate .left{display:none}
-    #gate .right{padding:48px 26px 30px}
-    #gate .card{height:min(430px,92vh)}
-  }
-  @media(max-width:380px){
-    #gate .right{padding:42px 20px 26px}
-    #gate .right h2{font-size:23px}
+  @media(max-width:520px){
+    #gate .hud{padding:34px 22px 24px}
+    #gate .op input{width:130px}
+    #gate .mask{gap:10px;font-size:1.7rem;letter-spacing:5px}
+    #gate .hud-header{flex-direction:column;align-items:flex-start;gap:12px}
+    #gate .rhead{align-items:flex-start}
+    #gate .lhead h1{font-size:1.1rem}
+    #gate .ao-inner{padding:24px 18px}
   }
   @media (prefers-reduced-motion: reduce){
     #gate .ao-scanline,#gate .ao-rings .ring{animation:none}
     #gate .ao-title::before,#gate .ao-title::after{animation:none}
-    #gate .left .led{animation:none}
+    #gate .mask .cursor{animation:none}
   }
 </style>
-  <div class="card">
-    <div class="left">
-      <div class="logo">NEMESIS</div>
-      <div class="sub">SYSTEM ACCESS TERMINAL</div>
-      <div class="foot"><span id="clock">--:--</span><span class="led" title="Sistem çevrimiçi"></span></div>
-    </div>
-    <div class="right">
-      <button class="close" onclick="location.reload()" title="Çıkış" aria-label="Çıkış">✕</button>
-      <h2>Hoş Geldiniz</h2>
-      <form onsubmit="event.preventDefault();doLogin();">
-        <div class="field"><input id="lu" autocomplete="username" placeholder="Kullanıcı Adı" spellcheck="false" required></div>
-        <div class="field"><input id="lp" type="password" autocomplete="current-password" placeholder="Parola" required></div>
-        <div id="loginErr" class="err"></div>
-        <div id="loginOk" class="ok"></div>
-        <div id="sysStatus" class="sysline"></div>
-        <button id="loginBtn" class="btn-login" type="submit">SİSTEME GİRİŞ YAP</button>
-      </form>
-      <div class="hint">Sisteme giriş yaparak kullanım sözleşmesini ve gizlilik ilkesini kabul etmiş olursunuz.</div>
-    </div>
+  <div class="hud">
+    <div class="corner tl"></div><div class="corner tr"></div>
+    <div class="corner bl"></div><div class="corner br"></div>
+    <header class="hud-header">
+      <div class="lhead">
+        <h1>NEMESIS</h1>
+        <p class="sub">SYSTEM ACCESS HUD // CREDENTIAL HARDENING L7A0</p>
+        <p class="clock"><span id="clock">--:--</span> GMT+3 • COCA-CHANNEL</p>
+      </div>
+      <div class="rhead">
+        <div class="op">
+          <span class="lbl">OPERATOR</span>
+          <input id="lu" autocomplete="username" placeholder="USER ID" spellcheck="false" autocapitalize="none" required>
+        </div>
+        <div class="entropy">
+          <span class="lbl">ENTROPY</span>
+          <span class="value"><b id="entropy-bits">0</b> <span class="unit">BITS</span></span>
+        </div>
+      </div>
+    </header>
+    <main class="hud-main">
+      <div class="pw-stage">
+        <div class="pw-area" id="pw-area">
+          <input id="lp" type="password" autocomplete="current-password" spellcheck="false" aria-label="Geçiş anahtarı">
+          <div class="mask" id="pass-mask"><span class="cursor"></span></div>
+        </div>
+        <div class="platform">
+          <div class="pline"></div>
+          <div class="pbase"></div>
+        </div>
+        <p id="loginErr" class="stat err"></p>
+        <p id="loginOk" class="stat ok"></p>
+        <p id="sysStatus" class="stat sys"></p>
+        <button id="loginBtn" class="hud-btn" type="button" onclick="doLogin()">AUTHENTICATE &#9656;</button>
+      </div>
+    </main>
+    <footer class="hud-footer">
+      <span class="slab">STRENGTH</span>
+      <div class="bars" id="strength-bars">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
+      <span class="stext" id="strength-text">WEAK</span>
+    </footer>
   </div>
   <div id="accessOverlay" class="access-overlay" aria-hidden="true">
     <div class="ao-inner">
       <div class="ao-rings">
         <div class="ring"></div><div class="ring r2"></div>
         <svg class="ao-lock" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle class="ao-glowr" cx="32" cy="30" r="26" stroke="#00ff88" stroke-width="2" fill="none"/>
-          <path class="ao-shackle" d="M20 31 V23 a12 12 0 0 1 24 0 v8" stroke="#00ff88" stroke-width="4"/>
-          <rect x="14" y="31" width="36" height="24" rx="3" stroke="#00ff88" stroke-width="4"/>
-          <circle cx="32" cy="42" r="4" fill="#00ff88"/>
-          <path d="M32 46 v6" stroke="#00ff88" stroke-width="4"/>
+          <circle class="ao-glowr" cx="32" cy="30" r="26" stroke="#00ff66" stroke-width="2" fill="none"/>
+          <path class="ao-shackle" d="M20 31 V23 a12 12 0 0 1 24 0 v8" stroke="#00ff66" stroke-width="4"/>
+          <rect x="14" y="31" width="36" height="24" rx="3" stroke="#00ff66" stroke-width="4"/>
+          <circle cx="32" cy="42" r="4" fill="#00ff66"/>
+          <path d="M32 46 v6" stroke="#00ff66" stroke-width="4"/>
         </svg>
       </div>
       <div class="ao-title" data-text="ACCESS GRANTED">ACCESS GRANTED</div>
@@ -249,7 +296,7 @@ function _sys(){ return document.getElementById('sysStatus'); }
 window.bootLine=function(content, opts){
   var el=_sys(); if(!el) return;
   el.textContent=content;
-  el.className='sysline' + ((opts && opts.cls==='err-ln') ? ' err' : '');
+  el.className='stat sys' + ((opts && opts.cls==='err-ln') ? ' err' : '');
   el.style.display='block';
 };
 function _hideEl(id){ var e=document.getElementById(id); if(e){ e.style.display='none'; e.textContent=''; } }
@@ -258,6 +305,7 @@ window.resetGate=function(){
   window.__bootTimer=[];
   _hideEl('loginErr'); _hideEl('loginOk'); _hideEl('sysStatus');
   var g=document.getElementById('gate'); if(g) g.classList.remove('hide');
+  renderMask(); calcStrength('');
   var f=document.getElementById('lu'); if(f) setTimeout(function(){ try{ f.focus(); }catch(e){} },80);
 };
 window.grantAccess=function(user, role){
@@ -284,11 +332,74 @@ window.grantAccess=function(user, role){
     }
   },45);
 };
+var _maskEl=document.getElementById('pass-mask');
+var _lpEl=document.getElementById('lp'), _luEl=document.getElementById('lu'), _area=document.getElementById('pw-area');
+function renderMask(){
+  if(!_maskEl) return;
+  var v=_lpEl?_lpEl.value:'';
+  var h='';
+  for(var i=0;i<v.length;i++){ h+='<span class="ch">&#9679;</span>'; }
+  h+='<span class="cursor"></span>';
+  _maskEl.innerHTML=h;
+}
+function calcStrength(pwd){
+  var score=0;
+  var ev=document.getElementById('entropy-bits');
+  var ebox=null; var cur=document.querySelector('#gate .entropy .value');
+  var bars=document.querySelectorAll('#strength-bars .bar');
+  var stext=document.getElementById('strength-text');
+  if(!pwd){
+    if(ev) ev.textContent='0';
+    if(cur){ cur.style.color='var(--red)'; cur.style.textShadow='0 0 10px rgba(255,51,51,.6)'; }
+    bars.forEach(function(b){ b.style.backgroundColor='#0b1a2a'; b.style.boxShadow='none'; });
+    if(stext){ stext.textContent='WEAK'; stext.style.color='var(--red)'; }
+    return;
+  }
+  score+=pwd.length*4;
+  if(/[A-Z]/.test(pwd)) score+=10;
+  if(/[a-z]/.test(pwd)) score+=10;
+  if(/[0-9]/.test(pwd)) score+=10;
+  if(/[^A-Za-z0-9]/.test(pwd)) score+=15;
+  if(/^[a-zA-Z]+$/.test(pwd)) score-=10;
+  if(/^[0-9]+$/.test(pwd)) score-=10;
+  score=Math.max(0,Math.min(100,score));
+  var entropy=Math.floor(score*0.8+pwd.length);
+  var text='WEAK', color='var(--red)', filled=0;
+  if(score<30){ filled=Math.ceil((score/30)*3); text='WEAK'; color='var(--red)'; }
+  else if(score<60){ filled=3+Math.ceil(((score-30)/30)*3); text='FAIR'; color='var(--orange)'; }
+  else if(score<85){ filled=6+Math.ceil(((score-60)/25)*3); text='GOOD'; color='var(--amber)'; }
+  else { filled=9+Math.ceil(((score-85)/15)*3); text='STRONG'; color='var(--green)'; }
+  filled=Math.min(12,Math.max(0,filled));
+  if(ev) ev.textContent=entropy;
+  if(cur){ cur.style.color=color; cur.style.textShadow='0 0 10px '+color; }
+  bars.forEach(function(b,i){
+    if(i<filled){
+      var bc='var(--red)'; if(i>=3) bc='var(--orange)'; if(i>=6) bc='var(--amber)'; if(i>=9) bc='var(--green)';
+      b.style.backgroundColor=bc; b.style.boxShadow='0 0 8px '+bc;
+    } else { b.style.backgroundColor='#0b1a2a'; b.style.boxShadow='none'; }
+  });
+  if(stext){ stext.textContent=text; stext.style.color=color; }
+}
+function forgeInput(){
+  _hideEl('loginErr'); _hideEl('loginOk'); _hideEl('sysStatus');
+  renderMask(); calcStrength(_lpEl? _lpEl.value : '');
+}
+if(_lpEl){
+  _lpEl.addEventListener('input', forgeInput);
+  _lpEl.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); doLogin(); } });
+}
+if(_luEl){
+  _luEl.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); if(_lpEl) _lpEl.focus(); } });
+}
+if(_area && _lpEl){
+  _area.addEventListener('click', function(){ try{ _lpEl.focus(); }catch(e){} });
+}
+renderMask(); calcStrength('');
 resetGate();
 </script>
 </div>
-  <div id="sidebar-overlay" onclick="closeSidebar()"></div>
   <div class="flex min-h-screen relative">
+  <div id="sidebar-overlay" onclick="closeSidebar()"></div>
     <aside id="sidebar" class="w-[272px] shrink-0 flex flex-col border-r sticky top-0 h-screen overflow-y-auto" style="background:linear-gradient(180deg, rgba(2,12,6,.99), #020402);border-color:var(--line)">
       <div class="flex items-center gap-3 px-4 py-4 border-b sticky top-0 z-10" style="background:rgba(2,12,6,.98);border-color:var(--line)">
         <div class="relative">
@@ -701,7 +812,7 @@ async function doLogin() {
   } catch(e) {
     if (errEl) { errEl.textContent = 'Sunucuya bağlanılamadı.'; errEl.style.display = 'block'; }
   }
-  if (btn) { btn.disabled = false; btn.textContent = 'SİSTEME GİRİŞ YAP'; }
+  if (btn) { btn.disabled = false; btn.textContent = 'AUTHENTICATE &#9656;'; }
 }
 
 async function doRegister() {
