@@ -1,0 +1,5 @@
+name = "nemesis-platform"
+account_id = "9b02bf26c09cb2450f1dd52e5ea3e5fe"
+compatibility_date = "2026-08-30"
+main = "worker.js"
+assets = { directory = "dist", not_found_handling = "single-page-application" }
